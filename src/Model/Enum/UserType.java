@@ -1,5 +1,5 @@
 package Model.Enum;
 
-public enum userType {
+public enum UserType {
     CUSTOMER,DRIVER,ADMIN
 }
