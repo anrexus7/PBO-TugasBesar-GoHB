@@ -1,4 +1,4 @@
-import View.LoginPage;
+import view.LoginPage;
 
 public class Main {
     public static void main(String[] args) {
