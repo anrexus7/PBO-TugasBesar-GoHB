@@ -1,7 +1,11 @@
 package view;
 
+import controller.Register;
+import controller.ValidatingRegisterInput;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class RegisterPage {
 
@@ -57,7 +61,7 @@ public class RegisterPage {
         JLabel roleLabel = createLabel("Role", 10, 230, 80, 25, 14);
         panel.add(roleLabel);
 
-        String[] roles = { "Driver", "Customer" };
+        String[] roles = {"Driver", "Customer"};
         JComboBox<String> roleComboBox = createComboBox(roles, 150, 230, 165, 25);
         panel.add(roleComboBox);
 
@@ -68,7 +72,38 @@ public class RegisterPage {
         panel.add(registerButton);
 
         registerButton.addActionListener(e -> {
-            // REGISTER USER ACTION
+            HashMap<String, String> tempInputs = placeAllInputTemp(userText, nameText, phoneText, emailText, roleComboBox);
+            char[][] tempPass = {passwordText.getPassword(), verifyPasswordText.getPassword()};
+            String mssg="";
+
+            if (!ValidatingRegisterInput.checkAllInput(tempInputs, tempPass)) {
+                JOptionPane.showMessageDialog(frame, "Isi semua field !", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                switch (ValidatingRegisterInput.checkToDB(tempInputs)) {
+                    case "username":
+                        mssg = "username yang diinput sudah ada";
+                        break;
+                    case "email":
+                        mssg = "email yang diinput sudah digunakan";
+                        break;
+                    case "phone":
+                        mssg = "nomor handphone yang diinput sudah digunakan";
+                        break;
+                    default:
+                        if (ValidatingRegisterInput.checkPassword(passwordText.getPassword(), verifyPasswordText.getPassword())) {
+                            if(Register.validatingRegister(tempInputs, passwordText.getPassword())){
+                                mssg = "register berhasil !";
+                                new LoginPage();
+                                frame.dispose();
+                            }else{
+                                mssg = "register gagal";
+                            }
+                        } else {
+                            mssg = "password yang diinput tidak sama";
+                        }
+                }
+                JOptionPane.showMessageDialog(frame, mssg);
+            }
         });
 
         backButton.addActionListener(e -> {
@@ -136,4 +171,16 @@ public class RegisterPage {
         return button;
     }
 
+    private HashMap<String, String> placeAllInputTemp(JTextField userText, JTextField nameText,
+                                                      JTextField phoneText, JTextField emailText,
+                                                      JComboBox<String> roleComboBox) {
+        HashMap<String, String> temp = new HashMap<>();
+        temp.put("username", userText.getText());
+        temp.put("name", nameText.getText());
+        temp.put("phone", phoneText.getText());
+        temp.put("email", emailText.getText());
+        temp.put("role", (String) roleComboBox.getSelectedItem());
+
+        return temp;
+    }
 }

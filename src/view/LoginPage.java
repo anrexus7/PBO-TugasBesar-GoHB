@@ -1,5 +1,9 @@
 package view;
 
+import controller.Login;
+import controller.ValidatingUserType;
+import model.Enum.UserType;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -44,7 +48,24 @@ public class LoginPage {
         panel.add(registerButton);
 
         loginButton.addActionListener(e -> {
-            // CHECK USERNAME & PASS KE DATABASE
+            if(Login.validatingLogin(userText.getText(), passwordText.getPassword())){
+                JOptionPane.showMessageDialog(frame, "Login Success");
+
+                switch (ValidatingUserType.validating(userText.getText())){
+                    case CUSTOMER:
+                        //GUI customer
+                        break;
+                    case DRIVER:
+                        //GUI driver
+                            break;
+                    default:
+                        //GUI admin
+                        break;
+                }
+                frame.dispose();
+            }else{
+                JOptionPane.showMessageDialog(frame, "Login Failed","Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         registerButton.addActionListener(e -> {
