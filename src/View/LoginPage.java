@@ -19,10 +19,10 @@ public class LoginPage {
 
         frame.add(panel);
 
-        JLabel title1 = createLabel("WELCOME TO", 75, 10, 150, 25, 20);
+        JLabel titleWelcome = createLabel("WELCOME TO", 75, 10, 150, 25, 20);
         panel.add(title1);
 
-        JLabel title2 = createLabel("GO HB", 110, 30, 80, 25, 20);
+        JLabel titleGOHB = createLabel("GO HB", 110, 30, 80, 25, 20);
         panel.add(title2);
 
         JLabel userLabel = createLabel("Username", 10, 70, 80, 25, 14);
