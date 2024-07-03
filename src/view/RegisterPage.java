@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import controller.Register;
 import controller.ValidatingRegisterInput;
