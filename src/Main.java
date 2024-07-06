@@ -1,11 +1,8 @@
-import view.AdminPage;
-import view.GoPlusPage;
 import view.LoginPage;
+import view.RegisterVehiclePage;
 
 public class Main {
     public static void main(String[] args) {
-//        new AdminPage();
-//        new LoginPage();
-        new GoPlusPage();
+        new RegisterVehiclePage();
     }
 }
