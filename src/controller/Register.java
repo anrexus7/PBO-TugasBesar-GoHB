@@ -19,16 +19,22 @@ public class Register {
 
         String encryptPass = encryptor.encrypt(tempPassword);
 
-        String query = "INSERT INTO users(username, password, email, phone_number, user_type) VALUES(?,?,?,?,?)";
+        String query = "INSERT INTO users(username,name, password, email, phone_number, user_type) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1, tempInputs.get("username"));
             stmt.setString(2, encryptPass);
-            stmt.setString(3, tempInputs.get("email"));
-            stmt.setString(4, tempInputs.get("phone"));
-            stmt.setString(5, tempInputs.get("role"));
+            stmt.setString(3, tempInputs.get("name"));
+            stmt.setString(4, tempInputs.get("email"));
+            stmt.setString(5, tempInputs.get("phone"));
+            stmt.setString(6, tempInputs.get("role"));
             stmt.executeUpdate();
             conn.disconnect();
+
+            if(tempInputs.get("role").equals("Driver")){
+                new RegisterDrive(tempInputs.get("username"));
+            }
+
             return (true);
         } catch (SQLException e) {
             e.printStackTrace();

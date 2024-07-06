@@ -1,13 +1,12 @@
 package model.Class.user;
 
-import model.Class.GoPay;
-import model.Class.GoPlus;
+import model.Class.transaction.GoPay;
+import model.Class.transaction.GoPlus;
 import model.Class.order.Order;
-import model.Class.Promo;
+import model.Class.transaction.Promo;
 import model.Enum.UserType;
 
 public class Customer extends User{
-    private int customerID;
     private GoPay wallet;
     private Promo promo;
     private Order order;
@@ -15,19 +14,14 @@ public class Customer extends User{
 
     public Customer(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, int customerID, GoPay wallet, Promo promo, Order order, GoPlus gojekPlus) {
         super(userID, username, name, password, phoneNumber, email, userType);
-        this.customerID = customerID;
         this.wallet = wallet;
         this.promo = promo;
         this.order = order;
         this.gojekPlus = gojekPlus;
     }
 
-    public int getCustomerID() {
-        return customerID;
-    }
+    public Customer() {
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
     }
 
     public GoPay getWallet() {

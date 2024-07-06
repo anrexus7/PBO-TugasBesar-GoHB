@@ -37,7 +37,7 @@ public class ValidatingRegisterInput {
                 return "username";
             }
 
-            String queryEmail = "SELECT email FROM users WHERE username = '" + tempInputs.get("email")+ "'";
+            String queryEmail = "SELECT email FROM users WHERE email = '" + tempInputs.get("email")+ "'";
             emailStatement = conn.con.createStatement();
             resultSet = emailStatement.executeQuery(queryEmail);
             if (resultSet.next()) {

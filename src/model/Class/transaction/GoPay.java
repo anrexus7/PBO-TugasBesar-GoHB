@@ -1,4 +1,4 @@
-package model.Class;
+package model.Class.transaction;
 
 public class GoPay {
     private double saldo;

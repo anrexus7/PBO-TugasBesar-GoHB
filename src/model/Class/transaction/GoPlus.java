@@ -1,4 +1,4 @@
-package model.Class;
+package model.Class.transaction;
 
 import java.util.Date;
 

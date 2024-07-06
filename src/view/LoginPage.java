@@ -2,7 +2,9 @@ package view;
 
 import controller.Login;
 import controller.ValidatingUserType;
-import model.Enum.UserType;
+import model.Class.SingletonManager;
+import model.Class.user.Customer;
+import model.Class.user.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,15 +53,18 @@ public class LoginPage {
             if(Login.validatingLogin(userText.getText(), passwordText.getPassword())){
                 JOptionPane.showMessageDialog(frame, "Login Success");
 
+                User user = Login.fetchingDataDB(userText.getText());
+                SingletonManager.getInstance().setUser(user);
+
                 switch (ValidatingUserType.validating(userText.getText())){
                     case CUSTOMER:
-                        //GUI customer
+                        new CustomerPage();
                         break;
                     case DRIVER:
                         //GUI driver
                             break;
                     default:
-                        //GUI admin
+                        new AdminPage();
                         break;
                 }
                 frame.dispose();

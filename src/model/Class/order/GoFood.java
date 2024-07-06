@@ -1,7 +1,7 @@
 package model.Class.order;
 
 import model.Class.Location;
-import model.Class.Promo;
+import model.Class.transaction.Promo;
 import model.Class.restaurant.Item;
 import model.Class.restaurant.Restaurant;
 import model.Enum.StatusOrder;

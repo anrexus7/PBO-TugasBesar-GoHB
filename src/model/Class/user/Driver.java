@@ -6,7 +6,6 @@ import model.Enum.DriverAvailability;
 import model.Enum.UserType;
 
 public class Driver extends User{
-    private int driverID;
     private Vehicle vehicle;
     private DriverAvailability availability;
     private Order order;
@@ -14,19 +13,14 @@ public class Driver extends User{
 
     public Driver(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, int driverID, Vehicle vehicle, DriverAvailability availability, Order order, float rating) {
         super(userID, username, name, password, phoneNumber, email, userType);
-        this.driverID = driverID;
         this.vehicle = vehicle;
         this.availability = availability;
         this.order = order;
         this.rating = rating;
     }
 
-    public int getDriverID() {
-        return driverID;
-    }
+    public Driver() {
 
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
     }
 
     public Vehicle getVehicle() {
