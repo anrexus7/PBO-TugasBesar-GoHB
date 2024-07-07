@@ -1,5 +1,6 @@
 package view;
 
+import controller.RegisterVehicle;
 import model.Enum.VehicleType;
 
 import javax.swing.*;
@@ -97,6 +98,8 @@ public class RegisterVehiclePage extends JFrame {
 
         registerButton.addActionListener(e->{
             int checkNumber =0;
+            String mssg;
+
             if(vehicleType.getSelectedIndex()==0){
                 try{
                     checkNumber = Integer.parseInt(labelSeat.getText());
@@ -110,6 +113,19 @@ public class RegisterVehiclePage extends JFrame {
                     JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            if(!RegisterVehicle.validatingInput(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText())){
+                mssg = "NU BALEG ISINYA NYING :v";
+            }else{
+                if(!RegisterVehicle.registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText())){
+                    mssg = "NU BALEG ISINYA NYING :v";
+                }else{
+                    mssg = "Register vehicle berhasil !";
+                    //GUI Driver
+                    this.dispose();
+                }
+            }
+            JOptionPane.showMessageDialog(this, mssg);
         });
 
 

@@ -2,8 +2,10 @@ package view;
 
 import controller.Login;
 import controller.ValidatingUserType;
-import model.Class.SingletonManager;
+import model.Class.SingletonManagerCustomer;
+import model.Class.SingletonManagerDriver;
 import model.Class.user.Customer;
+import model.Class.user.Driver;
 import model.Class.user.User;
 
 import javax.swing.*;
@@ -54,14 +56,21 @@ public class LoginPage {
                 JOptionPane.showMessageDialog(frame, "Login Success");
 
                 User user = Login.fetchingDataDB(userText.getText());
-                SingletonManager.getInstance().setUser(user);
 
                 switch (ValidatingUserType.validating(userText.getText())){
                     case CUSTOMER:
+                        SingletonManagerCustomer.getInstance().setCustomer((Customer) user);
                         new CustomerPage();
                         break;
                     case DRIVER:
-                        //GUI driver
+                        SingletonManagerDriver.getInstance().setDriver((Driver) user);
+                        if(SingletonManagerDriver.getInstance().getVehicle() == null){
+                            new RegisterPage();
+                            frame.dispose();
+                        }else{
+                            //GUI driver
+                            frame.dispose();
+                        }
                             break;
                     default:
                         new AdminPage();

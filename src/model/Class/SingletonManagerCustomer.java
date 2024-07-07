@@ -1,30 +1,30 @@
 package model.Class;
 
 import model.Class.order.Order;
-import model.Class.user.User;
+import model.Class.user.Customer;
 
 import java.util.ArrayList;
 
-public class SingletonManager {
-    private static SingletonManager instance;
-    private User user;
+public class SingletonManagerCustomer {
+    private static SingletonManagerCustomer instance;
+    private Customer user;
     private ArrayList<Order> orders;
 
-    SingletonManager() {
+    SingletonManagerCustomer() {
     }
 
-    public static SingletonManager getInstance() {
+    public static SingletonManagerCustomer getInstance() {
         if (instance == null) {
-            instance = new SingletonManager();
+            instance = new SingletonManagerCustomer();
         }
         return instance;
     }
 
-    public User getUser() {
+    public Customer getCustomer() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setCustomer(Customer user) {
         this.user = user;
     }
 

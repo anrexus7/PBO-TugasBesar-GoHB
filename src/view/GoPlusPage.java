@@ -1,5 +1,7 @@
 package view;
 
+import controller.SubscriptGoPlus;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -88,7 +90,13 @@ public class GoPlusPage extends JFrame {
         });
 
         subs.addActionListener(e->{
-           JOptionPane.showMessageDialog(null, "Acan aya ieu fitur na :v");
+           if(!SubscriptGoPlus.subscribe(comboBoxPlan.getSelectedItem().toString())){
+               JOptionPane.showMessageDialog(null, "Gagal melakukan langganan", "Error", JOptionPane.ERROR_MESSAGE);
+           }else{
+               JOptionPane.showMessageDialog(null, "Berhasil Berlangganan !");
+                new CustomerPage();
+               this.dispose();
+           }
         });
 
         this.add(container);

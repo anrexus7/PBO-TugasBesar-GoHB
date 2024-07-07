@@ -5,16 +5,17 @@ import java.util.Date;
 public class GoPlus {
     private int subsID;
     private String paket;
-    private Date periode;
-    private int jumlahVoucher;
+    private Date validFrom, validTo;
+    private String description;
     private double harga;
     private boolean status;
 
-    public GoPlus(int subsID, String paket, Date periode, int jumlahVoucher, double harga, boolean status) {
+    public GoPlus(int subsID, String paket, Date validFrom, Date validTo, String description, double harga, boolean status) {
         this.subsID = subsID;
         this.paket = paket;
-        this.periode = periode;
-        this.jumlahVoucher = jumlahVoucher;
+        this.validFrom = validFrom;
+        this.validTo = validTo;
+        this.description = description;
         this.harga = harga;
         this.status = status;
     }
@@ -35,20 +36,28 @@ public class GoPlus {
         this.paket = paket;
     }
 
-    public Date getPeriode() {
-        return periode;
+    public Date getValidFrom() {
+        return validFrom;
     }
 
-    public void setPeriode(Date periode) {
-        this.periode = periode;
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
     }
 
-    public int getJumlahVoucher() {
-        return jumlahVoucher;
+    public Date getValidTo() {
+        return validTo;
     }
 
-    public void setJumlahVoucher(int jumlahVoucher) {
-        this.jumlahVoucher = jumlahVoucher;
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getHarga() {
