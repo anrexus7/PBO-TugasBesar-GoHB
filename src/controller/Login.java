@@ -14,14 +14,14 @@ public class Login {
     private static DatabaseHandler conn;
     public static boolean validatingLogin(String username, char[] password) {
         conn = new DatabaseHandler();
-        Encryptor encryptor = new Encryptor();
+//        Encryptor encryptor = new Encryptor();
 
         String tempPassword = "";
         for (char ch : password) {
             tempPassword += ch;
         }
 
-        String encryptPass = encryptor.encrypt(tempPassword);
+        String encryptPass = Encryptor.hash(tempPassword);
 
         conn.connect();
 
@@ -48,12 +48,12 @@ public class Login {
 
         String queryUsername = "SELECT * FROM users WHERE username = '" + username + "'";
         try {
-                Statement usernameStatement = conn.con.createStatement();
-                ResultSet rs = usernameStatement.executeQuery(queryUsername);
-                while (rs.next()) {
-                    UserType userType = UserType.valueOf(rs.getString("user_type"));
-                    dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getString("phone_number"), rs.getString("email"),userType);
-                }
+            Statement usernameStatement = conn.con.createStatement();
+            ResultSet rs = usernameStatement.executeQuery(queryUsername);
+            while (rs.next()) {
+                UserType userType = UserType.valueOf(rs.getString("user_type"));
+                dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getString("phone_number"), rs.getString("email"),userType);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
