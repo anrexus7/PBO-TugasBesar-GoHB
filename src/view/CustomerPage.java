@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 public class CustomerPage {
 
     private static final int FRAME_WIDTH = 450;
-    private static final int FRAME_HEIGHT = 300;
+    private static final int FRAME_HEIGHT = 400;
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
@@ -56,6 +56,13 @@ public class CustomerPage {
         reportButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Report functionality is not implemented yet."));
         frame.add(reportButton);
 
+        JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN + FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        viewProfileButton.addActionListener(e -> {
+            new ViewProfileCustomer();
+            frame.dispose();
+        });
+        frame.add(viewProfileButton);
+
         frame.setVisible(true);
 
         profileLabel.addMouseListener(new MouseAdapter() {
@@ -97,20 +104,7 @@ public class CustomerPage {
 
         JButton button = new JButton(text);
         button.setBounds(x, y, width, height);
-        button.addActionListener(new ServiceButtonListener());
         return button;
-
-    }
-
-    private static class ServiceButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            JButton source = (JButton) e.getSource();
-            JOptionPane.showMessageDialog(null, source.getText() + " functionality is not implemented yet.");
-
-        }
 
     }
 
