@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomerPage {
 
@@ -55,6 +57,13 @@ public class CustomerPage {
         frame.add(reportButton);
 
         frame.setVisible(true);
+
+        profileLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                new ViewProfileCustomer();
+                frame.dispose();
+            }
+        });
 
     }
 

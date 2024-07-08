@@ -47,7 +47,7 @@ public class SubscriptGoPlus {
         Date expDate = calendar.getTime();
 
         String queryInsert = "INSERT INTO subscription VALUES(?,?,?,?,?,?,?) ";
-        String queryGet = "SELECT subs_id FROM subscription ORDER BY vehicle_id DESC LIMIT 1";
+        String queryGet = "SELECT subs_id FROM subscription ORDER BY subs_id DESC LIMIT 1";
 
         try{
             conn.con.setAutoCommit(false);

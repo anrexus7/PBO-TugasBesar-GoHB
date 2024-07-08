@@ -1,10 +1,9 @@
-import controller.Encryptor;
 import view.LoginPage;
-import view.RegisterVehiclePage;
+import view.ViewProfileCustomer;
 
 public class Main {
     public static void main(String[] args) {
-//        new LoginPage();
-        new RegisterVehiclePage();
+        new LoginPage();
+//        new ViewProfileCustomer();
     }
 }
