@@ -34,15 +34,31 @@ public class CustomerPage {
 
         JButton gorideButton = createButton("Go Ride", LEFT_MARGIN, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gorideButton);
+        gorideButton.addActionListener(e->{
+            new GoRidePage();
+            frame.dispose();
+        });
 
         JButton gocarButton = createButton("Go Car", LEFT_MARGIN + FRAME_WIDTH / 2, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gocarButton);
+        gocarButton.addActionListener(e ->{
+            new GoCarPage();
+            frame.dispose();
+        });
 
         JButton gofoodButton = createButton("Go Food", LEFT_MARGIN, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gofoodButton);
+        gofoodButton.addActionListener(e->{
+            new GoFoodPage();
+            frame.dispose();
+        });
 
         JButton gosendButton = createButton("Go Send", LEFT_MARGIN + FRAME_WIDTH / 2, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gosendButton);
+        gosendButton.addActionListener(e->{
+            new GoSendPage();
+            frame.dispose();
+        });
 
         JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         orderHistoryButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Order History functionality is not implemented yet."));
@@ -57,10 +73,6 @@ public class CustomerPage {
         frame.add(reportButton);
 
         JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN + FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        viewProfileButton.addActionListener(e -> {
-            new ViewProfileCustomer();
-            frame.dispose();
-        });
         frame.add(viewProfileButton);
 
         frame.setVisible(true);
