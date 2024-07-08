@@ -75,7 +75,7 @@ public class ViewProfileCustomer extends JFrame {
         });
 
         editProfile.addActionListener(e ->{
-//            new EditProfileCustomerPage();
+            new EditProfilePage();
             this.dispose();
         });
     }

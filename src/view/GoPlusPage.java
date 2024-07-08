@@ -9,7 +9,8 @@ public class GoPlusPage extends JFrame {
     public GoPlusPage() {
         showGoPlusPage();
     }
-    public void showGoPlusPage() {
+
+    private void showGoPlusPage() {
         this.setTitle("GoPlus Subscription");
         this.setSize(new Dimension(450, 400));
         this.setLocationRelativeTo(null);

@@ -11,7 +11,8 @@ public class RegisterVehiclePage extends JFrame {
     public RegisterVehiclePage() {
         showRegisterVehiclePage();
     }
-    public void showRegisterVehiclePage() {
+
+    private void showRegisterVehiclePage() {
         this.setTitle("Vehicle Registration");
         this.setSize(new Dimension(500, 300)); //width, height
         this.setLocationRelativeTo(null);
