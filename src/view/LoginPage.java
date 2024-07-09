@@ -60,7 +60,7 @@ public class LoginPage {
                 switch (ValidatingUserType.validating(userText.getText())){
                     case CUSTOMER:
                         SingletonManagerCustomer.getInstance().setCustomer((Customer) user);
-                        new CustomerPage();
+                        new CustomerPage(SingletonManagerCustomer.getInstance().getCustomer());
                         break;
                     case DRIVER:
                         SingletonManagerDriver.getInstance().setDriver((Driver) user);
