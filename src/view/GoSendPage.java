@@ -1,6 +1,9 @@
 package view;
 
+import controller.CreateOrder;
+import model.Class.user.Customer;
 import model.Enum.TipeBarang;
+import model.Enum.TypeOfService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +15,11 @@ public class GoSendPage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public GoSendPage() {
-        showGoSendPage();
+    public GoSendPage(Customer customer) {
+        showGoSendPage(customer);
     }
 
-    private void showGoSendPage() {
+    private void showGoSendPage(Customer customer) {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
@@ -44,13 +47,22 @@ public class GoSendPage {
 
         JButton orderButton = new JButton("Make Order");
         orderButton.setBounds(150, 150, 150, 30);
+        orderButton.addActionListener( e -> {
+
+            if (CreateOrder.createGoOrder(customer.getUserID(), TypeOfService.GOSEND, locationTextField.getText(), destinationTextField.getText())) {
+                JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();
+                new CustomerPage(customer);
+            }
+
+        });
         frame.add(orderButton);
 
         JButton backButton = new JButton("Back to Main Menu");
         backButton.setBounds(150, 190, 150, 30);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerPage();
+            new CustomerPage(customer);
         });
         frame.add(backButton);
 
