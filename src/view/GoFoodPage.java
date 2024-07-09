@@ -1,5 +1,7 @@
 package view;
 
+import model.Class.user.Customer;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener; // <-- Add this import for ListSelectionListener
@@ -20,11 +22,11 @@ public class GoFoodPage {
     private JTable table;
     private List<String> selectedFoods = new ArrayList<>();
 
-    public GoFoodPage() {
-        showGoFoodPage();
+    public GoFoodPage(Customer customer) {
+        showGoFoodPage(customer);
     }
 
-    private void showGoFoodPage() {
+    private void showGoFoodPage(Customer customer) {
         frame = createFrame();
         frame.setLayout(null);
 
@@ -113,7 +115,7 @@ public class GoFoodPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new CustomerPage();
+                new CustomerPage(customer);
             }
         });
         frame.add(backButton);

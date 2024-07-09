@@ -2,15 +2,16 @@ package view;
 
 import controller.UpdateProfile;
 import model.Class.SingletonManagerCustomer;
+import model.Class.user.Customer;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class EditProfilePage extends JFrame {
-    public EditProfilePage() {
-        showEditPage();
+    public EditProfilePage(Customer customer) {
+        showEditPage(customer);
     }
-    private void showEditPage() {
+    private void showEditPage(Customer customer) {
         this.setTitle("Edit Profile");
         this.setSize(new Dimension(400, 250)); //width, height
         this.setLocationRelativeTo(null);
@@ -77,7 +78,7 @@ public class EditProfilePage extends JFrame {
         this.setVisible(true);
 
         back.addActionListener(e ->{
-            new CustomerPage();
+            new CustomerPage(customer);
             this.dispose();
         });
 
@@ -89,7 +90,7 @@ public class EditProfilePage extends JFrame {
                     JOptionPane.showMessageDialog(null, "Update tidak berhasil", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "Update berhasil");
-                    new CustomerPage();
+                    new CustomerPage(customer);
                     this.dispose();
                 }
             }
