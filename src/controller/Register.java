@@ -19,7 +19,7 @@ public class Register {
 
         String encryptPass = Encryptor.hash(tempPassword);
 
-        String query = "INSERT INTO users(username,name, password, email, phone_number, user_type) VALUES(?,?,?,?,?,?)";
+        String query = "INSERT INTO users(username,name, password, email, phone_number, user_type, balance, coins) VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1, tempInputs.get("username"));
@@ -28,6 +28,8 @@ public class Register {
             stmt.setString(4, tempInputs.get("email"));
             stmt.setString(5, tempInputs.get("phone"));
             stmt.setString(6, tempInputs.get("role"));
+            stmt.setDouble(7, 0);
+            stmt.setDouble(8, 0);
             stmt.executeUpdate();
             conn.disconnect();
 

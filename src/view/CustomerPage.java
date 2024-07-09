@@ -23,7 +23,7 @@ public class CustomerPage {
         JLabel profileLabel = createLabel("Welcome, " + customer.getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(profileLabel);
 
-        JLabel walletLabel = createLabel("Wallet Balance: $" + customer.getWallet(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        JLabel walletLabel = createLabel("Wallet Balance: $" + customer.getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(walletLabel);
 
         JButton topUpButton = createButton("Top Up", FRAME_WIDTH - RIGHT_MARGIN - 100, 50, 100, 30);

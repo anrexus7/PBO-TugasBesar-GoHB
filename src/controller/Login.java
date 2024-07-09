@@ -1,6 +1,7 @@
 package controller;
 
 import model.Class.db.DatabaseHandler;
+import model.Class.transaction.GoPay;
 import model.Class.user.Customer;
 import model.Class.user.Driver;
 import model.Class.user.User;
@@ -42,6 +43,10 @@ public class Login {
     }
 
     public static User fetchingDataDB(String username) {
+
+        double coins = 0;
+        double balance = 0;
+
         conn = new DatabaseHandler();
         conn.connect();
         User dbData = new User();
@@ -53,6 +58,8 @@ public class Login {
             while (rs.next()) {
                 UserType userType = UserType.valueOf(rs.getString("user_type"));
                 dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getString("phone_number"), rs.getString("email"),userType);
+                balance = rs.getDouble("balance");
+                coins = rs.getInt("coins");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,6 +68,7 @@ public class Login {
         User user;
         if(dbData.getUserType().equals(UserType.CUSTOMER)){
             user = new Customer();
+            ((Customer) user).setWallet(new GoPay(balance, coins));
         }else if(dbData.getUserType().equals(UserType.DRIVER)){
             user = new Driver();
         }else{
