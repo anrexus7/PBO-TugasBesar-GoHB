@@ -37,6 +37,13 @@ public class GoCarPage {
         orderButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Order functionality is not implemented yet."));
         frame.add(orderButton);
 
+        JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 200, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerPage();
+        });
+        frame.add(backButton);
+
         frame.setVisible(true);
     }
 

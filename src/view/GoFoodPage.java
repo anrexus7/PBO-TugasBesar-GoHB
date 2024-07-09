@@ -108,6 +108,16 @@ public class GoFoodPage {
         });
         frame.add(orderButton);
 
+        JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 310, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
+        frame.add(backButton);
+
         frame.setVisible(true);
     }
 

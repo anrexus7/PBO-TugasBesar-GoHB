@@ -46,6 +46,14 @@ public class GoSendPage {
         orderButton.setBounds(150, 150, 150, 30);
         frame.add(orderButton);
 
+        JButton backButton = new JButton("Back to Main Menu");
+        backButton.setBounds(150, 190, 150, 30);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerPage();
+        });
+        frame.add(backButton);
+
         frame.setVisible(true);
 
     }
