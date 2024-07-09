@@ -26,6 +26,9 @@ public class CustomerPage {
         JLabel walletLabel = createLabel("Wallet Balance: $" + customer.getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(walletLabel);
 
+        JLabel coinsLabel = createLabel("Coins : " + customer.getWallet().getCoins(), LEFT_MARGIN, 70, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        frame.add(coinsLabel);
+
         JButton topUpButton = createButton("Top Up", FRAME_WIDTH - RIGHT_MARGIN - 100, 50, 100, 30);
         topUpButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Top-up functionality is not implemented yet."));
         frame.add(topUpButton);

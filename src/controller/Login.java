@@ -59,7 +59,7 @@ public class Login {
                 UserType userType = UserType.valueOf(rs.getString("user_type"));
                 dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getString("phone_number"), rs.getString("email"),userType);
                 balance = rs.getDouble("balance");
-                coins = rs.getInt("coins");
+                coins = rs.getDouble("coins");
             }
         } catch (SQLException e) {
             e.printStackTrace();
