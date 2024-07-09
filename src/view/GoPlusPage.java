@@ -1,16 +1,18 @@
 package view;
 
 import controller.SubscriptGoPlus;
+import model.Class.user.Customer;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GoPlusPage extends JFrame {
-    public GoPlusPage() {
-        showGoPlusPage();
+
+    public GoPlusPage(Customer customer) {
+        showGoPlusPage(customer);
     }
 
-    private void showGoPlusPage() {
+    private void showGoPlusPage(Customer customer) {
         this.setTitle("GoPlus Subscription");
         this.setSize(new Dimension(450, 400));
         this.setLocationRelativeTo(null);
@@ -86,7 +88,7 @@ public class GoPlusPage extends JFrame {
         });
 
         back.addActionListener(e->{
-           new CustomerPage();
+           new CustomerPage(customer);
            this.dispose();
         });
 
@@ -95,7 +97,7 @@ public class GoPlusPage extends JFrame {
                JOptionPane.showMessageDialog(null, "Gagal melakukan langganan", "Error", JOptionPane.ERROR_MESSAGE);
            }else{
                JOptionPane.showMessageDialog(null, "Berhasil Berlangganan !");
-                new CustomerPage();
+                new CustomerPage(customer);
                this.dispose();
            }
         });
