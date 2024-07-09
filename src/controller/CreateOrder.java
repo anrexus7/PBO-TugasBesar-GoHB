@@ -22,7 +22,7 @@ public class CreateOrder {
             stmt.setString(2, service.toString());
             stmt.setString(3, current);
             stmt.setString(4, destination);
-            stmt.setDouble(5, 1.00);
+            stmt.setDouble(5, 1.00); // pake getCost ntarr (sementara pake dummy)
             stmt.setString(6, StatusOrder.ASSIGNED.toString());
             stmt.setTimestamp(7, new java.sql.Timestamp(System.currentTimeMillis()));
             stmt.setTimestamp(8, new java.sql.Timestamp(System.currentTimeMillis()));
