@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class Register {
     public static boolean validatingRegister(HashMap<String, String> tempInputs, char[] password){
-//        Encryptor encryptor = new Encryptor();
+
         DatabaseHandler conn = new DatabaseHandler();
         conn.connect();
 
