@@ -1,5 +1,7 @@
 package view;
 
+import controller.SearchFood;
+import model.Class.restaurant.Item;
 import model.Class.user.Customer;
 
 import javax.swing.*;
@@ -40,56 +42,96 @@ public class GoFoodPage {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Displaying dummy data for demonstration
-                String[] columnNames = {"Food Item", "Price", "Select"};
-                Object[][] data = {
-                        {"Burger", "$5.00", false},
-                        {"Pizza", "$8.00", false},
-                        {"Salad", "$4.00", false}
-                };
 
-                if (table != null) {
-                    frame.remove(table);
+                ArrayList<Item> arrItems = null;
+                String[] columnNames = {"Name", "Price", "Stock", "Select"};
+
+                if (searchField.getText().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(null, "Please enter the name of restaurant", "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+                else {
+
+                    arrItems = SearchFood.searchFood(searchField.getText());
+
                 }
 
-                table = new JTable(data, columnNames) {
-                    @Override
-                    public Class<?> getColumnClass(int column) {
-                        switch (column) {
-                            case 2:
-                                return Boolean.class;
-                            default:
-                                return String.class;
-                        }
+                if (table != null) {
+                    // Assuming the table is wrapped in a JScrollPane and added to the frame
+                    Container parent = table.getParent();
+                    while (!(parent instanceof JScrollPane) && parent != null) {
+                        parent = parent.getParent();
                     }
-                };
+                    if (parent != null) {
+                        frame.remove(parent);
+                    }
+                }
 
-                table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        int selectedRow = table.getSelectedRow();
-                        if (!e.getValueIsAdjusting()) {
-                            if (selectedRow != -1) {
-                                String foodItem = (String) table.getValueAt(selectedRow, 0);
-                                boolean isSelected = (boolean) table.getValueAt(selectedRow, 2);
-                                System.out.println(isSelected);
-                                if (isSelected) {
-                                    selectedFoods.add(foodItem);
-                                } else {
-                                    selectedFoods.remove(foodItem);
-                                }
-                                table.clearSelection();
+                Object[][] data = null;
+
+                if (arrItems != null) {
+
+                    data = new Object[arrItems.size()][4];
+
+                    for (int i = 0; i < arrItems.size(); i++) {
+
+                        Item item = arrItems.get(i);
+                        data[i][0] = item.getName();
+                        data[i][1] = item.getHarga();
+                        data[i][2] = item.getStock();
+                        data[i][3] = false;
+
+                    }
+
+                    table = new JTable(data, columnNames) {
+
+                        @Override
+                        public Class<?> getColumnClass(int column) {
+                            switch (column) {
+                                case 3:
+                                    return Boolean.class;
+                                default:
+                                    return String.class;
                             }
                         }
-                    }
-                });
+                    };
 
-                JScrollPane scrollPane = new JScrollPane(table);
-                scrollPane.setBounds(LEFT_MARGIN, 100, FRAME_WIDTH - 2 * LEFT_MARGIN, 150);
-                frame.add(scrollPane);
-                frame.revalidate();
-                frame.repaint();
+                    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                        @Override
+                        public void valueChanged(ListSelectionEvent e) {
+                            int selectedRow = table.getSelectedRow();
+                            if (!e.getValueIsAdjusting()) {
+                                if (selectedRow != -1) {
+                                    String foodItem = (String) table.getValueAt(selectedRow, 0);
+                                    boolean isSelected = (boolean) table.getValueAt(selectedRow, 2);
+                                    System.out.println(isSelected);
+                                    if (isSelected) {
+                                        selectedFoods.add(foodItem);
+                                    } else {
+                                        selectedFoods.remove(foodItem);
+                                    }
+                                    table.clearSelection();
+                                }
+                            }
+                        }
+                    });
+
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    scrollPane.setBounds(LEFT_MARGIN, 100, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 150);
+                    frame.add(scrollPane);
+                    frame.revalidate();
+                    frame.repaint();
+
+                }
+                else if (!searchField.getText().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(null, "Restaurant not found", "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
             }
+
         });
         frame.add(searchButton);
 
@@ -103,6 +145,9 @@ public class GoFoodPage {
                         message.append(food).append("\n");
                     }
                     JOptionPane.showMessageDialog(frame, message.toString());
+
+                    // ---- MASUK KE ORDER -----
+
                 } else {
                     JOptionPane.showMessageDialog(frame, "No food selected.");
                 }
