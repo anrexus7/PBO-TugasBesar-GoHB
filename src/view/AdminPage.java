@@ -29,11 +29,17 @@ public class AdminPage {
         frame.add(titleLabel);
 
         JButton manageUsersButton = createButton("Manage Users", LEFT_MARGIN, TOP_MARGIN + 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageUsersButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Users functionality is not implemented yet."));
+        manageUsersButton.addActionListener(e -> {
+            new ManageCustomerPage();
+            frame.dispose();
+        });
         frame.add(manageUsersButton);
 
         JButton manageDriversButton = createButton("Manage Drivers", LEFT_MARGIN, TOP_MARGIN + 100, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageDriversButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Drivers functionality is not implemented yet."));
+        manageDriversButton.addActionListener(e -> {
+            new ManageDriverPage();
+            frame.dispose();
+        });
         frame.add(manageDriversButton);
 
         JButton manageProductsButton = createButton("Manage Products", LEFT_MARGIN, TOP_MARGIN + 150, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -41,7 +47,10 @@ public class AdminPage {
         frame.add(manageProductsButton);
 
         JButton manageVouchersButton = createButton("Manage Vouchers", LEFT_MARGIN, TOP_MARGIN + 200, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageVouchersButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Vouchers functionality is not implemented yet."));
+        manageVouchersButton.addActionListener(e ->{
+            new ManagePromoPage();
+            frame.dispose();
+        });
         frame.add(manageVouchersButton);
 
         JButton manageBlacklistButton = createButton("Manage Blacklist", LEFT_MARGIN, TOP_MARGIN + 250, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -115,10 +124,7 @@ public class AdminPage {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
             JButton source = (JButton) e.getSource();
-            JOptionPane.showMessageDialog(null, source.getText() + " functionality is not implemented yet.");
-
         }
 
     }

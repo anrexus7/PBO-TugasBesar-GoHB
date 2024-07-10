@@ -77,7 +77,7 @@ public class CustomerPage {
 
         frame.setVisible(true);
 
-        profileLabel.addMouseListener(new MouseAdapter() {
+        viewProfileButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 new ViewProfileCustomer();
                 frame.dispose();

@@ -1,9 +1,9 @@
+import view.AdminPage;
 import view.LoginPage;
-import view.ViewProfileCustomer;
 
 public class Main {
     public static void main(String[] args) {
         new LoginPage();
-//        new ViewProfileCustomer();
+//        new AdminPage();
     }
 }

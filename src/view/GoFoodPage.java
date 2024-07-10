@@ -39,11 +39,11 @@ public class GoFoodPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Displaying dummy data for demonstration
-                String[] columnNames = {"Food Item", "Price", "Select"};
+                String[] columnNames = {"Food Item", "Price", "Select", "Action"};
                 Object[][] data = {
-                        {"Burger", "$5.00", false},
-                        {"Pizza", "$8.00", false},
-                        {"Salad", "$4.00", false}
+                        {"Burger", "$5.00", false, new JButton("testing")},
+                        {"Pizza", "$8.00", false, new JButton("testing")},
+                        {"Salad", "$4.00", false, new JButton("testing")}
                 };
 
                 if (table != null) {

@@ -19,7 +19,7 @@ public class RegisterDrive {
                 ID = rs.getInt("user_id");
             }
 
-            String query = "INSERT INTO drivers(driver_id) VALUES("+ID+")";
+            String query = "INSERT INTO drivers(user_id, status) VALUES("+ID+", 'ONLINE')";
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.executeUpdate();
             conn.disconnect();

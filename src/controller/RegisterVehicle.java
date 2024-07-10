@@ -16,15 +16,15 @@ import java.sql.Statement;
 public class RegisterVehicle {
 
     public static boolean validatingInput(String plat, Object tipeVehicle, String engine, String seat) {
-        if (plat.isEmpty()) {
+        if (plat == null || plat.isEmpty()) {
             return false;
         } else {
             if (tipeVehicle.equals(VehicleType.BIKE)) {
-                if (engine.isEmpty()) {
+                if (engine == null || engine.isEmpty()) {
                     return false;
                 }
             } else {
-                if (seat.isEmpty()) {
+                if (seat == null || seat.isEmpty()) {
                     return false;
                 }
             }
@@ -38,29 +38,15 @@ public class RegisterVehicle {
         Vehicle vehicle;
         int vehicleID = 0;
 
-        String queryInsertV = "INSERT INTO vehicle VALUES(?,?,?) ";
-        String queryGet = "SELECT vehicle_id FROM vehicle ORDER BY vehicle_id DESC LIMIT 1";
-        String queryInsertD = "INSERT INTO drivers(vehicle_id) VALUES(?)";
+        String queryInsertV = "INSERT INTO vehicle(driver_id,vehicle_type,vehicle_plat) VALUES(?,?,?) ";
 
         try{
-            conn.con.setAutoCommit(false);
             PreparedStatement stmt = conn.con.prepareStatement(queryInsertV);
-            stmt.setInt(1, 0);
+            stmt.setInt(1, SingletonManagerDriver.getInstance().getDriver().getDriverId());
             stmt.setString(2, tipeVehicle.toString());
             stmt.setString(3, plat);
             stmt.executeUpdate();
 
-            Statement usernameStatement = conn.con.createStatement();
-            ResultSet rs = usernameStatement.executeQuery(queryGet);
-            while(rs.next()){
-                vehicleID = rs.getInt("vehicle_id");
-            }
-
-            PreparedStatement stmt2 = conn.con.prepareStatement(queryInsertD);
-            stmt2.setInt(1, vehicleID);
-            stmt2.executeUpdate();
-
-            conn.con.commit();
             conn.disconnect();
         }catch(SQLException e){
             e.printStackTrace();

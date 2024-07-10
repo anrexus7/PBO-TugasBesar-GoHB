@@ -98,39 +98,41 @@ public class RegisterVehiclePage extends JFrame {
         container.add(registerButton, gbc);
 
         registerButton.addActionListener(e->{
-            int checkNumber =0;
-            String mssg;
-
             if(vehicleType.getSelectedIndex()==0){
                 try{
-                    checkNumber = Integer.parseInt(labelSeat.getText());
+                    Integer.parseInt(engineCapacity.getText());
+                    registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
                 try{
-                    checkNumber = Integer.parseInt(engineCapacity.getText());
+                    Integer.parseInt(labelSeat.getText());
+                    registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
-            if(!RegisterVehicle.validatingInput(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText())){
-                mssg = "NU BALEG ISINYA NYING :v";
-            }else{
-                if(!RegisterVehicle.registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText())){
-                    mssg = "NU BALEG ISINYA NYING :v";
-                }else{
-                    mssg = "Register vehicle berhasil !";
-                    //GUI Driver
-                    this.dispose();
-                }
-            }
-            JOptionPane.showMessageDialog(this, mssg);
         });
 
 
         this.add(container);
         this.setVisible(true);
+    }
+
+    private void registering(String plat, Object vehicleType, String cc, String numSeat) {
+        String mssg;
+        if(!RegisterVehicle.validatingInput(plat,vehicleType,cc,numSeat)){
+            mssg = "NU BALEG ISINYA NYING :v";
+        }else{
+            if(!RegisterVehicle.registering(plat,vehicleType,cc,numSeat)){
+                mssg = "NU BALEG ISINYA NYING :v";
+            }else{
+                mssg = "Register vehicle berhasil !";
+                //GUI Driver
+                this.dispose();
+            }
+        }
+        JOptionPane.showMessageDialog(this, mssg);
     }
 }

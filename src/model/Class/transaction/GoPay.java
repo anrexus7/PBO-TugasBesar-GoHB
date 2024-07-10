@@ -3,10 +3,23 @@ package model.Class.transaction;
 public class GoPay {
     private double saldo;
     private double coins;
+    private int walletId;
 
-    public GoPay(double saldo, double coins) {
+    public GoPay() {
+    }
+
+    public GoPay(int walletId, double saldo, double coins) {
+        this.walletId = walletId;
         this.saldo = saldo;
         this.coins = coins;
+    }
+
+    public int getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
     }
 
     public double getSaldo() {

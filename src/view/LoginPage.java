@@ -65,7 +65,7 @@ public class LoginPage {
                     case DRIVER:
                         SingletonManagerDriver.getInstance().setDriver((Driver) user);
                         if(SingletonManagerDriver.getInstance().getVehicle() == null){
-                            new RegisterPage();
+                            new RegisterVehiclePage();
                             frame.dispose();
                         }else{
                             //GUI driver

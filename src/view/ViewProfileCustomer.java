@@ -19,10 +19,18 @@ public class ViewProfileCustomer extends JFrame {
         JPanel container = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 0, 0, 0);// Top, left, bottom, right padding
-        gbc.anchor = GridBagConstraints.WEST;
+
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        JButton back = new JButton("Back");
+        container.add(back, gbc);
+
+        gbc.gridy++;
+        gbc.anchor = GridBagConstraints.WEST;
         container.add(profilePage(),gbc);
 
         gbc.gridx++;

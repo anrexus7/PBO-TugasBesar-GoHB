@@ -12,16 +12,12 @@ public class Customer extends User{
     private Order order;
     private GoPlus gojekPlus;
 
-    public Customer(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, int customerID, GoPay wallet, Promo promo, Order order, GoPlus gojekPlus) {
-        super(userID, username, name, password, phoneNumber, email, userType);
-        this.wallet = wallet;
-        this.promo = promo;
-        this.order = order;
-        this.gojekPlus = gojekPlus;
+    public Customer() {
     }
 
-    public Customer() {
-
+    public Customer(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, GoPay wallet) {
+        super(userID, username, name, password, phoneNumber, email, userType);
+        this.wallet = wallet;
     }
 
     public GoPay getWallet() {

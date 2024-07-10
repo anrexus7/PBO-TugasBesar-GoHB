@@ -3,7 +3,9 @@ package controller;
 import model.Class.db.DatabaseHandler;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 public class Register {
@@ -20,6 +22,8 @@ public class Register {
         String encryptPass = Encryptor.hash(tempPassword);
 
         String query = "INSERT INTO users(username,name, password, email, phone_number, user_type) VALUES(?,?,?,?,?,?)";
+        String query2 = "INSERT INTO userbalances(user_id, balance) VALUES(?,?)";
+        int userId=0;
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1, tempInputs.get("username"));
@@ -29,12 +33,23 @@ public class Register {
             stmt.setString(5, tempInputs.get("phone"));
             stmt.setString(6, tempInputs.get("role"));
             stmt.executeUpdate();
-            conn.disconnect();
+
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT user_id FROM users WHERE username = '" + tempInputs.get("username") + "'");
+            while (rs.next()) {
+                userId = rs.getInt("user_id");
+            }
+
+            PreparedStatement stmt2 = conn.con.prepareStatement(query2);
+            stmt2.setInt(1, userId);
+            stmt2.setDouble(2, 5000000);
+            stmt2.executeUpdate();
 
             if(tempInputs.get("role").equals("Driver")){
                 new RegisterDrive(tempInputs.get("username"));
             }
 
+            conn.disconnect();
             return (true);
         } catch (SQLException e) {
             e.printStackTrace();

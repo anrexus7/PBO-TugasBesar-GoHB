@@ -46,7 +46,7 @@ public class SubscriptGoPlus {
 
         Date expDate = calendar.getTime();
 
-        String queryInsert = "INSERT INTO subscription VALUES(?,?,?,?,?,?,?) ";
+        String queryInsert = "INSERT INTO subscription VALUES(?,?,?,?,?,?,?)";
         String queryGet = "SELECT subs_id FROM subscription ORDER BY subs_id DESC LIMIT 1";
 
         try{
@@ -55,10 +55,11 @@ public class SubscriptGoPlus {
             stmt.setInt(1, 0);
             stmt.setInt(2, SingletonManagerCustomer.getInstance().getCustomer().getUserID());
             stmt.setString(3, type);
-            stmt.setString(4, desc);
+            stmt.setDouble(4, harga);
             stmt.setDate(5, new java.sql.Date(now.getTime()));
             stmt.setDate(6, new java.sql.Date(expDate.getTime()));
             stmt.setInt(7,1);
+            stmt.executeUpdate();
 
             Statement usernameStatement = conn.con.createStatement();
             ResultSet rs = usernameStatement.executeQuery(queryGet);
@@ -68,14 +69,13 @@ public class SubscriptGoPlus {
 
             conn.con.commit();
             conn.disconnect();
-
         }catch(SQLException e){
             e.printStackTrace();
             conn.disconnect();
             return (false);
         }
 
-        subs = new GoPlus(id, type, now, expDate, desc, harga, true);
+        subs = new GoPlus(id, type, now, expDate, harga, true);
         SingletonManagerCustomer.getInstance().getCustomer().setGojekPlus(subs);
         return true;
     }
