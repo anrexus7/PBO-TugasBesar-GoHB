@@ -28,6 +28,9 @@ public class SingletonManagerDriver {
 
     public void setDriver(Driver user) {
         this.user = user;
+        if (user.getVehicle() != null) {
+            this.vehicle = user.getVehicle();
+        }
     }
 
     public Vehicle getVehicle() {
