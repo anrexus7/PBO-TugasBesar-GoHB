@@ -1,5 +1,9 @@
 package view;
 
+import controller.CreateOrder;
+import model.Class.user.Customer;
+import model.Enum.TypeOfService;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,11 +14,11 @@ public class GoRidePage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public GoRidePage() {
-        showGoRidePage();
+    public GoRidePage(Customer customer) {
+        showGoRidePage(customer);
     }
 
-    private void showGoRidePage() {
+    private void showGoRidePage(Customer customer) {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
@@ -34,13 +38,21 @@ public class GoRidePage {
         frame.add(destinationField);
 
         JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 150, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
-        orderButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Order functionality is not implemented yet."));
+        orderButton.addActionListener( e -> {
+
+            if (CreateOrder.createGoOrder(customer.getUserID(), TypeOfService.GOBIKE, currentLocationField.getText(), destinationField.getText())) {
+                JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();
+                new CustomerPage(customer);
+            }
+
+        });
         frame.add(orderButton);
 
         JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 200, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerPage();
+            new CustomerPage(customer);
         });
         frame.add(backButton);
 

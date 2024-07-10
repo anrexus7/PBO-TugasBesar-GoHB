@@ -1,16 +1,17 @@
 package view;
 
 import model.Class.SingletonManagerCustomer;
+import model.Class.user.Customer;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ViewProfileCustomer extends JFrame {
-    public ViewProfileCustomer() {
-        showProfileCustomer();
+    public ViewProfileCustomer(Customer customer) {
+        showProfileCustomer(customer);
     }
 
-    private void showProfileCustomer() {
+    private void showProfileCustomer(Customer customer) {
         this.setTitle("My Profile");
         this.setSize(new Dimension(450, 400));
         this.setLocationRelativeTo(null);
@@ -70,7 +71,7 @@ public class ViewProfileCustomer extends JFrame {
 
         viewSubs.addActionListener(e ->{
             if(SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus() == null){
-                new GoPlusPage();
+                new GoPlusPage(customer);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Anda sedang berlangannan paket : "+SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus().getPaket()+
@@ -83,7 +84,7 @@ public class ViewProfileCustomer extends JFrame {
         });
 
         editProfile.addActionListener(e ->{
-            new EditProfilePage();
+            new EditProfilePage(customer);
             this.dispose();
         });
     }

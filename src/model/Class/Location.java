@@ -2,12 +2,10 @@ package model.Class;
 
 public class Location {
     private String address;
-    private String city;
     private float[] coordinates;
 
-    public Location(String address, String city, float[] coordinates) {
+    public Location(String address, float[] coordinates) {
         this.address = address;
-        this.city = city;
         this.coordinates = coordinates;
     }
 
@@ -17,14 +15,6 @@ public class Location {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public float[] getCoordinates() {

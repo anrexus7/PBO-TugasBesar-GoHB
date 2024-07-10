@@ -1,11 +1,9 @@
 package view;
 
+import model.Class.user.Customer;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class CustomerPage {
 
@@ -14,19 +12,22 @@ public class CustomerPage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public CustomerPage() {
-        showCustomerPage();
+    public CustomerPage(Customer customer) {
+        showCustomerPage(customer);
     }
 
-    private void showCustomerPage() {
+    private void showCustomerPage(Customer customer) {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
-        JLabel profileLabel = createLabel("Welcome, User!", LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JLabel profileLabel = createLabel("Welcome, " + customer.getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(profileLabel);
 
-        JLabel walletLabel = createLabel("Wallet Balance: $0.00", LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        JLabel walletLabel = createLabel("Wallet Balance: $" + customer.getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(walletLabel);
+
+        JLabel coinsLabel = createLabel("Coins : " + customer.getWallet().getCoins(), LEFT_MARGIN, 70, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        frame.add(coinsLabel);
 
         JButton topUpButton = createButton("Top Up", FRAME_WIDTH - RIGHT_MARGIN - 100, 50, 100, 30);
         topUpButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Top-up functionality is not implemented yet."));
@@ -36,28 +37,28 @@ public class CustomerPage {
         frame.add(gorideButton);
         gorideButton.addActionListener(e->{
             frame.dispose();
-            new GoRidePage();
+            new GoRidePage(customer);
         });
 
         JButton gocarButton = createButton("Go Car", LEFT_MARGIN + FRAME_WIDTH / 2, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gocarButton);
         gocarButton.addActionListener(e ->{
             frame.dispose();
-            new GoCarPage();
+            new GoCarPage(customer);
         });
 
         JButton gofoodButton = createButton("Go Food", LEFT_MARGIN, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gofoodButton);
         gofoodButton.addActionListener(e->{
             frame.dispose();
-            new GoFoodPage();
+            new GoFoodPage(customer);
         });
 
         JButton gosendButton = createButton("Go Send", LEFT_MARGIN + FRAME_WIDTH / 2, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gosendButton);
         gosendButton.addActionListener(e->{
             frame.dispose();
-            new GoSendPage();
+            new GoSendPage(customer);
         });
 
         JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -73,16 +74,13 @@ public class CustomerPage {
         frame.add(reportButton);
 
         JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN + FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        viewProfileButton.addActionListener(e -> {
+            frame.dispose();
+            new ViewProfileCustomer(customer);
+        });
         frame.add(viewProfileButton);
 
         frame.setVisible(true);
-
-        viewProfileButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                new ViewProfileCustomer();
-                frame.dispose();
-            }
-        });
 
     }
 

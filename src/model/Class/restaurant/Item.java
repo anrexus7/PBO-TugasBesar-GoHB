@@ -7,13 +7,23 @@ public class Item {
     private int itemID;
     private String name;
     private double harga;
+    private int stock;
     private KategoriItem kategori;
 
-    public Item(int itemID, String name, double harga, KategoriItem kategori) {
+    public Item(int itemID, String name, double harga, int stock, KategoriItem kategori) {
         this.itemID = itemID;
         this.name = name;
         this.harga = harga;
+        this.stock = stock;
         this.kategori = kategori;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getItemID() {
