@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewProfileCustomer extends JFrame {
-    public ViewProfileCustomer(Customer customer) {
-        showProfileCustomer(customer);
+    public ViewProfileCustomer() {
+        showProfileCustomer();
     }
 
-    private void showProfileCustomer(Customer customer) {
+    private void showProfileCustomer() {
         this.setTitle("My Profile");
         this.setSize(new Dimension(450, 400));
         this.setLocationRelativeTo(null);
@@ -71,7 +71,7 @@ public class ViewProfileCustomer extends JFrame {
 
         viewSubs.addActionListener(e ->{
             if(SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus() == null){
-                new GoPlusPage(customer);
+                new GoPlusPage();
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "Anda sedang berlangannan paket : "+SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus().getPaket()+
@@ -84,7 +84,7 @@ public class ViewProfileCustomer extends JFrame {
         });
 
         editProfile.addActionListener(e ->{
-            new EditProfilePage(customer);
+            new EditProfilePage();
             this.dispose();
         });
     }

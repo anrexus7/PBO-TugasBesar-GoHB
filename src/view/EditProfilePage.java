@@ -8,10 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EditProfilePage extends JFrame {
-    public EditProfilePage(Customer customer) {
-        showEditPage(customer);
+    public EditProfilePage() {
+        showEditPage();
     }
-    private void showEditPage(Customer customer) {
+    private void showEditPage() {
         this.setTitle("Edit Profile");
         this.setSize(new Dimension(400, 250)); //width, height
         this.setLocationRelativeTo(null);
@@ -78,7 +78,7 @@ public class EditProfilePage extends JFrame {
         this.setVisible(true);
 
         back.addActionListener(e ->{
-            new CustomerPage(customer);
+            new CustomerPage();
             this.dispose();
         });
 
@@ -90,7 +90,7 @@ public class EditProfilePage extends JFrame {
                     JOptionPane.showMessageDialog(null, "Update tidak berhasil", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "Update berhasil");
-                    new CustomerPage(customer);
+                    new CustomerPage();
                     this.dispose();
                 }
             }

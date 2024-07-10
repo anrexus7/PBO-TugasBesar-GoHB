@@ -1,5 +1,6 @@
 package view;
 
+import model.Class.SingletonManagerCustomer;
 import model.Class.user.Customer;
 
 import javax.swing.*;
@@ -12,21 +13,21 @@ public class CustomerPage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public CustomerPage(Customer customer) {
-        showCustomerPage(customer);
+    public CustomerPage() {
+        showCustomerPage();
     }
 
-    private void showCustomerPage(Customer customer) {
+    private void showCustomerPage() {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
-        JLabel profileLabel = createLabel("Welcome, " + customer.getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JLabel profileLabel = createLabel("Welcome, " + SingletonManagerCustomer.getInstance().getCustomer().getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(profileLabel);
 
-        JLabel walletLabel = createLabel("Wallet Balance: $" + customer.getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        JLabel walletLabel = createLabel("Wallet Balance: $" + SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(walletLabel);
 
-        JLabel coinsLabel = createLabel("Coins : " + customer.getWallet().getCoins(), LEFT_MARGIN, 70, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        JLabel coinsLabel = createLabel("Coins : " + SingletonManagerCustomer.getInstance().getCustomer().getWallet().getCoins(), LEFT_MARGIN, 70, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(coinsLabel);
 
         JButton topUpButton = createButton("Top Up", FRAME_WIDTH - RIGHT_MARGIN - 100, 50, 100, 30);
@@ -37,28 +38,28 @@ public class CustomerPage {
         frame.add(gorideButton);
         gorideButton.addActionListener(e->{
             frame.dispose();
-            new GoRidePage(customer);
+            new GoRidePage();
         });
 
         JButton gocarButton = createButton("Go Car", LEFT_MARGIN + FRAME_WIDTH / 2, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gocarButton);
         gocarButton.addActionListener(e ->{
             frame.dispose();
-            new GoCarPage(customer);
+            new GoCarPage();
         });
 
         JButton gofoodButton = createButton("Go Food", LEFT_MARGIN, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gofoodButton);
         gofoodButton.addActionListener(e->{
             frame.dispose();
-            new GoFoodPage(customer);
+            new GoFoodPage();
         });
 
         JButton gosendButton = createButton("Go Send", LEFT_MARGIN + FRAME_WIDTH / 2, 150, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gosendButton);
         gosendButton.addActionListener(e->{
             frame.dispose();
-            new GoSendPage(customer);
+            new GoSendPage();
         });
 
         JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -76,7 +77,7 @@ public class CustomerPage {
         JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN + FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         viewProfileButton.addActionListener(e -> {
             frame.dispose();
-            new ViewProfileCustomer(customer);
+            new ViewProfileCustomer();
         });
         frame.add(viewProfileButton);
 

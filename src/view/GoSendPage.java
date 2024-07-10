@@ -15,11 +15,11 @@ public class GoSendPage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public GoSendPage(Customer customer) {
-        showGoSendPage(customer);
+    public GoSendPage() {
+        showGoSendPage();
     }
 
-    private void showGoSendPage(Customer customer) {
+    private void showGoSendPage() {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
@@ -49,10 +49,10 @@ public class GoSendPage {
         orderButton.setBounds(150, 150, 150, 30);
         orderButton.addActionListener( e -> {
 
-            if (CreateOrder.createGoOrder(customer.getUserID(), TypeOfService.GOSEND, locationTextField.getText(), destinationTextField.getText())) {
+            if (CreateOrder.createGoOrder(TypeOfService.GOSEND, locationTextField.getText(), destinationTextField.getText())) {
                 JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new CustomerPage(customer);
+                new CustomerPage();
             }
 
         });
@@ -62,7 +62,7 @@ public class GoSendPage {
         backButton.setBounds(150, 190, 150, 30);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerPage(customer);
+            new CustomerPage();
         });
         frame.add(backButton);
 
