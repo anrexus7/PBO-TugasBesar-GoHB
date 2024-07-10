@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 06:13 PM
+-- Generation Time: Jul 10, 2024 at 06:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -398,6 +398,7 @@ CREATE TABLE `userlog` (
 CREATE TABLE `users` (
                          `user_id` int(10) UNSIGNED NOT NULL,
                          `username` varchar(255) NOT NULL,
+                         `name` varchar(255) NOT NULL,
                          `password` varchar(255) NOT NULL,
                          `email` varchar(255) NOT NULL,
                          `phone_number` varchar(255) NOT NULL,
