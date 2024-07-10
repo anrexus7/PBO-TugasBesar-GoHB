@@ -14,11 +14,11 @@ public class GoCarPage {
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public GoCarPage(Customer customer) {
-        showGoCarPage(customer);
+    public GoCarPage() {
+        showGoCarPage();
     }
 
-    private void showGoCarPage(Customer customer) {
+    private void showGoCarPage() {
         JFrame frame = createFrame();
         frame.setLayout(null);
 
@@ -40,10 +40,10 @@ public class GoCarPage {
         JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 150, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
         orderButton.addActionListener( e -> {
 
-            if (CreateOrder.createGoOrder(customer.getUserID(), TypeOfService.GOCAR, currentLocationField.getText(), destinationField.getText())) {
+            if (CreateOrder.createGoOrder(TypeOfService.GOCAR, currentLocationField.getText(), destinationField.getText())) {
                 JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                new CustomerPage(customer);
+                new CustomerPage();
             }
 
         });
@@ -52,7 +52,7 @@ public class GoCarPage {
         JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 200, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
         backButton.addActionListener(e -> {
             frame.dispose();
-            new CustomerPage(customer);
+            new CustomerPage();
         });
         frame.add(backButton);
 

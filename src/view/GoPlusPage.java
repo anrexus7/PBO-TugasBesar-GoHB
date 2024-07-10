@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class GoPlusPage extends JFrame {
 
-    public GoPlusPage(Customer customer) {
-        showGoPlusPage(customer);
+    public GoPlusPage() {
+        showGoPlusPage();
     }
 
-    private void showGoPlusPage(Customer customer) {
+    private void showGoPlusPage() {
         this.setTitle("GoPlus Subscription");
         this.setSize(new Dimension(450, 400));
         this.setLocationRelativeTo(null);
@@ -88,7 +88,7 @@ public class GoPlusPage extends JFrame {
         });
 
         back.addActionListener(e->{
-           new CustomerPage(customer);
+           new CustomerPage();
            this.dispose();
         });
 
@@ -97,7 +97,7 @@ public class GoPlusPage extends JFrame {
                JOptionPane.showMessageDialog(null, "Gagal melakukan langganan", "Error", JOptionPane.ERROR_MESSAGE);
            }else{
                JOptionPane.showMessageDialog(null, "Berhasil Berlangganan !");
-                new CustomerPage(customer);
+                new CustomerPage();
                this.dispose();
            }
         });

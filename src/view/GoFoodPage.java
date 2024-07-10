@@ -24,11 +24,11 @@ public class GoFoodPage {
     private JTable table;
     private List<String> selectedFoods = new ArrayList<>();
 
-    public GoFoodPage(Customer customer) {
-        showGoFoodPage(customer);
+    public GoFoodPage() {
+        showGoFoodPage();
     }
 
-    private void showGoFoodPage(Customer customer) {
+    private void showGoFoodPage() {
         frame = createFrame();
         frame.setLayout(null);
 
@@ -160,7 +160,7 @@ public class GoFoodPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new CustomerPage(customer);
+                new CustomerPage();
             }
         });
         frame.add(backButton);

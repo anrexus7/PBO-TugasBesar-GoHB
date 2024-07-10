@@ -1,5 +1,6 @@
 package controller;
 
+import model.Class.SingletonManagerCustomer;
 import model.Class.db.DatabaseHandler;
 import model.Enum.StatusOrder;
 import model.Enum.TypeOfService;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 
 public class CreateOrder {
 
-    public static boolean createGoOrder(int id, TypeOfService service, String current, String destination) {
+    public static boolean createGoOrder(TypeOfService service, String current, String destination) {
 
         DatabaseHandler conn = new DatabaseHandler();
         conn.connect();
@@ -18,7 +19,7 @@ public class CreateOrder {
 
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
-            stmt.setInt(1, id);
+            stmt.setInt(1, SingletonManagerCustomer.getInstance().getCustomer().getUserID());
             stmt.setString(2, service.toString());
             stmt.setString(3, current);
             stmt.setString(4, destination);
