@@ -105,7 +105,8 @@ public class RegisterVehiclePage extends JFrame {
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
+            }
+            else{
                 try{
                     Integer.parseInt(labelSeat.getText());
                     registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
