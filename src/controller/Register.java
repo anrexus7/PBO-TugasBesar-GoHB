@@ -22,7 +22,7 @@ public class Register {
         String encryptPass = Encryptor.hash(tempPassword);
 
         String query = "INSERT INTO users(username,name, password, email, phone_number, user_type) VALUES(?,?,?,?,?,?)";
-        String query2 = "INSERT INTO userbalances(user_id, balance) VALUES(?,?)";
+        String query2 = "INSERT INTO userbalances(user_id, balance, coin) VALUES(?,?,?)";
         int userId=0;
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
@@ -42,7 +42,8 @@ public class Register {
 
             PreparedStatement stmt2 = conn.con.prepareStatement(query2);
             stmt2.setInt(1, userId);
-            stmt2.setDouble(2, 5000000);
+            stmt2.setDouble(2, 0);
+            stmt2.setDouble(3,0);
             stmt2.executeUpdate();
 
             if(tempInputs.get("role").equals("Driver")){
