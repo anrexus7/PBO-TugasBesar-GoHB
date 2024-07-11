@@ -43,7 +43,21 @@ public class DriverPage {
         frame.add(reportButton);
 
         JButton viewOrderButton = createButton("View Order", LEFT_MARGIN, 140, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        viewOrderButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "View Order functionality is not implemented yet."));
+        viewOrderButton.addActionListener(e -> {
+            try {
+                Maintenance maintenance = MaintenanceService.fetchNextMaintenance(SingletonManagerDriver.getInstance().getDriver().getDriverId());
+                String message = MaintenanceService.getMaintenanceStatusMessage(maintenance);
+                if ("ONGOING".equalsIgnoreCase(maintenance.getStatus())) {
+                    JOptionPane.showMessageDialog(null, message, "Maintenance Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    // GUI VIEW ORDER
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error checking maintenance status: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         frame.add(viewOrderButton);
 
         JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 180, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -53,12 +67,12 @@ public class DriverPage {
         JButton checkMaintenanceButton = createButton("Check Maintenance", LEFT_MARGIN, 220, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         checkMaintenanceButton.addActionListener(e -> {
             try {
-                Maintenance maintenance = MaintenanceService.fetchNextMaintenance(SingletonManagerDriver.getInstance().getDriver().getDriverId()); // Replace 1 with actual driver ID
+                Maintenance maintenance = MaintenanceService.fetchNextMaintenance(SingletonManagerDriver.getInstance().getDriver().getDriverId());
                 String message = MaintenanceService.getMaintenanceStatusMessage(maintenance);
                 JOptionPane.showMessageDialog(null, message, "Maintenance Information", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error checking maintenance status: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error checking maintenance status: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         frame.add(checkMaintenanceButton);
