@@ -1,9 +1,9 @@
 package model.Class.restaurant;
 
-import model.Class.Location;
-
 import java.time.LocalTime;
 import java.util.List;
+
+import model.Class.location.Location;
 
 public class Restaurant {
     private String name;

@@ -1,15 +1,15 @@
 package model.Class.order;
 
-import model.Class.Location;
-import model.Class.transaction.Promo;
+import java.util.Date;
+import java.util.List;
+
+import model.Class.location.Location;
 import model.Class.restaurant.Item;
 import model.Class.restaurant.Restaurant;
+import model.Class.transaction.Promo;
 import model.Enum.StatusOrder;
 import model.Enum.TypeOfService;
 import model.Enum.VehicleType;
-
-import java.util.Date;
-import java.util.List;
 
 public class GoFood extends Order{
     private Location locationDelivery;
