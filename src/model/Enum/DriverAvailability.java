@@ -1,5 +1,5 @@
 package model.Enum;
 
 public enum DriverAvailability {
-    ONLINE,OFFLINE,OCCUPIED
+    ONLINE, OFFLINE, OCCUPIED;
 }

@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class Promo {
     private int promoID;
-    private String name;
     private String code;
     private TypeOfService typeOfService;
     private double discount;
+    private Date startDate;
     private Date expiryDate;
 
-    public Promo(int promoID, String name, String code, TypeOfService typeOfService, double discount, Date expiryDate) {
+    public Promo(int promoID, String code, TypeOfService typeOfService, double discount,Date startDate, Date expiryDate) {
         this.promoID = promoID;
-        this.name = name;
         this.code = code;
         this.typeOfService = typeOfService;
         this.discount = discount;
+        this.startDate = startDate;
         this.expiryDate = expiryDate;
     }
 
@@ -27,14 +27,6 @@ public class Promo {
 
     public void setPromoID(int promoID) {
         this.promoID = promoID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getCode() {
@@ -59,6 +51,14 @@ public class Promo {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getExpiryDate() {

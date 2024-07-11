@@ -1,5 +1,5 @@
 package model.Enum;
 
 public enum VehicleType {
-    BIKE,CAR
+    BIKE, CAR;
 }

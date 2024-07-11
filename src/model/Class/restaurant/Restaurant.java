@@ -1,29 +1,24 @@
 package model.Class.restaurant;
 
-import model.Class.Location;
-
 import java.time.LocalTime;
 import java.util.List;
 
+import model.Class.location.Location;
+
 public class Restaurant {
     private String name;
+    private String phoneNumber;
     private int restoID;
     private Location location;
     private List<Item> listItem;
     private float rating;
-    private Item recommended;
-    private LocalTime openTime;
-    private LocalTime closeTime;
 
-    public Restaurant(String name, int restoID, Location location, List<Item> listItem, float rating, Item recommended, LocalTime openTime, LocalTime closeTime) {
+    public Restaurant(String name, int restoID,String phoneNumber, Location location, float rating) {
         this.name = name;
         this.restoID = restoID;
+        this.phoneNumber = phoneNumber;
         this.location = location;
-        this.listItem = listItem;
         this.rating = rating;
-        this.recommended = recommended;
-        this.openTime = openTime;
-        this.closeTime = closeTime;
     }
 
     public String getName() {
@@ -66,27 +61,11 @@ public class Restaurant {
         this.rating = rating;
     }
 
-    public Item getRecommended() {
-        return recommended;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setRecommended(Item recommended) {
-        this.recommended = recommended;
-    }
-
-    public LocalTime getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(LocalTime openTime) {
-        this.openTime = openTime;
-    }
-
-    public LocalTime getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(LocalTime closeTime) {
-        this.closeTime = closeTime;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

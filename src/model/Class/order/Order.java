@@ -1,11 +1,11 @@
 package model.Class.order;
 
+import java.util.Date;
+
 import model.Class.transaction.Promo;
 import model.Enum.StatusOrder;
 import model.Enum.TypeOfService;
 import model.Enum.VehicleType;
-
-import java.util.Date;
 
 public class Order {
     private int orderID;

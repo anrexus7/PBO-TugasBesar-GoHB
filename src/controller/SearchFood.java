@@ -31,7 +31,8 @@ public class SearchFood {
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
 
-                Item item = new Item(rs.getInt("product_id"), rs.getString("product_name"), rs.getDouble("price"), rs.getInt("stock"), KategoriItem.valueOf(rs.getString("product_type")));
+                Item item = new Item(rs.getString("product_name"), rs.getDouble("price"), rs.getInt("stock"), KategoriItem.valueOf(rs.getString("product_type")));
+                item.setItemID(rs.getInt("product_id"));
                 arrFoods.add(item);
 
             }
