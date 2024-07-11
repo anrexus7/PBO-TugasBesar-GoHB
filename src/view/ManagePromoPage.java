@@ -66,15 +66,25 @@ public class ManagePromoPage extends JFrame {
             container.add(editor, gbc);
 
             viewButton.addActionListener(e -> {
-
+                showDialog(datum);
             });
 
             deleteButton.addActionListener(e -> {
+                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus promo dengan kode "+datum.getCode());
 
+                if(response == JOptionPane.YES_OPTION){
+                    if(ManagingPromo.deletePromo(datum.getPromoID())){
+                        JOptionPane.showMessageDialog(this,"Berhasil menghapus promo");
+                        new AdminPage();
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this,"Gagal menghapus promo");
+                    }
+                }
             });
 
             editButton.addActionListener(e -> {
-
+                new EditPromoPage(datum);
             });
         }
 
@@ -89,8 +99,8 @@ public class ManagePromoPage extends JFrame {
         });
 
         back.addActionListener(e -> {
-            new AdminPage();
             this.dispose();
+            new AdminPage();
         });
 
         JScrollPane scrollPane = new JScrollPane(container);
@@ -100,5 +110,23 @@ public class ManagePromoPage extends JFrame {
         this.add(scrollPane);
         this.add(container);
         this.setVisible(true);
+    }
+
+    private void showDialog(Promo datum) {
+        JDialog dialog = new JDialog(this, "View Voucher", true);
+        dialog.setSize(250, 150);
+        dialog.setLayout(new FlowLayout());
+
+        JLabel serviceType = new JLabel("Berlaku untuk " + datum.getTypeOfService());
+        dialog.add(serviceType);
+
+        JLabel potongan = new JLabel("Potongan sebesar " + datum.getDiscount());
+        dialog.add(potongan);
+
+        JLabel to = new JLabel("Berlaku hingga " + datum.getExpiryDate());
+        dialog.add(to);
+
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 }
