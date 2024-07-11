@@ -1,8 +1,8 @@
 package controller;
 
-import model.Class.Location;
 import model.Class.SingletonManagerDriver;
 import model.Class.db.DatabaseHandler;
+import model.Class.location.Location;
 import model.Class.order.GoRide;
 import model.Class.order.Order;
 import model.Enum.StatusOrder;
@@ -27,6 +27,12 @@ public class DriverOrderService {
 
         Order currentOrder = null;
         if (rs.next()) {
+
+            String locationQuery = "SELECT * FROM region WHERE region_id = ?";
+            PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
+            stmtLocation.setInt(1, rs.getInt("region_id"));
+            ResultSet rsLocation = stmtLocation.executeQuery();
+
             currentOrder = new GoRide(
                     StatusOrder.valueOf(rs.getString("order_status")),
                     new Date(rs.getTimestamp("created_at").getTime()),
@@ -37,8 +43,9 @@ public class DriverOrderService {
                     rs.getInt("driver_id"),
                     rs.getInt("customer_id"),
                     rs.getInt("order_id"),
-                    new Location(rs.getString("current_location"), getLocationCoordinates(rs.getString("current_location"))),
-                    new Location(rs.getString("destination"), getLocationCoordinates(rs.getString("destination")))
+
+                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
+                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
             );
         }
 
@@ -75,19 +82,28 @@ public class DriverOrderService {
 
         List<Order> orders = new ArrayList<>();
         while (rs.next()) {
-            Order order = new Order();
-            order.setOrderID(rs.getInt("order_id"));
-            order.setCustomerID(rs.getInt("customer_id"));
-            order.setDriverID(rs.getInt("driver_id"));
-            order.setAmount(rs.getDouble("cost"));
-            order.setTransactionDate(rs.getDate("created_at"));
-            order.setOrderStatus(StatusOrder.valueOf(rs.getString("order_status")));
-            order.setServiceType(TypeOfService.valueOf(rs.getString("service_type")));
-            order.setVehicleType(VehicleType.valueOf(rs.getString("vehicle_type")));
 
-            GoRide goRide = new GoRide(order.getOrderStatus(), order.getTransactionDate(), order.getAmount(), order.getServiceType(), order.getVehicleType(), null, order.getDriverID(), order.getCustomerID(), order.getOrderID(), new Location(rs.getString("current_location"), getLocationCoordinates(rs.getString("current_location"))), new Location(rs.getString("destination"), getLocationCoordinates(rs.getString("destination"))));
+            String locationQuery = "SELECT * FROM region WHERE region_id = ?";
+            PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
+            stmtLocation.setInt(1, rs.getInt("region_id"));
+            ResultSet rsLocation = stmtLocation.executeQuery();
 
-            orders.add(goRide);
+            Order order = new GoRide(
+                    StatusOrder.valueOf(rs.getString("order_status")),
+                    new Date(rs.getTimestamp("created_at").getTime()),
+                    rs.getDouble("cost"),
+                    TypeOfService.valueOf(rs.getString("service_type")),
+                    VehicleType.valueOf(rs.getString("vehicle_type")),
+                    null,
+                    rs.getInt("driver_id"),
+                    rs.getInt("customer_id"),
+                    rs.getInt("order_id"),
+
+                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
+                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
+            );
+
+            orders.add(order);
 
         }
 
