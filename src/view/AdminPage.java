@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class AdminPage {
 
     private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 500;
+    private static final int FRAME_HEIGHT = 550;
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
     private static final int TOP_MARGIN = 10;
@@ -30,15 +30,15 @@ public class AdminPage {
 
         JButton manageUsersButton = createButton("Manage Users", LEFT_MARGIN, TOP_MARGIN + 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         manageUsersButton.addActionListener(e -> {
-            new ManageCustomerPage();
             frame.dispose();
+            new ManageCustomerPage();
         });
         frame.add(manageUsersButton);
 
         JButton manageDriversButton = createButton("Manage Drivers", LEFT_MARGIN, TOP_MARGIN + 100, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         manageDriversButton.addActionListener(e -> {
-            new ManageDriverPage();
             frame.dispose();
+            new ManageDriverPage();
         });
         frame.add(manageDriversButton);
 
@@ -58,13 +58,16 @@ public class AdminPage {
 
         JButton manageVouchersButton = createButton("Manage Vouchers", LEFT_MARGIN, TOP_MARGIN + 200, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         manageVouchersButton.addActionListener(e -> {
-            new ManagePromoPage();
             frame.dispose();
+            new ManagePromoPage();
         });
         frame.add(manageVouchersButton);
 
         JButton manageBlacklistButton = createButton("Manage Blacklist", LEFT_MARGIN, TOP_MARGIN + 250, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageBlacklistButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Blacklist functionality is not implemented yet."));
+        manageBlacklistButton.addActionListener(e -> {
+            frame.dispose();
+            new ManageBlackListPage();
+        });
         frame.add(manageBlacklistButton);
 
         JButton manageRestaurantButton = createButton("Manage Restaurant", LEFT_MARGIN, TOP_MARGIN + 300, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
@@ -74,7 +77,11 @@ public class AdminPage {
         });
         frame.add(manageRestaurantButton);
 
-        JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 350, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JButton manageMaitenanceVehicleButton = createButton("Manage Maitenance Vehicle", LEFT_MARGIN, TOP_MARGIN + 350, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        manageMaitenanceVehicleButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Generate Reports functionality is not implemented yet."));
+        frame.add(manageMaitenanceVehicleButton);
+
+        JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 400, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         generateReportsButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Generate Reports functionality is not implemented yet."));
         frame.add(generateReportsButton);
 

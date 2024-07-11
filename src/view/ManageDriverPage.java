@@ -1,4 +1,5 @@
 package view;
+import controller.ManagingBlackList;
 import controller.ManagingDriver;
 import model.Class.user.Driver;
 
@@ -83,13 +84,23 @@ public class ManageDriverPage extends JFrame {
             container.add(addBL,gbc);
 
             addBL.addActionListener(e ->{
+                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menambah driver "+datum.getUsername() +" pada blacklist ?");
 
+                if(response == JOptionPane.YES_OPTION){
+                    if(ManagingBlackList.setBlackList(datum.getUserID())){
+                        JOptionPane.showMessageDialog(this,"Berhasil menambah driver ke black list");
+                        this.dispose();
+                        new AdminPage();
+                    }else{
+                        JOptionPane.showMessageDialog(this,"Gagal menambah driver ke black list");
+                    }
+                }
             });
         }
 
         back.addActionListener(e -> {
-            new AdminPage();
             this.dispose();
+            new AdminPage();
         });
 
         JScrollPane scrollPane = new JScrollPane(container);

@@ -57,26 +57,30 @@ public class LoginPage {
 
                 User user = Login.fetchingDataDB(userText.getText());
 
-                switch (ValidatingUserType.validating(userText.getText())){
-                    case CUSTOMER:
-                        SingletonManagerCustomer.getInstance().setCustomer((Customer) user);
-                        new CustomerPage();
-                        break;
-                    case DRIVER:
-                        SingletonManagerDriver.getInstance().setDriver((Driver) user);
-                        if(SingletonManagerDriver.getInstance().getVehicle() == null){
-                            new RegisterVehiclePage();
-                            frame.dispose();
-                        }else{
-                            new DriverPage();
-                            frame.dispose();
-                        }
+                if(user.isBlackList()){
+                    JOptionPane.showMessageDialog(frame, "Anda telah di Blacklist");
+                }else{
+                    switch (ValidatingUserType.validating(userText.getText())){
+                        case CUSTOMER:
+                            SingletonManagerCustomer.getInstance().setCustomer((Customer) user);
+                            new CustomerPage();
                             break;
-                    default:
-                        new AdminPage();
-                        break;
+                        case DRIVER:
+                            SingletonManagerDriver.getInstance().setDriver((Driver) user);
+                            if(SingletonManagerDriver.getInstance().getVehicle() == null){
+                                new RegisterVehiclePage();
+                                frame.dispose();
+                            }else{
+                                new DriverPage();
+                                frame.dispose();
+                            }
+                            break;
+                        default:
+                            new AdminPage();
+                            break;
+                    }
+                    frame.dispose();
                 }
-                frame.dispose();
             }else{
                 JOptionPane.showMessageDialog(frame, "Login Failed","Error", JOptionPane.ERROR_MESSAGE);
             }

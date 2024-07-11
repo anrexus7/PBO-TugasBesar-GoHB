@@ -58,8 +58,17 @@ public class Login {
             Statement usernameStatement = conn.con.createStatement();
             ResultSet rs = usernameStatement.executeQuery(queryUsername);
             while (rs.next()) {
+                boolean isBL= false;
                 UserType userType = UserType.valueOf(rs.getString("user_type"));
-                dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"), rs.getString("phone_number"), rs.getString("email"),userType);
+
+                if(rs.getByte("black_list")==0){
+                    isBL = false;
+                }else{
+                    isBL = true;
+                }
+
+                dbData = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("name"), rs.getString("password"),
+                        rs.getString("phone_number"), rs.getString("email"), isBL, userType);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,7 +90,7 @@ public class Login {
         if(dbData.getUserType().equals(UserType.CUSTOMER)){
 
             user = new Customer(dbData.getUserID(),dbData.getUsername(),dbData.getName(),dbData.getPassword(),
-                    dbData.getPhoneNumber(),dbData.getEmail(),dbData.getUserType(), wallet);
+                    dbData.getPhoneNumber(),dbData.getEmail(), dbData.isBlackList(),dbData.getUserType(), wallet);
 
         }else if(dbData.getUserType().equals(UserType.DRIVER)) {
             Vehicle vehicle = null;
@@ -114,7 +123,7 @@ public class Login {
             }
 
             user = new Driver(dbData.getUserID(), dbData.getUsername(), dbData.getName(), dbData.getPassword(),
-                    dbData.getPhoneNumber(), dbData.getEmail(), dbData.getUserType(), wallet,
+                    dbData.getPhoneNumber(), dbData.getEmail(), dbData.isBlackList(), dbData.getUserType(), wallet,
                     driverID, vehicle, avail, rating);
 
         }else{
