@@ -1,5 +1,5 @@
 package model.Enum;
 
 public enum TypeOfService {
-    GOBIKE,GOCAR,GOSEND,GOFOOD
+    GOBIKE, GOCAR, GOSEND, GOFOOD;
 }

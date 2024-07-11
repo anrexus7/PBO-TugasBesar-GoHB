@@ -1,5 +1,5 @@
 package model.Enum;
 
 public enum CarTypeOfCarService {
-    HEMAT,PRIORITAS,COMFORT,BIASA
+    HEMAT, PRIORITAS, COMFORT, BIASA;
 }

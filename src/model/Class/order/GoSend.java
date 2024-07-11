@@ -1,13 +1,13 @@
 package model.Class.order;
 
-import model.Class.Location;
+import java.util.Date;
+
+import model.Class.location.Location;
 import model.Class.transaction.Promo;
 import model.Enum.StatusOrder;
 import model.Enum.TipeBarang;
 import model.Enum.TypeOfService;
 import model.Enum.VehicleType;
-
-import java.util.Date;
 
 public class GoSend extends Order{
     private Location locationPickup;
