@@ -43,11 +43,21 @@ public class AdminPage {
         frame.add(manageDriversButton);
 
         JButton manageProductsButton = createButton("Manage Products", LEFT_MARGIN, TOP_MARGIN + 150, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageProductsButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Products functionality is not implemented yet."));
+        manageProductsButton.addActionListener(e -> {
+                    String id = JOptionPane.showInputDialog(null, "Insert Resto ID");
+                    try{
+                        int idResto = Integer.parseInt(id);
+                        frame.dispose();
+                        new ManageItemsPage(idResto);
+                    }catch(NumberFormatException x){
+                        JOptionPane.showMessageDialog(null, "ID tidak valid", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+        );
         frame.add(manageProductsButton);
 
         JButton manageVouchersButton = createButton("Manage Vouchers", LEFT_MARGIN, TOP_MARGIN + 200, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageVouchersButton.addActionListener(e ->{
+        manageVouchersButton.addActionListener(e -> {
             new ManagePromoPage();
             frame.dispose();
         });
@@ -58,7 +68,10 @@ public class AdminPage {
         frame.add(manageBlacklistButton);
 
         JButton manageRestaurantButton = createButton("Manage Restaurant", LEFT_MARGIN, TOP_MARGIN + 300, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageRestaurantButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Manage Restaurant functionality is not implemented yet."));
+        manageRestaurantButton.addActionListener(e -> {
+            frame.dispose();
+            new ManageRestaurantPage();
+        });
         frame.add(manageRestaurantButton);
 
         JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 350, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);

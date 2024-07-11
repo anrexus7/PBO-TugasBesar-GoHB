@@ -1,6 +1,7 @@
 package view;
 
 import controller.ManagingPromo;
+import controller.ManagingResto;
 import model.Class.restaurant.Restaurant;
 import model.Class.transaction.Promo;
 
@@ -15,16 +16,16 @@ public class ManageRestaurantPage extends JFrame {
 
     private void showManageRestaurant() {
         this.setTitle("Manage Resto");
-        this.setSize(new Dimension(650, 400));
+        this.setSize(new Dimension(800, 400));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ArrayList<Promo> data = ManagingPromo.getData();
-        JButton viewButton = new JButton("View Items");
+        ArrayList<Restaurant> data = ManagingResto.getData();
+        JButton viewItemsButton = new JButton("View Items");
         JButton editButton = new JButton("Edit");
         JButton deleteButton = new JButton("Delete");
         JPanel editor = new JPanel();
-        editor.add(viewButton);
+        editor.add(viewItemsButton);
         editor.add(editButton);
         editor.add(deleteButton);
 
@@ -64,9 +65,8 @@ public class ManageRestaurantPage extends JFrame {
         gbc.gridx++;
         container.add(new JLabel("Action"),gbc);
 
-        int i = 1;
-        gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
+
         for (Restaurant datum : data) {
             gbc.gridy++;
             gbc.gridx = 0;
@@ -84,7 +84,7 @@ public class ManageRestaurantPage extends JFrame {
             gbc.gridx++;
             container.add(editor, gbc);
 
-            viewButton.addActionListener(e -> {
+            viewItemsButton.addActionListener(e ->{
 
             });
 
@@ -94,8 +94,8 @@ public class ManageRestaurantPage extends JFrame {
                 if(response == JOptionPane.YES_OPTION){
                     if(ManagingPromo.deletePromo(datum.getRestoID())){
                         JOptionPane.showMessageDialog(this,"Berhasil menghapus promo");
-                        new AdminPage();
                         this.dispose();
+                        new AdminPage();
                     }else{
                         JOptionPane.showMessageDialog(this,"Gagal menghapus promo");
                     }
@@ -103,18 +103,18 @@ public class ManageRestaurantPage extends JFrame {
             });
 
             editButton.addActionListener(e -> {
-                new EditPromoPage(datum);
+                new EditRestoPage(datum);
             });
         }
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JButton add = new JButton("Add Promo");
+        JButton add = new JButton("Add Resto");
         container.add(add, gbc);
 
         add.addActionListener(e ->{
-            new RegisterPromoPage();
             this.dispose();
+            new RegisterRestoPage();
         });
 
         back.addActionListener(e -> {
