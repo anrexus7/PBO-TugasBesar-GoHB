@@ -68,7 +68,7 @@ public class LoginPage {
                             new RegisterVehiclePage();
                             frame.dispose();
                         }else{
-                            //GUI driver
+                            new DriverPage();
                             frame.dispose();
                         }
                             break;

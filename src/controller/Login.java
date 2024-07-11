@@ -84,7 +84,7 @@ public class Login {
                     dbData.getPhoneNumber(),dbData.getEmail(),dbData.getUserType(), wallet);
 
         }else if(dbData.getUserType().equals(UserType.DRIVER)) {
-            Vehicle vehicle = new Vehicle();
+            Vehicle vehicle = null;
             int driverID = 0;
             DriverAvailability avail = null;
             float rating = 0;
@@ -99,14 +99,13 @@ public class Login {
                     rating = rs.getFloat("rating");
                     avail = DriverAvailability.valueOf(rs.getString("status"));
                 }
-
                 String driverVehicle = "SELECT * FROM vehicle WHERE driver_id = " + driverID ;
                 Statement driverStatement = conn.con.createStatement();
                 ResultSet rs2 = driverStatement.executeQuery(driverVehicle);
                 while (rs2.next()) {
                     VehicleType vehicleType = VehicleType.valueOf(rs2.getString("vehicle_type"));
                     vehicle = new Vehicle(rs2.getInt("driver_id"), rs2.getString("vehicle_plat"),
-                            rs2.getInt("vechile_id"), vehicleType);
+                            rs2.getInt("vehicle_id"), vehicleType);
                 }
                 conn.con.commit();
                 conn.disconnect();
