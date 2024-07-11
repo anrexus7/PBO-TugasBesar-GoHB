@@ -21,9 +21,7 @@ public class DriverPage {
     private static final int RIGHT_MARGIN = 20;
 
     public DriverPage() {
-
         showDriverMenu();
-
     }
 
     private void showDriverMenu() {
@@ -32,6 +30,9 @@ public class DriverPage {
 
         JLabel welcomeLabel = createLabel("Welcome, " + SingletonManagerDriver.getInstance().getDriver().getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(welcomeLabel);
+
+        JLabel ratingLabel = createLabel("Rating: " + SingletonManagerDriver.getInstance().getDriver().getRating(), LEFT_MARGIN, 30, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        frame.add(ratingLabel);
 
         JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN, 60, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         viewProfileButton.addActionListener(e -> {
@@ -54,9 +55,9 @@ public class DriverPage {
                 String message = MaintenanceService.getMaintenanceStatusMessage(maintenance);
                 if ("ONGOING".equalsIgnoreCase(maintenance.getStatus())) {
                     JOptionPane.showMessageDialog(null, message, "Maintenance Information", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else {
-                    // GUI VIEW ORDER
+                } else {
+                    frame.dispose();
+                    new DriverOrderPage();
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -65,11 +66,21 @@ public class DriverPage {
         });
         frame.add(viewOrderButton);
 
-        JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 180, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        orderHistoryButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Order History functionality is not implemented yet."));
+        JButton viewCurrentOrderButton = createButton("View Current Order", LEFT_MARGIN, 180, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        viewCurrentOrderButton.addActionListener(e -> {
+            frame.dispose();
+            new DriverCurrentOrderPage();
+        });
+        frame.add(viewCurrentOrderButton);
+
+        JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 220, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        orderHistoryButton.addActionListener(e -> {
+            frame.dispose();
+            new DriverOrderHistoryPage();
+        });
         frame.add(orderHistoryButton);
 
-        JButton checkMaintenanceButton = createButton("Check Maintenance", LEFT_MARGIN, 220, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JButton checkMaintenanceButton = createButton("Check Maintenance", LEFT_MARGIN, 260, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         checkMaintenanceButton.addActionListener(e -> {
             try {
                 Maintenance maintenance = MaintenanceService.fetchNextMaintenance(SingletonManagerDriver.getInstance().getDriver().getDriverId());
@@ -82,7 +93,7 @@ public class DriverPage {
         });
         frame.add(checkMaintenanceButton);
 
-        JButton logoutButton = createButton("Logout", LEFT_MARGIN, 260, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JButton logoutButton = createButton("Logout", LEFT_MARGIN, 300, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         logoutButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Logging out...");
             new LoginPage();
@@ -120,5 +131,4 @@ public class DriverPage {
         button.setBounds(x, y, width, height);
         return button;
     }
-
 }
