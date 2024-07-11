@@ -1,12 +1,17 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import controller.MaintenanceService;
 import model.Class.SingletonManagerDriver;
-import model.Maintenance;
-
-import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLException;
+import model.Class.vehicle.Maintenance;
 
 public class DriverPage {
 

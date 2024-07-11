@@ -1,4 +1,4 @@
-package model;
+package model.Class.vehicle;
 
 import java.sql.Date;
 import java.sql.Timestamp;
