@@ -1,9 +1,6 @@
 package view;
 
 import controller.GeneratingReport;
-import controller.ManagingBlackList;
-import controller.ManagingCustomer;
-import model.Class.user.Customer;
 
 import javax.swing.*;
 import java.awt.*;

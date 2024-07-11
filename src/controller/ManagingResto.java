@@ -106,11 +106,11 @@ public class ManagingResto {
         conn.connect();
 
         String queryUpdate = "UPDATE stores storelocation JOIN stores ON SET " +
-                "store_name =?," +
-                "address=?," +
-                "phone_number =?," +
-                "rating=?," +
-                "region_id=?," +
+                "store_name =?, " +
+                "address=?, " +
+                "phone_number =?, " +
+                "rating=?, " +
+                "region_id=?, " +
                 "WHERE stores.store_id="+idResto;
 
         try{

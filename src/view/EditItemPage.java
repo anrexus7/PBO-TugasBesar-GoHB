@@ -87,12 +87,12 @@ public class EditItemPage extends JFrame {
                     stockI = Integer.parseInt(stock.getText());
 
                     if(ManagingItems.updatingItem(datum.getItemID(), name.getText(), TypeI.getSelectedItem().toString(), priceD, stockI) ){
-                        mssg= "Register Item berhasil, Success";
+                        mssg= "Update Item berhasil, Success";
 
                         this.dispose();
                         new ManageItemsPage(restoId);
                     }else{
-                        mssg = "Register Item gagal, Error";
+                        mssg = "Update Item gagal, Error";
                     }
                 }catch(NumberFormatException x){
                     mssg = "Pastikan stock/harga input berupa angka, Error";

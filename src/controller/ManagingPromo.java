@@ -90,11 +90,11 @@ public class ManagingPromo {
         conn.connect();
 
         String queryUpdate = "UPDATE promos SET " +
-                "promo_code =?," +
-                "discount =?," +
-                "service_type =?," +
-                "valid_from =?," +
-                "valid_to =?" +
+                "promo_code =?, " +
+                "discount =?, " +
+                "service_type =?, " +
+                "valid_from =?, " +
+                "valid_to =? " +
                 "WHERE promo_id="+id;
 
         java.util.Date from = (java.util.Date) validFrom;

@@ -78,7 +78,10 @@ public class AdminPage {
         frame.add(manageRestaurantButton);
 
         JButton manageMaitenanceVehicleButton = createButton("Manage Maitenance Vehicle", LEFT_MARGIN, TOP_MARGIN + 350, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        manageMaitenanceVehicleButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Generate Reports functionality is not implemented yet."));
+        manageMaitenanceVehicleButton.addActionListener(e -> {
+            frame.dispose();
+            new ManageMaintenanceVehiclePage();
+        });
         frame.add(manageMaitenanceVehicleButton);
 
         JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 400, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);

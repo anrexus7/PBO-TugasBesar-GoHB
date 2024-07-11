@@ -94,11 +94,11 @@ public class ManagingItems {
         conn.connect();
 
         String queryUpdate = "UPDATE products SET " +
-                "product_name =?," +
-                "product_type =?," +
-                "price =?," +
-                "stock =?" +
-                "WHERE product_id="+id;
+                "product_name = ?, " +
+                "product_type = ?, " +
+                "price = ?, " +
+                "stock = ? " +
+                "WHERE product_id = "+id;
 
         Item temp = new Item(name, price, stock, KategoriItem.valueOf(type));
 
