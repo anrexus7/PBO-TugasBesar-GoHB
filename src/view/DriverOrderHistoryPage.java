@@ -46,6 +46,15 @@ public class DriverOrderHistoryPage implements DriverOrderController.OrderView {
         splitPane.setDividerLocation(FRAME_HEIGHT / 2);
         splitPane.setResizeWeight(0.5);
 
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new DriverPage();
+        });
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(backButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
