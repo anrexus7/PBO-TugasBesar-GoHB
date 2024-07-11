@@ -1,26 +1,26 @@
 package view;
 
 import controller.ManagingPromo;
+import model.Class.restaurant.Restaurant;
 import model.Class.transaction.Promo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ManagePromoPage extends JFrame {
-
-    public ManagePromoPage() {
-        showManagePromo();
+public class ManageRestaurantPage extends JFrame {
+    public ManageRestaurantPage() {
+        showManageRestaurant();
     }
 
-    public void showManagePromo() {
-        this.setTitle("Manage Promo");
+    private void showManageRestaurant() {
+        this.setTitle("Manage Resto");
         this.setSize(new Dimension(650, 400));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ArrayList<Promo> data = ManagingPromo.getData();
-        JButton viewButton = new JButton("View");
+        JButton viewButton = new JButton("View Items");
         JButton editButton = new JButton("Edit");
         JButton deleteButton = new JButton("Delete");
         JPanel editor = new JPanel();
@@ -44,36 +44,55 @@ public class ManagePromoPage extends JFrame {
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 10, 10, 10);// Top, left, bottom, right padding
-        JLabel header = new JLabel("Manage Promo (add/edit/delete)");
+        JLabel header = new JLabel("Manage Resto (add/edit/delete)");
         header.setFont(new Font("SansSerif", Font.BOLD, 20));
         container.add(header, gbc);
 
-        int i = 1;
+        gbc.gridy++;
         gbc.gridwidth = 1;
+        container.add(new JLabel("Resto ID"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("Resto Name"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("Address"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("Rating"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("Action"),gbc);
+
+        int i = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
-        for (Promo datum : data) {
+        for (Restaurant datum : data) {
             gbc.gridy++;
             gbc.gridx = 0;
-            container.add(new JLabel(i + ". "), gbc);
+            container.add(new JLabel(String.valueOf(datum.getRestoID())), gbc);
 
             gbc.gridx++;
-            container.add(new JLabel("Voucher id : " + datum.getPromoID()), gbc);
+            container.add(new JLabel(datum.getName()), gbc);
 
             gbc.gridx++;
-            container.add(new JLabel("Kode : " + datum.getCode()), gbc);
+            container.add(new JLabel(datum.getLocation().getAddress()), gbc);
+
+            gbc.gridx++;
+            container.add(new JLabel(String.valueOf(datum.getRating())), gbc);
 
             gbc.gridx++;
             container.add(editor, gbc);
 
             viewButton.addActionListener(e -> {
-                showDialog(datum);
+
             });
 
             deleteButton.addActionListener(e -> {
-                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus promo dengan kode "+datum.getCode());
+                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus resto "+datum.getName());
 
                 if(response == JOptionPane.YES_OPTION){
-                    if(ManagingPromo.deletePromo(datum.getPromoID())){
+                    if(ManagingPromo.deletePromo(datum.getRestoID())){
                         JOptionPane.showMessageDialog(this,"Berhasil menghapus promo");
                         new AdminPage();
                         this.dispose();
@@ -110,23 +129,5 @@ public class ManagePromoPage extends JFrame {
         this.add(scrollPane);
         this.add(container);
         this.setVisible(true);
-    }
-
-    private void showDialog(Promo datum) {
-        JDialog dialog = new JDialog(this, "View Voucher", true);
-        dialog.setSize(250, 150);
-        dialog.setLayout(new FlowLayout());
-
-        JLabel serviceType = new JLabel("Berlaku untuk " + datum.getTypeOfService());
-        dialog.add(serviceType);
-
-        JLabel potongan = new JLabel("Potongan sebesar " + datum.getDiscount());
-        dialog.add(potongan);
-
-        JLabel to = new JLabel("Berlaku hingga " + datum.getExpiryDate());
-        dialog.add(to);
-
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
     }
 }
