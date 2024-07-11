@@ -28,25 +28,30 @@ public class DriverOrderService {
         Order currentOrder = null;
         if (rs.next()) {
 
-            String locationQuery = "SELECT * FROM region WHERE region_id = ?";
+            String locationQuery = "SELECT * FROM regions WHERE region_id = ?";
             PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
             stmtLocation.setInt(1, rs.getInt("region_id"));
             ResultSet rsLocation = stmtLocation.executeQuery();
 
-            currentOrder = new GoRide(
-                    StatusOrder.valueOf(rs.getString("order_status")),
-                    new Date(rs.getTimestamp("created_at").getTime()),
-                    rs.getDouble("cost"),
-                    TypeOfService.valueOf(rs.getString("service_type")),
-                    VehicleType.valueOf(rs.getString("vehicle_type")),
-                    null,
-                    rs.getInt("driver_id"),
-                    rs.getInt("customer_id"),
-                    rs.getInt("order_id"),
+            if (rsLocation.next()) {
 
-                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
-                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
-            );
+                currentOrder = new GoRide(
+                        StatusOrder.valueOf(rs.getString("order_status")),
+                        new Date(rs.getTimestamp("created_at").getTime()),
+                        rs.getDouble("cost"),
+                        TypeOfService.valueOf(rs.getString("service_type")),
+                        VehicleType.valueOf(rs.getString("vehicle_type")),
+                        null,
+                        rs.getInt("driver_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("order_id"),
+
+                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
+                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
+                );
+
+            }
+
         }
 
         conn.disconnect();
@@ -83,27 +88,31 @@ public class DriverOrderService {
         List<Order> orders = new ArrayList<>();
         while (rs.next()) {
 
-            String locationQuery = "SELECT * FROM region WHERE region_id = ?";
+            String locationQuery = "SELECT * FROM regions WHERE region_id = ?";
             PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
             stmtLocation.setInt(1, rs.getInt("region_id"));
             ResultSet rsLocation = stmtLocation.executeQuery();
 
-            Order order = new GoRide(
-                    StatusOrder.valueOf(rs.getString("order_status")),
-                    new Date(rs.getTimestamp("created_at").getTime()),
-                    rs.getDouble("cost"),
-                    TypeOfService.valueOf(rs.getString("service_type")),
-                    VehicleType.valueOf(rs.getString("vehicle_type")),
-                    null,
-                    rs.getInt("driver_id"),
-                    rs.getInt("customer_id"),
-                    rs.getInt("order_id"),
+            if (rsLocation.next()) {
 
-                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
-                    new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
-            );
+                Order order = new GoRide(
+                        StatusOrder.valueOf(rs.getString("order_status")),
+                        new Date(rs.getTimestamp("created_at").getTime()),
+                        rs.getDouble("cost"),
+                        TypeOfService.valueOf(rs.getString("service_type")),
+                        VehicleType.valueOf(rs.getString("vehicle_type")),
+                        null,
+                        rs.getInt("driver_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("order_id"),
 
-            orders.add(order);
+                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
+                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
+                );
+
+                orders.add(order);
+
+            }
 
         }
 

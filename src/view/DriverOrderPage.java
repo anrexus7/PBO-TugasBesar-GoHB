@@ -1,10 +1,12 @@
 package view;
 
 import controller.DriverOrderController;
+import model.Class.SingletonManagerDriver;
 import model.Class.order.Order;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DriverOrderPage implements DriverOrderController.OrderView {
@@ -51,10 +53,24 @@ public class DriverOrderPage implements DriverOrderController.OrderView {
 
         JButton confirmButton = new JButton("Confirm Order");
         confirmButton.addActionListener(e -> {
-            Order selectedOrder = orderList.getSelectedValue();
-            if (selectedOrder != null) {
-                controller.confirmOrder(selectedOrder.getOrderID());
+            try {
+                Order currentOrder = controller.getCurrentOrder(SingletonManagerDriver.getInstance().getDriver().getDriverId());
+                if (currentOrder == null) {
+                    Order selectedOrder = orderList.getSelectedValue();
+                    if (selectedOrder != null) {
+                        controller.confirmOrder(selectedOrder.getOrderID());
+                        frame.dispose();
+                        new DriverPage();
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "There's Ongoing Order", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                displayError("Error loading current order: " + ex.getMessage());
             }
+
         });
         buttonPanel.add(confirmButton);
 
