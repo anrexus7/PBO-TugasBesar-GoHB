@@ -2,25 +2,25 @@ package view;
 
 import controller.ManagingBlackList;
 import controller.ManagingCustomer;
-import controller.ManagingItems;
 import model.Class.user.Customer;
+import model.Class.user.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ManageCustomerPage extends JFrame {
-    public ManageCustomerPage() {
-        showManageCustomer();
+public class ManageBlackListPage extends JFrame {
+    public ManageBlackListPage() {
+        showManageBlackList();
     }
 
-    public void showManageCustomer() {
-        this.setTitle("Manage Customer");
+    public void showManageBlackList() {
+        this.setTitle("Manage Blacklist");
         this.setSize(new Dimension(700, 400));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ArrayList<Customer> data = ManagingCustomer.getData();
+        ArrayList<User> data = ManagingBlackList.getData();
 
         JPanel container = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -38,13 +38,13 @@ public class ManageCustomerPage extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridwidth = 6;
         gbc.insets = new Insets(0, 10, 10, 10);// Top, left, bottom, right padding
-        JLabel header = new JLabel("Manage Customer");
+        JLabel header = new JLabel("Manage Blacklist");
         header.setFont(new Font("SansSerif", Font.BOLD, 24));
         container.add(header,gbc);
 
         gbc.gridwidth = 1;
         gbc.gridy++;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
         container.add(new JLabel("user_id"),gbc);
 
@@ -58,12 +58,12 @@ public class ManageCustomerPage extends JFrame {
         container.add(new JLabel("email"),gbc);
 
         gbc.gridx++;
-        container.add(new JLabel("Status GoPlus"),gbc);
+        container.add(new JLabel("User Type"),gbc);
 
         gbc.gridx++;
         container.add(new JLabel("Action"),gbc);
 
-        for(Customer datum : data){
+        for(User datum : data){
             gbc.gridy++;
             gbc.gridx=0;
             container.add(new JLabel(String.valueOf(datum.getUserID())),gbc);
@@ -78,30 +78,22 @@ public class ManageCustomerPage extends JFrame {
             container.add(new JLabel(datum.getEmail()),gbc);
 
             gbc.gridx++;
-            String labelStatus;
-
-            if(datum.getGojekPlus() == null){
-                labelStatus = "False";
-            }else{
-                labelStatus = String.valueOf(datum.getGojekPlus().isStatus());
-            }
-            container.add(new JLabel(labelStatus),gbc);
-
+            container.add(new JLabel(datum.getUserType().toString()),gbc);
 
             gbc.gridx++;
-            JButton addBL = new JButton("Add to BlackList");
-            container.add(addBL,gbc);
+            JButton delBL = new JButton("Remove from BlackList");
+            container.add(delBL,gbc);
 
-            addBL.addActionListener(e ->{
-                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menambah user "+datum.getUsername() +" pada blacklist ?");
+            delBL.addActionListener(e ->{
+                int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus user "+datum.getUsername() +" dari blacklist ?");
 
                 if(response == JOptionPane.YES_OPTION){
-                    if(ManagingBlackList.setBlackList(datum.getUserID())){
-                        JOptionPane.showMessageDialog(this,"Berhasil menambah user ke black list");
+                    if(ManagingBlackList.removeBlackList(datum.getUserID())){
+                        JOptionPane.showMessageDialog(this,"Berhasil menghapus user dari black list");
                         this.dispose();
                         new AdminPage();
                     }else{
-                        JOptionPane.showMessageDialog(this,"Gagal menambah user ke black list");
+                        JOptionPane.showMessageDialog(this,"Gagal menghapus user dari black list");
                     }
                 }
             });

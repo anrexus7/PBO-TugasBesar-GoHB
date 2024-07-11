@@ -9,18 +9,20 @@ public class User {
     private String password;
     private String phoneNumber;
     private String email;
+    private boolean blackList;
     private UserType userType;
 
     public User() {
     }
 
-    public User(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType) {
+    public User(int userID, String username, String name, String password, String phoneNumber, String email, boolean blackList, UserType userType) {
         this.userID = userID;
         this.username = username;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.blackList = blackList;
         this.userType = userType;
     }
 
@@ -70,6 +72,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isBlackList() {
+        return blackList;
     }
 
     public UserType getUserType() {

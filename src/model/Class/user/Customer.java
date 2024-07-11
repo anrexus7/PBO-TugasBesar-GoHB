@@ -15,8 +15,8 @@ public class Customer extends User{
     public Customer() {
     }
 
-    public Customer(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, GoPay wallet) {
-        super(userID, username, name, password, phoneNumber, email, userType);
+    public Customer(int userID, String username, String name, String password, String phoneNumber, String email, boolean blackList, UserType userType, GoPay wallet) {
+        super(userID, username, name, password, phoneNumber, email, blackList, userType);
         this.wallet = wallet;
     }
 

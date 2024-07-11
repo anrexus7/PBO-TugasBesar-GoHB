@@ -14,8 +14,8 @@ public class Driver extends User{
     private float rating;
     private GoPay wallet;
 
-    public Driver(int userID, String username, String name, String password, String phoneNumber, String email, UserType userType, GoPay wallet, int driverId, Vehicle vehicle, DriverAvailability availability, float rating) {
-        super(userID, username, name, password, phoneNumber, email, userType);
+    public Driver(int userID, String username, String name, String password, String phoneNumber, String email, boolean blackList, UserType userType, GoPay wallet, int driverId, Vehicle vehicle, DriverAvailability availability, float rating) {
+        super(userID, username, name, password, phoneNumber, email, blackList, userType);
         this.driverId = driverId;
         this.vehicle = vehicle;
         this.availability = availability;
