@@ -85,7 +85,8 @@ public class ManageRestaurantPage extends JFrame {
             container.add(editor, gbc);
 
             viewItemsButton.addActionListener(e ->{
-
+                this.dispose();
+                new ManageItemsPage(datum.getRestoID());
             });
 
             deleteButton.addActionListener(e -> {

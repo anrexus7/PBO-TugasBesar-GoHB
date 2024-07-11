@@ -10,8 +10,7 @@ public class Item {
     private int stock;
     private KategoriItem kategori;
 
-    public Item(int itemID, String name, double harga, int stock, KategoriItem kategori) {
-        this.itemID = itemID;
+    public Item(String name, double harga, int stock, KategoriItem kategori) {
         this.name = name;
         this.harga = harga;
         this.stock = stock;
