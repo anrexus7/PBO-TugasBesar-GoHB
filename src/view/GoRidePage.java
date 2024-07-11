@@ -40,7 +40,7 @@ public class GoRidePage {
         JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 150, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
         orderButton.addActionListener( e -> {
 
-            if (CreateOrder.createGoOrder(TypeOfService.GOBIKE, currentLocationField.getText(), destinationField.getText())) {
+            if (CreateOrder.createGoOrder(TypeOfService.GORIDE, currentLocationField.getText(), destinationField.getText())) {
                 JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
                 new CustomerPage();
