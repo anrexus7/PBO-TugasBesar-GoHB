@@ -1,49 +1,52 @@
 package model;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Maintenance {
     private int maintenanceId;
     private int driverId;
+    private int adminId;
+    private Date scheduleDate;
     private String status;
-    private LocalDate scheduleDate;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public Maintenance(int maintenanceId, int driverId, String status, LocalDate scheduleDate) {
+    public Maintenance(int maintenanceId, int driverId, int adminId, Date scheduleDate, String status, Timestamp createdAt, Timestamp updatedAt) {
         this.maintenanceId = maintenanceId;
         this.driverId = driverId;
-        this.status = status;
+        this.adminId = adminId;
         this.scheduleDate = scheduleDate;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public int getMaintenanceId() {
         return maintenanceId;
     }
 
-    public void setMaintenanceId(int maintenanceId) {
-        this.maintenanceId = maintenanceId;
-    }
-
     public int getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public Date getScheduleDate() {
+        return scheduleDate;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDate getScheduleDate() {
-        return scheduleDate;
-    }
-
-    public void setScheduleDate(LocalDate scheduleDate) {
-        this.scheduleDate = scheduleDate;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 }
