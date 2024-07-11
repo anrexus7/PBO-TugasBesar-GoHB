@@ -45,11 +45,11 @@ public class AdminPage {
         JButton manageProductsButton = createButton("Manage Products", LEFT_MARGIN, TOP_MARGIN + 150, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         manageProductsButton.addActionListener(e -> {
                     String id = JOptionPane.showInputDialog(null, "Insert Resto ID");
-                    try{
+                    try {
                         int idResto = Integer.parseInt(id);
                         frame.dispose();
                         new ManageItemsPage(idResto);
-                    }catch(NumberFormatException x){
+                    } catch (NumberFormatException x) {
                         JOptionPane.showMessageDialog(null, "ID tidak valid", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -82,7 +82,10 @@ public class AdminPage {
         frame.add(manageMaitenanceVehicleButton);
 
         JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 400, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        generateReportsButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Generate Reports functionality is not implemented yet."));
+        generateReportsButton.addActionListener(e -> {
+            frame.dispose();
+            new GenerateReportPage();
+        });
         frame.add(generateReportsButton);
 
         JButton settingsButton = createButton("Settings", LEFT_MARGIN, FRAME_HEIGHT - BOTTOM_MARGIN - 50, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN / 2, 30);
