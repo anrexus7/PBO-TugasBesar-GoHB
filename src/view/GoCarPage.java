@@ -1,96 +1,80 @@
 package view;
 
-import controller.CreateOrder;
-import model.Class.user.Customer;
-import model.Enum.TypeOfService;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import controller.FetchDataRegion;
+import model.Class.location.Region;
 
 public class GoCarPage {
-
-    private static final int FRAME_WIDTH = 450;
-    private static final int FRAME_HEIGHT = 300;
-    private static final int LEFT_MARGIN = 10;
-    private static final int RIGHT_MARGIN = 20;
-
     public GoCarPage() {
-        showGoCarPage();
+        initGoCarPage();
     }
 
-    private void showGoCarPage() {
-        JFrame frame = createFrame();
-        frame.setLayout(null);
+    private void initGoCarPage() {
+        JFrame frame = new JFrame("Go Car");
 
-        JLabel titleLabel = createLabel("Go Car Service", LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        frame.add(titleLabel);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(450, 300);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null); 
 
-        JLabel currentLocationLabel = createLabel("Current Location:", LEFT_MARGIN, 50, 150, 30);
-        frame.add(currentLocationLabel);
+        JPanel formPanel = new JPanel(new GridLayout(8, 1, 5,5));
+        formPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
 
-        JTextField currentLocationField = createTextField(LEFT_MARGIN + 150, 50, FRAME_WIDTH - 2 * LEFT_MARGIN - 180, 30);
-        frame.add(currentLocationField);
+        ArrayList<Region> regions = FetchDataRegion.getRegions();
+        String[] regionNames = new String[regions.size()];
+        for (int i = 0; i < regions.size(); i++) {
+            regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
+        }
 
-        JLabel destinationLabel = createLabel("Destination:", LEFT_MARGIN, 100, 150, 30);
-        frame.add(destinationLabel);
+        JLabel locationLabel = new JLabel("Current Location:");
+        JTextField locationTextField = new JTextField();
+        JComboBox<String> locationComboBox = new JComboBox<>(regionNames);
+        locationComboBox.setMaximumRowCount(10);
 
-        JTextField destinationField = createTextField(LEFT_MARGIN + 150, 100, FRAME_WIDTH - 2 * LEFT_MARGIN - 180, 30);
-        frame.add(destinationField);
+        JLabel destinationLabel = new JLabel("Destination:");
+        JTextField destinationTextField = new JTextField();
+        JComboBox<String> destinationComboBox = new JComboBox<>(regionNames);
+        destinationComboBox.setMaximumRowCount(10);
 
-        JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 150, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
-        orderButton.addActionListener( e -> {
+        // JLabel typeLabel = new JLabel("Type of Goods:");
+        // TipeBarang[] types = {TipeBarang.NORMAL, TipeBarang.FRAGILE, TipeBarang.RADIOACTIVE, TipeBarang.CORROSIVE, TipeBarang.FLAMMABLE, TipeBarang.HAZARD};
+        // JComboBox<TipeBarang> typeComboBox = new JComboBox<>(types);
 
-            if (CreateOrder.createGoOrder(TypeOfService.GOCAR, currentLocationField.getText(), destinationField.getText())) {
-                JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-                new CustomerPage();
-            }
+        formPanel.add(locationLabel);
+        formPanel.add(locationTextField);
+        formPanel.add(locationComboBox);
+        formPanel.add(destinationLabel);
+        formPanel.add(destinationTextField);
+        formPanel.add(destinationComboBox);
+        // formPanel.add(typeLabel);
+        // formPanel.add(typeComboBox);
 
-        });
-        frame.add(orderButton);
+        JPanel actionPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+        actionPanel.setBorder(new EmptyBorder(0, 60, 10, 60));
 
-        JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 200, FRAME_WIDTH - 2 * LEFT_MARGIN - 30, 30);
-        backButton.addActionListener(e -> {
-            frame.dispose();
-            new CustomerPage();
-        });
-        frame.add(backButton);
+        JButton orderButton = new JButton("Make Order");
+        JButton backButton = new JButton("Back to Main Menu");
 
+        actionPanel.add(orderButton);
+        actionPanel.add(backButton);
+
+        frame.getContentPane().add(formPanel, BorderLayout.CENTER);
+        frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
 
-    private JFrame createFrame() {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-
-        int start_x = screenWidth / 2 - (FRAME_WIDTH / 2);
-        int start_y = screenHeight / 2 - (FRAME_HEIGHT / 2);
-
-        JFrame frame = new JFrame("Go Car");
-        frame.setBounds(start_x, start_y, FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        return frame;
-    }
-
-    private JLabel createLabel(String text, int x, int y, int width, int height) {
-        JLabel label = new JLabel(text);
-        label.setBounds(x, y, width, height);
-        return label;
-    }
-
-    private JTextField createTextField(int x, int y, int width, int height) {
-        JTextField textField = new JTextField();
-        textField.setBounds(x, y, width, height);
-        return textField;
-    }
-
-    private JButton createButton(String text, int x, int y, int width, int height) {
-        JButton button = new JButton(text);
-        button.setBounds(x, y, width, height);
-        return button;
-    }
-
+    // public static void main(String[] args) {
+    //     new GoCarPage();
+    // }
 }

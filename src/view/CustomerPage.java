@@ -1,10 +1,17 @@
 package view;
 
-import model.Class.SingletonManagerCustomer;
-import model.Class.user.Customer;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import model.Class.SingletonManagerCustomer;
+import view.renewed.GoCarPage;
+import view.renewed.GoRidePage;
+import view.renewed.GoSendPage;
 
 public class CustomerPage {
 
