@@ -1,8 +1,7 @@
 package view;
 
 import controller.UpdateProfile;
-import model.Class.SingletonManagerCustomer;
-import model.Class.user.Customer;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 
 import javax.swing.*;
 import java.awt.*;

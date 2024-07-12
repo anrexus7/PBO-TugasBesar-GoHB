@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import model.Class.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 import view.original.GoCarPage;
 import view.original.GoRidePage;
 import view.original.GoSendPage;

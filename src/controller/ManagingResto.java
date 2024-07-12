@@ -105,13 +105,13 @@ public class ManagingResto {
         conn = new DatabaseHandler();
         conn.connect();
 
-        String queryUpdate = "UPDATE stores storelocation JOIN stores ON SET " +
-                "store_name =?, " +
-                "address=?, " +
-                "phone_number =?, " +
-                "rating=?, " +
-                "region_id=?, " +
-                "WHERE stores.store_id="+idResto;
+        String queryUpdate = "UPDATE storelocation JOIN stores ON storelocation.store_id = stores.store_id SET " +
+                "store_name = ?, " +
+                "address = ?, " +
+                "phone_number = ?, " +
+                "rating = ?, " +
+                "region_id = ? " +
+                "WHERE stores.store_id = "+idResto;
 
         try{
             PreparedStatement stmt = conn.con.prepareStatement(queryUpdate);

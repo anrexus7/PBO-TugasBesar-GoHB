@@ -1,4 +1,4 @@
-package model.Class;
+package model.Class.SingletonManagers;
 
 import model.Class.order.Order;
 import model.Class.user.Driver;
@@ -47,5 +47,12 @@ public class SingletonManagerDriver {
 
     public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
+    }
+
+    public void logout() {
+        user = null;
+        vehicle = null;
+        orders = null;
+        instance = null;
     }
 }

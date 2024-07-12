@@ -1,7 +1,7 @@
 package view;
 
 import controller.DriverOrderController;
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.order.Order;
 
 import javax.swing.*;

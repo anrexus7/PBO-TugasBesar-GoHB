@@ -1,10 +1,8 @@
 package controller;
 
-import model.Class.SingletonManagerDriver;
 import model.Class.db.DatabaseHandler;
 import model.Class.transaction.Promo;
 import model.Enum.TypeOfService;
-import org.jdatepicker.DateModel;
 
 import java.sql.*;
 import java.util.ArrayList;

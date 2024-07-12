@@ -99,7 +99,9 @@ public class AdminPage {
         logoutButton.addActionListener(e -> {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                System.exit(0); // Exit the application
+                JOptionPane.showMessageDialog(null, "Logging out...");
+                new LoginPage();
+                frame.dispose();
             }
         });
 

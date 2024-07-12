@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controller.MaintenanceService;
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.vehicle.Maintenance;
 
 public class DriverPage {
@@ -96,6 +96,7 @@ public class DriverPage {
         JButton logoutButton = createButton("Logout", LEFT_MARGIN, 300, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         logoutButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Logging out...");
+            SingletonManagerDriver.getInstance().logout();
             new LoginPage();
             frame.dispose();
         });

@@ -1,6 +1,6 @@
 package controller;
 
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.db.DatabaseHandler;
 import model.Class.vehicle.Bike;
 import model.Class.vehicle.Car;
@@ -9,9 +9,7 @@ import model.Enum.CarTypeOfCarService;
 import model.Enum.VehicleType;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class RegisterVehicle {
 

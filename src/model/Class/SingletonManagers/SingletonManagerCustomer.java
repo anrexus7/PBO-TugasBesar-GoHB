@@ -1,4 +1,4 @@
-package model.Class;
+package model.Class.SingletonManagers;
 
 import model.Class.order.Order;
 import model.Class.user.Customer;
@@ -34,5 +34,11 @@ public class SingletonManagerCustomer {
 
     public void setOrders(ArrayList<Order> orders) {
         this.orders = orders;
+    }
+
+    public void logout() {
+        user = null;
+        orders = null;
+        instance = null;
     }
 }

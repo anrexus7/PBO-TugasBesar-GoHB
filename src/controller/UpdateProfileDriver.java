@@ -1,6 +1,6 @@
 package controller;
 
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.db.DatabaseHandler;
 
 import java.sql.PreparedStatement;

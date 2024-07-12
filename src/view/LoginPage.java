@@ -2,8 +2,8 @@ package view;
 
 import controller.Login;
 import controller.ValidatingUserType;
-import model.Class.SingletonManagerCustomer;
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.user.Customer;
 import model.Class.user.Driver;
 import model.Class.user.User;

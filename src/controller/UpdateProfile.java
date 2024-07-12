@@ -1,5 +1,5 @@
 package controller;
-import model.Class.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.db.*;
 
 import java.sql.PreparedStatement;

@@ -1,6 +1,6 @@
 package controller;
 
-import model.Class.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.db.DatabaseHandler;
 import model.Class.transaction.GoPlus;
 
@@ -8,9 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 

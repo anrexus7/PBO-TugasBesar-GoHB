@@ -92,9 +92,9 @@ public class ManagingMaintenanceVehicle {
         conn = new DatabaseHandler();
         conn.connect();
 
-        String queryUpdate = "UPDATE vehiclemaintenance " +
+        String queryUpdate = "UPDATE vehiclemaintenance SET " +
                 "schedule_date = ?, " +
-                "status = ?, " +
+                "status = ? " +
                 "WHERE maintenance_id = "+idMainte;
 
         Date tempDate = (Date) date;

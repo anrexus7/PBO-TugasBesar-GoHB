@@ -1,6 +1,6 @@
 package controller;
 
-import model.Class.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.db.DatabaseHandler;
 import model.Enum.StatusOrder;
 import model.Enum.TypeOfService;

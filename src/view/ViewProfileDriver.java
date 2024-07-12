@@ -1,7 +1,7 @@
 package view;
 
 import controller.UpdateProfileDriver;
-import model.Class.SingletonManagerDriver;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 
 import javax.swing.*;
 import java.awt.*;
