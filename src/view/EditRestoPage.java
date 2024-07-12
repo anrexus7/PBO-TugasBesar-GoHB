@@ -1,12 +1,22 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import controller.FetchDataRegion;
 import controller.ManagingResto;
 import model.Class.restaurant.Restaurant;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 public class EditRestoPage extends JFrame {
     public EditRestoPage(Restaurant datum) {
@@ -14,7 +24,7 @@ public class EditRestoPage extends JFrame {
     }
 
     private void showEditResto(Restaurant datum) {
-        ArrayList<String> dataRegions = FetchDataRegion.getData();
+        ArrayList<String> dataRegions = FetchDataRegion.getVillages();
         String[] itemsRegion = new String[dataRegions.size()];
         dataRegions.toArray(itemsRegion);
 

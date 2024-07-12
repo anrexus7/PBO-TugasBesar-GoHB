@@ -1,14 +1,21 @@
 package view;
 
-import controller.FetchDataRegion;
-import controller.ManagingPromo;
-import controller.ManagingResto;
-import model.Class.DateLabelFormatter;
-import org.jdatepicker.impl.JDatePickerImpl;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import controller.FetchDataRegion;
+import controller.ManagingResto;
 
 public class RegisterRestoPage extends JFrame {
     public RegisterRestoPage() {
@@ -16,7 +23,7 @@ public class RegisterRestoPage extends JFrame {
     }
 
     private void showRegisterResto() {
-        ArrayList<String> dataRegions = FetchDataRegion.getData();
+        ArrayList<String> dataRegions = FetchDataRegion.getVillages();
         String[] itemsRegion = new String[dataRegions.size()];
         dataRegions.toArray(itemsRegion);
 

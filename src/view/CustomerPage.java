@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import model.Class.SingletonManagerCustomer;
-import view.renewed.GoCarPage;
-import view.renewed.GoRidePage;
-import view.renewed.GoSendPage;
+import view.original.GoCarPage;
+import view.original.GoRidePage;
+import view.original.GoSendPage;
 
 public class CustomerPage {
 
