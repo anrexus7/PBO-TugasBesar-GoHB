@@ -37,15 +37,17 @@ public class ManageUserLog {
 
         ArrayList<Object[]> data = new ArrayList<>();
 
-        String query = "SELECT * FROM userlog";
+        String query = "SELECT * FROM userlog JOIN users ON userlog.user_id = users.user_id";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
-                Object[] tempLog = new Object[3];
-                tempLog[0] = rs.getString("user_id");
-                tempLog[1] = rs.getString("activity_type");
-                tempLog[2] = rs.getTimestamp("timestamp");
+                Object[] tempLog = new Object[5];
+                tempLog[0] = rs.getInt("log_id");
+                tempLog[1] = rs.getString("user_id");
+                tempLog[2] = rs.getString("activity_type");
+                tempLog[3] = rs.getTimestamp("timestamp");
+                tempLog[4] = rs.getString("user_type");
 
                 data.add(tempLog);
             }

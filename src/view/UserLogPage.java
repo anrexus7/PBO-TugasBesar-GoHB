@@ -18,7 +18,7 @@ public class UserLogPage extends JFrame {
         ArrayList<Object[]> userLogs = ManageUserLog.getData();
 
         this.setTitle("User Log");
-        this.setSize(new Dimension(350, 400));
+        this.setSize(new Dimension(600, 400));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -35,6 +35,9 @@ public class UserLogPage extends JFrame {
 
         gbc.gridy++;
         gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
+        container.add(new JLabel("log_id"),gbc);
+
+        gbc.gridx++;
         container.add(new JLabel("user_id"),gbc);
 
         gbc.gridx++;
@@ -42,6 +45,9 @@ public class UserLogPage extends JFrame {
 
         gbc.gridx++;
         container.add(new JLabel("Time Stamp"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("User Type"),gbc);
 
         for(Object[] data : userLogs){
             gbc.gridy++;
@@ -53,6 +59,12 @@ public class UserLogPage extends JFrame {
 
             gbc.gridx++;
             container.add(new JLabel(String.valueOf(data[2])),gbc);
+
+            gbc.gridx++;
+            container.add(new JLabel(String.valueOf(data[3])),gbc);
+
+            gbc.gridx++;
+            container.add(new JLabel(String.valueOf(data[4])),gbc);
         }
 
         back.addActionListener(e -> {

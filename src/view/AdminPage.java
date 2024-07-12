@@ -113,7 +113,7 @@ public class AdminPage {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, "Logging out...");
-                ManageUserLog.logUserActivity(SingletonManagerAdmin.getInstance().getAdmin().getAdminID(), "LOGOUT");
+                ManageUserLog.logUserActivity(SingletonManagerAdmin.getInstance().getAdmin().getUserID(), "LOGOUT");
                 SingletonManagerAdmin.getInstance().logout();
                 new LoginPage();
                 frame.dispose();
