@@ -94,7 +94,10 @@ public class AdminPage {
         frame.add(generateReportsButton);
 
         JButton settingsButton = createButton("Settings", LEFT_MARGIN, FRAME_HEIGHT - BOTTOM_MARGIN - 50, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN / 2, 30);
-        settingsButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Settings functionality is not implemented yet."));
+        settingsButton.addActionListener(e -> {
+            frame.dispose();
+            new ViewProfileAdmin();
+        });
         frame.add(settingsButton);
 
         JButton logoutButton = createButton("Logout", FRAME_WIDTH / 2 + RIGHT_MARGIN / 2, FRAME_HEIGHT - BOTTOM_MARGIN - 50, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN / 2 - 10, 30);

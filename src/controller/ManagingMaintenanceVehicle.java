@@ -1,5 +1,6 @@
 package controller;
 
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.db.DatabaseHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +53,7 @@ public class ManagingMaintenanceVehicle {
         try{
             PreparedStatement stmt = conn.con.prepareStatement(queryInsertS);
             stmt.setInt(1, id);
-            stmt.setInt(2, 1);
+            stmt.setInt(2, SingletonManagerAdmin.getInstance().getAdmin().getAdminID());
             stmt.setDate(3, new java.sql.Date(mainte.getTime()));
             stmt.setString(4, "SCHEDULED");
             stmt.executeUpdate();

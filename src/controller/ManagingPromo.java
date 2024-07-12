@@ -1,5 +1,6 @@
 package controller;
 
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.db.DatabaseHandler;
 import model.Class.transaction.Promo;
 import model.Enum.TypeOfService;
@@ -40,17 +41,18 @@ public class ManagingPromo {
         conn = new DatabaseHandler();
         conn.connect();
 
-        String queryInsertV = "INSERT INTO promos(promo_code,discount,service_type,valid_from,valid_to) VALUES(?,?,?,?,?) ";
+        String queryInsertV = "INSERT INTO promos(admin_id, promo_code,discount,service_type,valid_from,valid_to) VALUES(?,?,?,?,?,?) ";
         java.util.Date from = (java.util.Date) validFrom;
         java.util.Date to = (java.util.Date) validTo;
 
         try{
             PreparedStatement stmt = conn.con.prepareStatement(queryInsertV);
-            stmt.setString(1, kode);
-            stmt.setFloat(2, Float.parseFloat(discount));
-            stmt.setString(3, serviceType.toString());
-            stmt.setDate(4, new java.sql.Date(from.getTime()) );
-            stmt.setDate(5, new java.sql.Date(to.getTime()) );
+            stmt.setInt(1, SingletonManagerAdmin.getInstance().getAdmin().getAdminID());
+            stmt.setString(2, kode);
+            stmt.setFloat(3, Float.parseFloat(discount));
+            stmt.setString(4, serviceType.toString());
+            stmt.setDate(5, new java.sql.Date(from.getTime()) );
+            stmt.setDate(6, new java.sql.Date(to.getTime()) );
             stmt.executeUpdate();
             conn.disconnect();
         }catch(SQLException e){
