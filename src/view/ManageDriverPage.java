@@ -13,8 +13,8 @@ public class ManageDriverPage extends JFrame {
     }
 
     private void showManageDriver() {
-        this.setTitle("Manage Customer");
-        this.setSize(new Dimension(650, 400)); //width, height
+        this.setTitle("Manage Driver");
+        this.setSize(new Dimension(900, 400)); //width, height
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -37,14 +37,13 @@ public class ManageDriverPage extends JFrame {
         gbc.gridwidth = 6;
         gbc.insets = new Insets(0, 10, 10, 10);// Top, left, bottom, right padding
         gbc.anchor = GridBagConstraints.CENTER;
-        JLabel header = new JLabel("Manage Customer");
+        JLabel header = new JLabel("Manage Driver");
         header.setFont(new Font("SansSerif", Font.BOLD, 24));
         container.add(header,gbc);
 
         gbc.gridwidth = 1;
         gbc.gridy++;
         gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
-        gbc.anchor = GridBagConstraints.WEST;
         container.add(new JLabel("driver_id"),gbc);
 
         gbc.gridx++;
@@ -58,6 +57,9 @@ public class ManageDriverPage extends JFrame {
 
         gbc.gridx++;
         container.add(new JLabel("Rating"),gbc);
+
+        gbc.gridx++;
+        container.add(new JLabel("This Month Earnings"),gbc);
 
         gbc.gridx++;
         container.add(new JLabel("Action"),gbc);
@@ -78,6 +80,10 @@ public class ManageDriverPage extends JFrame {
 
             gbc.gridx++;
             container.add(new JLabel(String.valueOf(datum.getRating())),gbc);
+
+            gbc.gridx++;
+            double earning= ManagingDriver.fetchEarningDriver(datum.getDriverId());
+            container.add(new JLabel(String.valueOf(earning)),gbc);
 
             gbc.gridx++;
             JButton addBL = new JButton("Add to BlackList");
