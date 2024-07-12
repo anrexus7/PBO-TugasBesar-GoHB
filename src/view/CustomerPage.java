@@ -76,8 +76,10 @@ public class CustomerPage {
         frame.add(notificationButton);
 
         JButton reportButton = createButton("Report", LEFT_MARGIN + 2 * FRAME_WIDTH / 3, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        reportButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Report functionality is not implemented yet."));
-        frame.add(reportButton);
+        reportButton.addActionListener(e -> {
+            frame.dispose();
+            new ReportPage();
+        });
 
         JButton viewProfileButton = createButton("View Profile", LEFT_MARGIN + FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         viewProfileButton.addActionListener(e -> {

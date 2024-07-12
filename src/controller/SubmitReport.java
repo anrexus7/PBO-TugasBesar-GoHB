@@ -1,12 +1,12 @@
 package controller;
 
-import model.Class.SingletonManagers.SingletonManagerDriver;
-import model.Class.db.DatabaseHandler;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SubmitDriverReport {
+import model.Class.SingletonManagers.SingletonManagerDriver;
+import model.Class.db.DatabaseHandler;
+
+public class SubmitReport {
 
     public static boolean insertReport(String text) {
 

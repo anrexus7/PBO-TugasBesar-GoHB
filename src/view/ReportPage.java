@@ -1,18 +1,24 @@
 package view;
 
-import controller.SubmitDriverReport;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
-public class ReportPageDriver {
+import controller.SubmitReport;
+
+public class ReportPage {
 
     private static final int FRAME_WIDTH = 400;
     private static final int FRAME_HEIGHT = 350;
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
-    public ReportPageDriver() {
+    public ReportPage() {
         showReportPage();
     }
 
@@ -28,7 +34,7 @@ public class ReportPageDriver {
 
         JButton submitButton = createButton("Submit", LEFT_MARGIN, 210, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         submitButton.addActionListener(e -> {
-            SubmitDriverReport.insertReport(reportArea.getText());
+            SubmitReport.insertReport(reportArea.getText());
             JOptionPane.showMessageDialog(null, "Report submitted!");
             frame.dispose();
             new DriverPage();
@@ -81,4 +87,7 @@ public class ReportPageDriver {
         return button;
     }
 
+    public static void main(String[] args) {
+        new ReportPage();
+    }
 }

@@ -45,7 +45,7 @@ public class DriverPage {
         JButton reportButton = createButton("Report", LEFT_MARGIN, 100, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         reportButton.addActionListener(e -> {
             frame.dispose();
-            new ReportPageDriver();
+            new ReportPage();
         });
         frame.add(reportButton);
 
