@@ -72,7 +72,7 @@ CREATE TABLE `orders` (
   `order_id` int(10) UNSIGNED NOT NULL,
   `customer_id` int(10) UNSIGNED NOT NULL,
   `driver_id` int(10) UNSIGNED NOT NULL,
-  `service_type` enum('GOBIKE','GOCAR','GOSEND','GOFOOD') NOT NULL,
+  `service_type` enum('GORIDE','GOCAR','GOSEND','GOFOOD') NOT NULL,
   `vehicle_type` enum('CAR','BIKE') NOT NULL,
   `current_location` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
   `region_id_current` int(11) NOT NULL,
