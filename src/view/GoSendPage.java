@@ -1,95 +1,81 @@
 package view;
 
-import controller.CreateOrder;
-import model.Class.user.Customer;
-import model.Enum.TipeBarang;
-import model.Enum.TypeOfService;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import controller.FetchDataRegion;
+import model.Class.location.Region;
+import model.Enum.TipeBarang;
 
 public class GoSendPage {
-
-    private static final int FRAME_WIDTH = 450;
-    private static final int FRAME_HEIGHT = 300;
-    private static final int LEFT_MARGIN = 10;
-    private static final int RIGHT_MARGIN = 20;
-
     public GoSendPage() {
-        showGoSendPage();
+        initGoSendPage();
     }
 
-    private void showGoSendPage() {
-        JFrame frame = createFrame();
-        frame.setLayout(null);
+    private void initGoSendPage() {
+        JFrame frame = new JFrame("Go Send");
 
-        JLabel titleLabel = createLabel("Go Send Service", LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        frame.add(titleLabel);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(450, 300);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null); 
 
-        JLabel locationLabel = createLabel("Current Location:", LEFT_MARGIN, 50, 120, 20);
-        frame.add(locationLabel);
+        JPanel formPanel = new JPanel(new GridLayout(8, 1, 5,5));
+        formPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+
+        ArrayList<Region> regions = FetchDataRegion.getRegions();
+        String[] regionNames = new String[regions.size()];
+        for (int i = 0; i < regions.size(); i++) {
+            regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
+        }
+
+        JLabel locationLabel = new JLabel("Current Location:");
         JTextField locationTextField = new JTextField();
-        locationTextField.setBounds(140, 50, 200, 20);
-        frame.add(locationTextField);
+        JComboBox<String> locationComboBox = new JComboBox<>(regionNames);
+        locationComboBox.setMaximumRowCount(10);
 
-        JLabel destinationLabel = createLabel("Destination:", LEFT_MARGIN, 80, 120, 20);
-        frame.add(destinationLabel);
+        JLabel destinationLabel = new JLabel("Destination:");
         JTextField destinationTextField = new JTextField();
-        destinationTextField.setBounds(140, 80, 200, 20);
-        frame.add(destinationTextField);
+        JComboBox<String> destinationComboBox = new JComboBox<>(regionNames);
+        destinationComboBox.setMaximumRowCount(10);
 
-        JLabel typeLabel = createLabel("Type of Goods:", LEFT_MARGIN, 110, 120, 20);
-        frame.add(typeLabel);
+        JLabel typeLabel = new JLabel("Type of Goods:");
         TipeBarang[] types = {TipeBarang.NORMAL, TipeBarang.FRAGILE, TipeBarang.RADIOACTIVE, TipeBarang.CORROSIVE, TipeBarang.FLAMMABLE, TipeBarang.HAZARD};
         JComboBox<TipeBarang> typeComboBox = new JComboBox<>(types);
-        typeComboBox.setBounds(140, 110, 200, 20);
-        frame.add(typeComboBox);
+
+        formPanel.add(locationLabel);
+        formPanel.add(locationTextField);
+        formPanel.add(locationComboBox);
+        formPanel.add(destinationLabel);
+        formPanel.add(destinationTextField);
+        formPanel.add(destinationComboBox);
+        formPanel.add(typeLabel);
+        formPanel.add(typeComboBox);
+
+        JPanel actionPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+        actionPanel.setBorder(new EmptyBorder(0, 60, 10, 60));
 
         JButton orderButton = new JButton("Make Order");
-        orderButton.setBounds(150, 150, 150, 30);
-        orderButton.addActionListener( e -> {
-
-            if (CreateOrder.createGoOrder(TypeOfService.GOSEND, locationTextField.getText(), destinationTextField.getText())) {
-                JOptionPane.showMessageDialog(null, "Order Successfully created", "Notification", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();
-                new CustomerPage();
-            }
-
-        });
-        frame.add(orderButton);
-
         JButton backButton = new JButton("Back to Main Menu");
-        backButton.setBounds(150, 190, 150, 30);
-        backButton.addActionListener(e -> {
-            frame.dispose();
-            new CustomerPage();
-        });
-        frame.add(backButton);
 
+        actionPanel.add(orderButton);
+        actionPanel.add(backButton);
+
+        frame.getContentPane().add(formPanel, BorderLayout.CENTER);
+        frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
-
     }
 
-    private JFrame createFrame() {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-
-        int start_x = screenWidth / 2 - (FRAME_WIDTH / 2);
-        int start_y = screenHeight / 2 - (FRAME_HEIGHT / 2);
-
-        JFrame frame = new JFrame("Go Send");
-        frame.setBounds(start_x, start_y, FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        return frame;
-    }
-
-    private JLabel createLabel(String text, int x, int y, int width, int height) {
-        JLabel label = new JLabel(text);
-        label.setBounds(x, y, width, height);
-        return label;
-    }
-
+    // public static void main(String[] args) {
+    //     new GoSendPage();
+    // }
 }
