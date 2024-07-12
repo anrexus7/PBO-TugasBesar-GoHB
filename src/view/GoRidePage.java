@@ -2,18 +2,26 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.CalculateCost;
+import controller.CalculateDistance;
+import controller.CreateOrder;
 import controller.FetchDataRegion;
 import model.Class.location.Region;
+import model.Enum.TypeOfService;
+import model.Enum.VehicleType;
 
 public class GoRidePage {
     public GoRidePage() {
@@ -67,7 +75,37 @@ public class GoRidePage {
         frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
 
-        
+        orderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String currLocAddress = currLocTextField.getText();
+                int currLocRegionID = currLocComboBox.getSelectedIndex() + 1;
+                Region currLocRegion = FetchDataRegion.getRegion(currLocRegionID);
+                String destinationAdress = destinationTextField.getText();
+                int destinationRegionID = destinationComboBox.getSelectedIndex() + 1;
+                Region destinationRegion = FetchDataRegion.getRegion(destinationRegionID);
+
+                double fareKm = VehicleType.BIKE.getFareKm();
+                double distance = CalculateDistance.calculateDistance(currLocRegion, destinationRegion);
+                double cost = CalculateCost.calculateGoRide(distance, fareKm);
+
+                boolean status = CreateOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+
+                if (status) {
+                    JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "ORDER GAGAL!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerPage();
+        });
     }
 
     // public static void main(String[] args) {
