@@ -8,7 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import controller.ManageUserLog;
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.SingletonManagers.SingletonManagerCustomer;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 import view.original.GoCarPage;
 import view.original.GoRidePage;
 import view.original.GoSendPage;
@@ -87,6 +90,16 @@ public class CustomerPage {
             new ViewProfileCustomer();
         });
         frame.add(viewProfileButton);
+
+        JButton logoutButton = createButton("Logout", LEFT_MARGIN + 2 * FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        logoutButton.addActionListener(e -> {
+            SingletonManagerCustomer.getInstance().logout();
+            ManageUserLog.logUserActivity(SingletonManagerCustomer.getInstance().getCustomer().getUserID(), "LOGOUT");
+            JOptionPane.showMessageDialog(null, "You have been logged out.");
+            frame.dispose();
+            new LoginPage();
+        });
+        frame.add(logoutButton);
 
         frame.setVisible(true);
 
