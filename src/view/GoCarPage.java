@@ -24,11 +24,11 @@ public class GoCarPage {
         JFrame frame = new JFrame("Go Car");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(450, 300);
+        frame.setSize(450, 250);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); 
 
-        JPanel formPanel = new JPanel(new GridLayout(8, 1, 5,5));
+        JPanel formPanel = new JPanel(new GridLayout(6, 1, 5,5));
         formPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
 
         ArrayList<Region> regions = FetchDataRegion.getRegions();
@@ -37,28 +37,22 @@ public class GoCarPage {
             regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
         }
 
-        JLabel locationLabel = new JLabel("Current Location:");
-        JTextField locationTextField = new JTextField();
-        JComboBox<String> locationComboBox = new JComboBox<>(regionNames);
-        locationComboBox.setMaximumRowCount(10);
+        JLabel currLocLabel = new JLabel("Current Location:");
+        JTextField currLocTextField = new JTextField();
+        JComboBox<String> currLocComboBox = new JComboBox<>(regionNames);
+        currLocComboBox.setMaximumRowCount(10);
 
         JLabel destinationLabel = new JLabel("Destination:");
         JTextField destinationTextField = new JTextField();
         JComboBox<String> destinationComboBox = new JComboBox<>(regionNames);
         destinationComboBox.setMaximumRowCount(10);
 
-        // JLabel typeLabel = new JLabel("Type of Goods:");
-        // TipeBarang[] types = {TipeBarang.NORMAL, TipeBarang.FRAGILE, TipeBarang.RADIOACTIVE, TipeBarang.CORROSIVE, TipeBarang.FLAMMABLE, TipeBarang.HAZARD};
-        // JComboBox<TipeBarang> typeComboBox = new JComboBox<>(types);
-
-        formPanel.add(locationLabel);
-        formPanel.add(locationTextField);
-        formPanel.add(locationComboBox);
+        formPanel.add(currLocLabel);
+        formPanel.add(currLocTextField);
+        formPanel.add(currLocComboBox);
         formPanel.add(destinationLabel);
         formPanel.add(destinationTextField);
         formPanel.add(destinationComboBox);
-        // formPanel.add(typeLabel);
-        // formPanel.add(typeComboBox);
 
         JPanel actionPanel = new JPanel(new GridLayout(1, 2, 5, 5));
         actionPanel.setBorder(new EmptyBorder(0, 60, 10, 60));
