@@ -25,11 +25,11 @@ public class GoSendPage {
         JFrame frame = new JFrame("Go Send");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(450, 300);
+        frame.setSize(450, 350);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); 
 
-        JPanel formPanel = new JPanel(new GridLayout(8, 1, 5,5));
+        JPanel formPanel = new JPanel(new GridLayout(10, 1, 5,5));
         formPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
 
         ArrayList<Region> regions = FetchDataRegion.getRegions();
@@ -38,10 +38,10 @@ public class GoSendPage {
             regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
         }
 
-        JLabel locationLabel = new JLabel("Current Location:");
-        JTextField locationTextField = new JTextField();
-        JComboBox<String> locationComboBox = new JComboBox<>(regionNames);
-        locationComboBox.setMaximumRowCount(10);
+        JLabel currLocLabel = new JLabel("Current Location:");
+        JTextField currLocTextField = new JTextField();
+        JComboBox<String> currLocComboBox = new JComboBox<>(regionNames);
+        currLocComboBox.setMaximumRowCount(10);
 
         JLabel destinationLabel = new JLabel("Destination:");
         JTextField destinationTextField = new JTextField();
@@ -52,14 +52,19 @@ public class GoSendPage {
         TipeBarang[] types = {TipeBarang.NORMAL, TipeBarang.FRAGILE, TipeBarang.RADIOACTIVE, TipeBarang.CORROSIVE, TipeBarang.FLAMMABLE, TipeBarang.HAZARD};
         JComboBox<TipeBarang> typeComboBox = new JComboBox<>(types);
 
-        formPanel.add(locationLabel);
-        formPanel.add(locationTextField);
-        formPanel.add(locationComboBox);
+        JLabel weightLabel = new JLabel("Weight of Goods (kg):");
+        JTextField weightTextField = new JTextField();
+
+        formPanel.add(currLocLabel);
+        formPanel.add(currLocTextField);
+        formPanel.add(currLocComboBox);
         formPanel.add(destinationLabel);
         formPanel.add(destinationTextField);
         formPanel.add(destinationComboBox);
         formPanel.add(typeLabel);
         formPanel.add(typeComboBox);
+        formPanel.add(weightLabel);
+        formPanel.add(weightTextField);
 
         JPanel actionPanel = new JPanel(new GridLayout(1, 2, 5, 5));
         actionPanel.setBorder(new EmptyBorder(0, 60, 10, 60));

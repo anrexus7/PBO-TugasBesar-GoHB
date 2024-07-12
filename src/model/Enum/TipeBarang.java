@@ -8,13 +8,13 @@ public enum TipeBarang {
     FLAMMABLE(50000), 
     HAZARD(100000);
 
-    private double delivFee;
+    private double fare5Kg;
 
-    TipeBarang(double delivFee) {
-        this.delivFee = delivFee;
+    TipeBarang(double fare5Kg) {
+        this.fare5Kg = fare5Kg;
     }
 
-    public double getDelivFee() {
-        return delivFee;
+    public double getFare5Kg() {
+        return fare5Kg;
     }
 }
