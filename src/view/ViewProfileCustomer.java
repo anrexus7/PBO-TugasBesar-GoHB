@@ -78,7 +78,8 @@ public class ViewProfileCustomer extends JFrame {
         });
 
         viewPromo.addActionListener(e ->{
-            JOptionPane.showMessageDialog(this, "Teu nyaho mau nampilin apa tar dipikirin");
+            this.dispose();
+            new TypePromoPage();
         });
 
         editProfile.addActionListener(e ->{
