@@ -68,7 +68,10 @@ public class CustomerPage {
         });
 
         JButton orderHistoryButton = createButton("Order History", LEFT_MARGIN, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
-        orderHistoryButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Order History functionality is not implemented yet."));
+        orderHistoryButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerOrderHistoryPage();
+        });
         frame.add(orderHistoryButton);
 
         JButton notificationButton = createButton("Inbox", LEFT_MARGIN + FRAME_WIDTH / 3, 200, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
