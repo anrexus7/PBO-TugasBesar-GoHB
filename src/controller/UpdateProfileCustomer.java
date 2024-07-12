@@ -5,7 +5,7 @@ import model.Class.db.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UpdateProfile {
+public class UpdateProfileCustomer {
     public static boolean validatingInput(String name, String phone, String email){
         if(name.isEmpty() || phone.isEmpty() || email.isEmpty()){
             return false;
@@ -22,7 +22,7 @@ public class UpdateProfile {
                 + "name = ?, "
                 + "phone_number = ?, "
                 + "email = ?"
-                + "WHERE user_id = '" + SingletonManagerCustomer.getInstance().getCustomer().getUserID() + "'";
+                + "WHERE user_id = " + SingletonManagerCustomer.getInstance().getCustomer().getUserID();
 
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);

@@ -47,10 +47,14 @@ public class ViewProfileDriver {
 
         JButton saveButton = createButton("Save", LEFT_MARGIN, 140, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         saveButton.addActionListener(e -> {
-            if (UpdateProfileDriver.update(nameField.getText(), emailField.getText(), phoneField.getText())) {
-                JOptionPane.showMessageDialog(null, "Profile updated!");
-                frame.dispose();
-                new DriverPage();
+            if(!UpdateProfileDriver.validatingInput(nameField.getText(), emailField.getText(), phoneField.getText())){
+                JOptionPane.showMessageDialog(frame, "Pastikan semua field terisi", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                if (UpdateProfileDriver.update(nameField.getText(), emailField.getText(), phoneField.getText())) {
+                    JOptionPane.showMessageDialog(null, "Profile updated!");
+                    frame.dispose();
+                    new DriverPage();
+                }
             }
         });
         frame.add(saveButton);
