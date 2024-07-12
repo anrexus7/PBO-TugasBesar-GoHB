@@ -119,7 +119,6 @@ public class ManageMaintenanceVehiclePage extends JFrame {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         this.add(scrollPane);
-        this.add(container);
         this.setVisible(true);
     }
 }

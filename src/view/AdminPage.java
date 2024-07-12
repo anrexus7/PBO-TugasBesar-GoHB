@@ -2,7 +2,6 @@ package view;
 
 import controller.ManageUserLog;
 import model.Class.SingletonManagers.SingletonManagerAdmin;
-import model.Class.SingletonManagers.SingletonManagerDriver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.awt.event.ActionListener;
 public class AdminPage {
 
     private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 550;
+    private static final int FRAME_HEIGHT = 600;
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
     private static final int TOP_MARGIN = 10;
@@ -88,7 +87,14 @@ public class AdminPage {
         });
         frame.add(manageMaitenanceVehicleButton);
 
-        JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 400, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        JButton viewLogUserButton = createButton("View User Log", LEFT_MARGIN, TOP_MARGIN + 400, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
+        viewLogUserButton.addActionListener(e -> {
+            frame.dispose();
+            new UserLogPage();
+        });
+        frame.add(viewLogUserButton);
+
+        JButton generateReportsButton = createButton("Generate Reports", LEFT_MARGIN, TOP_MARGIN + 450, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         generateReportsButton.addActionListener(e -> {
             frame.dispose();
             new GenerateReportPage();
