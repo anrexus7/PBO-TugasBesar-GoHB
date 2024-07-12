@@ -39,6 +39,8 @@ public class DriverCurrentOrderPage implements DriverOrderController.OrderView {
                 Order currentOrder = DriverOrderController.getCurrentOrder(SingletonManagerDriver.getInstance().getDriver().getDriverId());
                 if (currentOrder != null) {
                     controller.completeOrder(currentOrder.getOrderID());
+                    frame.dispose();
+                    new DriverPage();
                 }
             }catch (SQLException ex){
 
@@ -57,7 +59,6 @@ public class DriverCurrentOrderPage implements DriverOrderController.OrderView {
 
         frame.setVisible(true);
 
-        // Load the current order for the driver
         loadCurrentOrder();
     }
 

@@ -35,10 +35,11 @@ public class Login {
 
         try {
             Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT username, password FROM users");
+            ResultSet rs = st.executeQuery("SELECT username, password, user_id FROM users");
 
             while (rs.next()) {
                 if (username.equals(rs.getString("username")) && rs.getString("password").equals(encryptPass.trim())) {
+                    ManageUserLog.logUserActivity(rs.getInt("user_id"), "LOGIN");
                     return true;
                 }
             }

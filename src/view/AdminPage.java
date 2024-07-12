@@ -1,6 +1,8 @@
 package view;
 
+import controller.ManageUserLog;
 import model.Class.SingletonManagers.SingletonManagerAdmin;
+import model.Class.SingletonManagers.SingletonManagerDriver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -106,6 +108,7 @@ public class AdminPage {
             if (option == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, "Logging out...");
                 SingletonManagerAdmin.getInstance().logout();
+                ManageUserLog.logUserActivity(SingletonManagerAdmin.getInstance().getAdmin().getAdminID(), "LOGOUT");
                 new LoginPage();
                 frame.dispose();
             }
