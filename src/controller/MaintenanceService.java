@@ -14,22 +14,36 @@ public class MaintenanceService {
         DatabaseHandler conn = new DatabaseHandler();
         conn.connect();
 
-        String query = "SELECT * FROM vehiclemaintenance WHERE driver_id = ? ORDER BY schedule_date LIMIT 1";
+        String query = "SELECT * FROM vehicle WHERE driver_id = ?";
         PreparedStatement stmt = conn.con.prepareStatement(query);
         stmt.setInt(1, driverId);
 
         ResultSet rs = stmt.executeQuery();
+
         Maintenance maintenance = null;
         if (rs.next()) {
-            maintenance = new Maintenance(
-                    rs.getInt("maintenance_id"),
-                    rs.getInt("driver_id"),
-                    rs.getInt("admin_id"),
-                    rs.getDate("schedule_date"),
-                    rs.getString("status"),
-                    rs.getTimestamp("created_at"),
-                    rs.getTimestamp("updated_at")
-            );
+
+            int vehicle_id = rs.getInt("vehicle_id");
+
+            String query2 = "SELECT * FROM vehiclemaintenance WHERE vehicle_id = ? ORDER BY schedule_date LIMIT 1";
+            PreparedStatement stmt2 = conn.con.prepareStatement(query2);
+            stmt2.setInt(1, vehicle_id);
+            ResultSet rs2 = stmt2.executeQuery();
+
+            if (rs2.next()) {
+
+                maintenance = new Maintenance(
+                        rs2.getInt("maintenance_id"),
+                        driverId,
+                        rs2.getInt("admin_id"),
+                        rs2.getDate("schedule_date"),
+                        rs2.getString("status"),
+                        rs2.getTimestamp("created_at"),
+                        rs2.getTimestamp("updated_at")
+                );
+
+            }
+
         }
 
         conn.disconnect();

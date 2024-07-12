@@ -52,10 +52,16 @@ public class DriverPage {
         viewOrderButton.addActionListener(e -> {
             try {
                 Maintenance maintenance = MaintenanceService.fetchNextMaintenance(SingletonManagerDriver.getInstance().getDriver().getDriverId());
-                String message = MaintenanceService.getMaintenanceStatusMessage(maintenance);
-                if ("ONGOING".equalsIgnoreCase(maintenance.getStatus())) {
-                    JOptionPane.showMessageDialog(null, message, "Maintenance Information", JOptionPane.INFORMATION_MESSAGE);
-                } else {
+                if (maintenance != null) {
+                    String message = MaintenanceService.getMaintenanceStatusMessage(maintenance);
+                    if ("ONGOING".equalsIgnoreCase(maintenance.getStatus())) {
+                        JOptionPane.showMessageDialog(null, message, "Maintenance Information", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        frame.dispose();
+                        new DriverOrderPage();
+                    }
+                }
+                else {
                     frame.dispose();
                     new DriverOrderPage();
                 }
