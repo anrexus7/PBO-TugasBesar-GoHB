@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 12, 2024 at 02:25 PM
+-- Generation Time: Jul 12, 2024 at 07:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -82,21 +82,6 @@ CREATE TABLE `orders` (
   `order_status` enum('PENDING','ASSIGNED','PICKING','DROPPING','COMPLETED') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `package`
---
-
-CREATE TABLE `package` (
-  `package_id` int(10) UNSIGNED NOT NULL,
-  `owner_id` int(10) UNSIGNED NOT NULL,
-  `package_name` varchar(255) NOT NULL,
-  `description` longtext NOT NULL,
-  `weight` float NOT NULL,
-  `item_type` enum('NORMAL','FRAGILE','RADIOACTIVE','CORROSIVE','FLAMMABLE','HAZARD') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -557,13 +542,6 @@ ALTER TABLE `orders`
   ADD KEY `region_id_destination` (`region_id_destination`);
 
 --
--- Indexes for table `package`
---
-ALTER TABLE `package`
-  ADD PRIMARY KEY (`package_id`),
-  ADD KEY `owner_id` (`owner_id`);
-
---
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -677,12 +655,6 @@ ALTER TABLE `orders`
   MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `package`
---
-ALTER TABLE `package`
-  MODIFY `package_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -784,12 +756,6 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`driver_id`),
   ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`region_id_current`) REFERENCES `regions` (`region_id`),
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`region_id_destination`) REFERENCES `regions` (`region_id`);
-
---
--- Constraints for table `package`
---
-ALTER TABLE `package`
-  ADD CONSTRAINT `package_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `products`
