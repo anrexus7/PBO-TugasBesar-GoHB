@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import model.Class.location.Location;
-import model.Class.restaurant.Item;
 import model.Class.restaurant.Restaurant;
 import model.Class.transaction.Promo;
 import model.Enum.StatusOrder;
@@ -13,14 +12,16 @@ import model.Enum.VehicleType;
 
 public class GoFood extends Order{
     private Location locationDelivery;
-    private List<Item> cart;
-    private List<Restaurant> listResto;
-
-    public GoFood(StatusOrder orderStatus, Date transactionDate, double amount, TypeOfService serviceType, VehicleType vehicleType, Promo promo, int driverID, int customerID, int orderID, Location locationDelivery, List<Item> cart, List<Restaurant> listResto) {
+    private List<OrderItem> cart;
+    private Restaurant restaurant;
+    
+    public GoFood(StatusOrder orderStatus, Date transactionDate, double amount, TypeOfService serviceType,
+            VehicleType vehicleType, Promo promo, int driverID, int customerID, int orderID, Location locationDelivery,
+            List<OrderItem> cart, Restaurant restaurant) {
         super(orderStatus, transactionDate, amount, serviceType, vehicleType, promo, driverID, customerID, orderID);
         this.locationDelivery = locationDelivery;
         this.cart = cart;
-        this.listResto = listResto;
+        this.restaurant = restaurant;
     }
 
     public Location getLocationDelivery() {
@@ -31,19 +32,19 @@ public class GoFood extends Order{
         this.locationDelivery = locationDelivery;
     }
 
-    public List<Item> getCart() {
+    public List<OrderItem> getCart() {
         return cart;
     }
 
-    public void setCart(List<Item> cart) {
+    public void setCart(List<OrderItem> cart) {
         this.cart = cart;
     }
 
-    public List<Restaurant> getListResto() {
-        return listResto;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setListResto(List<Restaurant> listResto) {
-        this.listResto = listResto;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }
