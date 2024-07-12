@@ -27,31 +27,30 @@ public class DriverOrderService {
 
         Order currentOrder = null;
         if (rs.next()) {
+            int regionIdCurrent = rs.getInt("region_id_current");
+            int regionIdDestination = rs.getInt("region_id_destination");
 
-            String locationQuery = "SELECT * FROM regions WHERE region_id = ?";
-            PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
-            stmtLocation.setInt(1, rs.getInt("region_id"));
-            ResultSet rsLocation = stmtLocation.executeQuery();
+            // Fetch current location details
+            Location currentLocation = fetchRegionLocation(conn, regionIdCurrent, rs.getString("current_location"));
 
-            if (rsLocation.next()) {
+            // Fetch destination location details
+            Location destinationLocation = fetchRegionLocation(conn, regionIdDestination, rs.getString("destination"));
 
+            if (currentLocation != null && destinationLocation != null) {
                 currentOrder = new GoRide(
                         StatusOrder.valueOf(rs.getString("order_status")),
                         new Date(rs.getTimestamp("created_at").getTime()),
                         rs.getDouble("cost"),
                         TypeOfService.valueOf(rs.getString("service_type")),
                         VehicleType.valueOf(rs.getString("vehicle_type")),
-                        null,
+                        null,  // Assuming you need to update this with actual user or driver details
                         rs.getInt("driver_id"),
                         rs.getInt("customer_id"),
                         rs.getInt("order_id"),
-
-                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
-                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
+                        currentLocation,
+                        destinationLocation
                 );
-
             }
-
         }
 
         conn.disconnect();
@@ -86,14 +85,16 @@ public class DriverOrderService {
         ResultSet rs = stmt.executeQuery(query);
 
         List<Order> orders = new ArrayList<>();
+
         while (rs.next()) {
 
-            String locationQuery = "SELECT * FROM regions WHERE region_id = ?";
-            PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
-            stmtLocation.setInt(1, rs.getInt("region_id"));
-            ResultSet rsLocation = stmtLocation.executeQuery();
+            int regionIdCurrent = rs.getInt("region_id_current");
+            int regionIdDestination = rs.getInt("region_id_destination");
 
-            if (rsLocation.next()) {
+            Location currentLocation = fetchRegionLocation(conn, regionIdCurrent, rs.getString("current_location"));
+            Location destinationLocation = fetchRegionLocation(conn, regionIdDestination, rs.getString("destination"));
+
+            if (currentLocation != null && destinationLocation != null) {
 
                 Order order = new GoRide(
                         StatusOrder.valueOf(rs.getString("order_status")),
@@ -105,20 +106,37 @@ public class DriverOrderService {
                         rs.getInt("driver_id"),
                         rs.getInt("customer_id"),
                         rs.getInt("order_id"),
-
-                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("current_location")),
-                        new Location(rsLocation.getInt("region_id"), rsLocation.getString("village"), rsLocation.getString("district"), rsLocation.getDouble("latitude"), rsLocation.getDouble("longitude"), rs.getString("destination"))
+                        currentLocation,
+                        destinationLocation
                 );
 
                 orders.add(order);
-
             }
-
         }
 
         conn.disconnect();
         return orders;
     }
+
+    private static Location fetchRegionLocation(DatabaseHandler conn, int regionId, String specificLocation) throws SQLException {
+        String locationQuery = "SELECT * FROM regions WHERE region_id = ?";
+        PreparedStatement stmtLocation = conn.con.prepareStatement(locationQuery);
+        stmtLocation.setInt(1, regionId);
+        ResultSet rsLocation = stmtLocation.executeQuery();
+
+        if (rsLocation.next()) {
+            return new Location(
+                    rsLocation.getInt("region_id"),
+                    rsLocation.getString("village"),
+                    rsLocation.getString("district"),
+                    rsLocation.getDouble("latitude"),
+                    rsLocation.getDouble("longitude"),
+                    specificLocation
+            );
+        }
+        return null;
+    }
+
 
     public static void confirmOrder(int orderId) throws SQLException {
         DatabaseHandler conn = new DatabaseHandler();
