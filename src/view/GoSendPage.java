@@ -2,19 +2,28 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controller.CalculateCost;
+import controller.CalculateDistance;
+import controller.CreateOrder;
 import controller.FetchDataRegion;
+import controller.ServiceAndPackage;
 import model.Class.location.Region;
 import model.Enum.TipeBarang;
+import model.Enum.TypeOfService;
+import model.Enum.VehicleType;
 
 public class GoSendPage {
     public GoSendPage() {
@@ -78,6 +87,42 @@ public class GoSendPage {
         frame.getContentPane().add(formPanel, BorderLayout.CENTER);
         frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+
+        orderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String currLocAddress = currLocTextField.getText();
+                int currLocRegionID = currLocComboBox.getSelectedIndex() + 1;
+                Region currLocRegion = FetchDataRegion.getRegion(currLocRegionID);
+                
+                String destinationAdress = destinationTextField.getText();
+                int destinationRegionID = destinationComboBox.getSelectedIndex() + 1;
+                Region destinationRegion = FetchDataRegion.getRegion(destinationRegionID);
+
+                double distance = CalculateDistance.calculateDistance(currLocRegion, destinationRegion);
+                TipeBarang barang = ServiceAndPackage.getTipeBarang(String.valueOf(typeComboBox.getSelectedItem()));
+                double fareKm = VehicleType.BIKE.getFareKm();
+                double fare5Kg = barang.getFare5Kg();
+                float weight = Float.valueOf(weightTextField.getText());
+                double cost = CalculateCost.calculateGoSend(distance, fareKm, fare5Kg, weight);
+
+                boolean status = CreateOrder.createOrder(TypeOfService.GOCAR, VehicleType.CAR, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+
+                if (status) {
+                    JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "ORDER GAGAL!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerPage();
+        });
     }
 
     // public static void main(String[] args) {
