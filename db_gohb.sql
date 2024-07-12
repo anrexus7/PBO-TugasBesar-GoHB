@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 06:55 PM
+-- Generation Time: Jul 12, 2024 at 02:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,8 @@ CREATE TABLE `orders` (
   `driver_id` int(10) UNSIGNED NOT NULL,
   `service_type` enum('GOBIKE','GOCAR','GOSEND','GOFOOD') NOT NULL,
   `vehicle_type` enum('CAR','BIKE') NOT NULL,
-  `region_id` int(11) NOT NULL,
+  `region_id_current` int(11) NOT NULL,
+  `region_id_destination` int(11) NOT NULL,
   `destination` varchar(255) NOT NULL,
   `current_location` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
   `cost` double NOT NULL,
@@ -115,6 +116,13 @@ CREATE TABLE `products` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `store_id`, `product_name`, `product_type`, `description`, `price`, `stock`, `created_at`, `updated_at`) VALUES
+(1, 1, 'BOBA LYCHEE', 'BEVERAGE', NULL, 15000, 101, '2024-07-11 15:43:01', '2024-07-11 18:35:54');
 
 -- --------------------------------------------------------
 
@@ -355,6 +363,13 @@ CREATE TABLE `storelocation` (
   `city` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `storelocation`
+--
+
+INSERT INTO `storelocation` (`store_id`, `region_id`, `city`) VALUES
+(1, 7, 'Bandung');
+
 -- --------------------------------------------------------
 
 --
@@ -363,13 +378,20 @@ CREATE TABLE `storelocation` (
 
 CREATE TABLE `stores` (
   `store_id` int(10) UNSIGNED NOT NULL,
-  `owner_id` int(10) UNSIGNED NOT NULL,
   `store_name` varchar(255) NOT NULL,
   `address` text NOT NULL,
   `phone_number` varchar(255) NOT NULL,
+  `rating` float DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stores`
+--
+
+INSERT INTO `stores` (`store_id`, `store_name`, `address`, `phone_number`, `rating`, `created_at`, `updated_at`) VALUES
+(1, 'Boba Lechy Dragon Store', 'Jalan Boba No.1', '9087654123', 0, '2024-07-11 13:48:07', '2024-07-11 13:48:07');
 
 -- --------------------------------------------------------
 
@@ -382,6 +404,7 @@ CREATE TABLE `subscription` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `subs_type` enum('WEEKLY','MONTHLY','ANNUALY') NOT NULL,
   `price` double NOT NULL,
+  `discount` double NOT NULL,
   `valid_from` date NOT NULL,
   `valid_to` date NOT NULL,
   `status` tinyint(1) NOT NULL
@@ -391,8 +414,8 @@ CREATE TABLE `subscription` (
 -- Dumping data for table `subscription`
 --
 
-INSERT INTO `subscription` (`subs_id`, `user_id`, `subs_type`, `price`, `valid_from`, `valid_to`, `status`) VALUES
-(1, 3, 'WEEKLY', 10000, '2024-07-10', '2024-07-17', 1);
+INSERT INTO `subscription` (`subs_id`, `user_id`, `subs_type`, `price`, `discount`, `valid_from`, `valid_to`, `status`) VALUES
+(1, 3, 'WEEKLY', 10000, 5000, '2024-07-10', '2024-07-17', 1);
 
 -- --------------------------------------------------------
 
@@ -445,6 +468,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone_number` varchar(255) NOT NULL,
+  `black_list` tinyint(1) NOT NULL DEFAULT 0,
   `user_type` enum('CUSTOMER','DRIVER','ADMIN') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -454,12 +478,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `email`, `phone_number`, `user_type`, `created_at`, `updated_at`) VALUES
-(3, 'john_doe', 'jhony does', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', 'john@example.com', '1234567890', 'CUSTOMER', '2024-07-10 03:01:56', '2024-07-10 03:01:56'),
-(4, 'asep123', 'tatang kasep', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'asep@gmail.com', '9876543201', 'DRIVER', '2024-07-10 11:26:33', '2024-07-10 11:26:33'),
-(5, 'admin1', 'dimas', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'dimas@ithb.ac.id', '9078564321', 'ADMIN', '2024-07-10 12:13:46', '2024-07-10 12:14:05'),
-(6, 'kasel123', 'michael', '5fc2a69c692964582a0f0bff4d5574a665666b1404254bb7a366a90c55330d87', 'chael@email.com', '9021784365', 'CUSTOMER', '2024-07-10 12:55:15', '2024-07-10 12:55:15'),
-(7, 'asdwa', 'wawas', '2f6d9c6cd4b23e88b73bc2d3b0ed190a1f5f6dc8518c86cb55c6bc7e9e9ff0b3', 'asdwa@gmail.com', '9012345678', 'DRIVER', '2024-07-10 16:26:08', '2024-07-10 16:26:08');
+INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `email`, `phone_number`, `black_list`, `user_type`, `created_at`, `updated_at`) VALUES
+(3, 'john_doe', 'jhony does', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', 'john@example.com', '1234567890', 0, 'CUSTOMER', '2024-07-10 03:01:56', '2024-07-11 16:33:11'),
+(4, 'asep123', 'tatang kasep', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'asep@gmail.com', '9876543201', 0, 'DRIVER', '2024-07-10 11:26:33', '2024-07-10 11:26:33'),
+(5, 'admin1', 'dimas', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'dimas@ithb.ac.id', '9078564321', 0, 'ADMIN', '2024-07-10 12:13:46', '2024-07-10 12:14:05'),
+(6, 'kasel123', 'michael', '5fc2a69c692964582a0f0bff4d5574a665666b1404254bb7a366a90c55330d87', 'chael@email.com', '9021784365', 0, 'CUSTOMER', '2024-07-10 12:55:15', '2024-07-11 16:30:45'),
+(7, 'asdwa', 'wawas', '2f6d9c6cd4b23e88b73bc2d3b0ed190a1f5f6dc8518c86cb55c6bc7e9e9ff0b3', 'asdwa@gmail.com', '9012345678', 0, 'DRIVER', '2024-07-10 16:26:08', '2024-07-10 16:26:08');
 
 -- --------------------------------------------------------
 
@@ -489,13 +513,20 @@ INSERT INTO `vehicle` (`vehicle_id`, `driver_id`, `vehicle_type`, `vehicle_plat`
 
 CREATE TABLE `vehiclemaintenance` (
   `maintenance_id` int(10) UNSIGNED NOT NULL,
-  `driver_id` int(10) UNSIGNED NOT NULL,
+  `vehicle_id` int(10) UNSIGNED NOT NULL,
   `admin_id` int(10) UNSIGNED NOT NULL,
   `schedule_date` date NOT NULL,
   `status` enum('SCHEDULED','COMPLETED','CANCELED','ONGOING') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vehiclemaintenance`
+--
+
+INSERT INTO `vehiclemaintenance` (`maintenance_id`, `vehicle_id`, `admin_id`, `schedule_date`, `status`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, '2024-07-26', 'SCHEDULED', '2024-07-11 18:23:38', '2024-07-11 18:23:38');
 
 --
 -- Indexes for dumped tables
@@ -522,7 +553,8 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `customer_id` (`customer_id`),
   ADD KEY `driver_id` (`driver_id`),
-  ADD KEY `region_id` (`region_id`);
+  ADD KEY `region_id` (`region_id_current`),
+  ADD KEY `region_id_destination` (`region_id_destination`);
 
 --
 -- Indexes for table `package`
@@ -578,8 +610,7 @@ ALTER TABLE `storelocation`
 -- Indexes for table `stores`
 --
 ALTER TABLE `stores`
-  ADD PRIMARY KEY (`store_id`),
-  ADD KEY `owner_id` (`owner_id`);
+  ADD PRIMARY KEY (`store_id`);
 
 --
 -- Indexes for table `subscription`
@@ -620,8 +651,8 @@ ALTER TABLE `vehicle`
 --
 ALTER TABLE `vehiclemaintenance`
   ADD PRIMARY KEY (`maintenance_id`),
-  ADD KEY `driver_id` (`driver_id`),
-  ADD KEY `admin_id` (`admin_id`);
+  ADD KEY `admin_id` (`admin_id`),
+  ADD KEY `vehiclemaintenance_ibfk_1` (`vehicle_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -655,7 +686,7 @@ ALTER TABLE `package`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `promos`
@@ -685,13 +716,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `storelocation`
 --
 ALTER TABLE `storelocation`
-  MODIFY `store_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `store_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `store_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `store_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subscription`
@@ -727,7 +758,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT for table `vehiclemaintenance`
 --
 ALTER TABLE `vehiclemaintenance`
-  MODIFY `maintenance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `maintenance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -751,7 +782,8 @@ ALTER TABLE `drivers`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`driver_id`),
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`region_id`) REFERENCES `regions` (`region_id`);
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`region_id_current`) REFERENCES `regions` (`region_id`),
+  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`region_id_destination`) REFERENCES `regions` (`region_id`);
 
 --
 -- Constraints for table `package`
@@ -793,12 +825,6 @@ ALTER TABLE `storelocation`
   ADD CONSTRAINT `storelocation_ibfk_2` FOREIGN KEY (`region_id`) REFERENCES `regions` (`region_id`);
 
 --
--- Constraints for table `stores`
---
-ALTER TABLE `stores`
-  ADD CONSTRAINT `stores_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`);
-
---
 -- Constraints for table `subscription`
 --
 ALTER TABLE `subscription`
@@ -826,7 +852,7 @@ ALTER TABLE `vehicle`
 -- Constraints for table `vehiclemaintenance`
 --
 ALTER TABLE `vehiclemaintenance`
-  ADD CONSTRAINT `vehiclemaintenance_ibfk_1` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`driver_id`),
+  ADD CONSTRAINT `vehiclemaintenance_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`vehicle_id`),
   ADD CONSTRAINT `vehiclemaintenance_ibfk_2` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`admin_id`);
 COMMIT;
 
