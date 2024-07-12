@@ -1,5 +1,7 @@
 package controller;
 
+import model.Class.order.OrderItem;
+
 public class CalculateCost {
     public static double calculateGoRide(double distance, double fareKm) {
         return fareKm * distance;
@@ -13,8 +15,13 @@ public class CalculateCost {
         return (fareKm * distance) + (fare5Kg * ((int) weight / 5));
     }
 
-    public static double calculateGoFood(double distance, double fareKm, double[] listHargaItem) {
+    public static double calculateGoFood(double distance, double fareKm, OrderItem[] cart) {
         double totalHarga = 0;
-        return totalHarga;
+
+        for (OrderItem c : cart) {
+            totalHarga += (c.getJumlah() * c.getItem().getHarga());
+        }
+
+        return (fareKm * distance) + totalHarga;
     }
 }
