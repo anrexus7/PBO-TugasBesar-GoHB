@@ -82,12 +82,18 @@ public class RegisterVehiclePage extends JFrame {
 
                 labelSeat.setVisible(true);
                 numberSeat.setVisible(true);
+
+                this.revalidate();
+                this.repaint();
             }else{
                 labelEngine.setVisible(true);
                 engineCapacity.setVisible(true);
 
                 labelSeat.setVisible(false);
                 numberSeat.setVisible(false);
+
+                this.revalidate();
+                this.repaint();
             }
         });
 
@@ -98,21 +104,15 @@ public class RegisterVehiclePage extends JFrame {
         container.add(registerButton, gbc);
 
         registerButton.addActionListener(e->{
-            if(vehicleType.getSelectedIndex()==0){
-                try{
+            try {
+                if (vehicleType.getSelectedIndex() == 0) {
                     Integer.parseInt(engineCapacity.getText());
-                    registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
-                }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Integer.parseInt(numberSeat.getText());
                 }
-            }
-            else{
-                try{
-                    Integer.parseInt(labelSeat.getText());
-                    registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
-                }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                registering(plateNumber.getText(), vehicleType.getSelectedItem(), engineCapacity.getText(), numberSeat.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "ISI PAKE ANGKA GEBLEG :v", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

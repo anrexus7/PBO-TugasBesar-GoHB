@@ -1,12 +1,13 @@
 package controller;
 
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.db.DatabaseHandler;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UpdateProfileDriver {
+public class UpdateProfileAdmin {
 
     public static boolean validatingInput(String name, String phone, String email){
         if(name.isEmpty() || phone.isEmpty() || email.isEmpty()){
@@ -39,9 +40,9 @@ public class UpdateProfileDriver {
                 return (false);
             }
 
-            SingletonManagerDriver.getInstance().getDriver().setName(name);
-            SingletonManagerDriver.getInstance().getDriver().setPhoneNumber(phone);
-            SingletonManagerDriver.getInstance().getDriver().setEmail(email);
+            SingletonManagerAdmin.getInstance().getAdmin().setName(name);
+            SingletonManagerAdmin.getInstance().getAdmin().setPhoneNumber(phone);
+            SingletonManagerAdmin.getInstance().getAdmin().setEmail(email);
 
             return (true);
         }catch(SQLException e) {
@@ -49,5 +50,4 @@ public class UpdateProfileDriver {
             return (false);
         }
     }
-
 }

@@ -1,16 +1,17 @@
 package view;
 
-import controller.UpdateProfileCustomer;
-import model.Class.SingletonManagers.SingletonManagerCustomer;
+import controller.UpdateProfileAdmin;
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EditProfilePage extends JFrame {
-    public EditProfilePage() {
-        showEditPage();
+public class ViewProfileAdmin extends JFrame{
+    public ViewProfileAdmin() {
+        showProfileAdmin();
     }
-    private void showEditPage() {
+
+    private void showProfileAdmin() {
         this.setTitle("Edit Profile");
         this.setSize(new Dimension(400, 250)); //width, height
         this.setLocationRelativeTo(null);
@@ -46,7 +47,7 @@ public class EditProfilePage extends JFrame {
         gbc.gridx++;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 10, 10);
-        JTextField name =  new JTextField(SingletonManagerCustomer.getInstance().getCustomer().getName(), 15);
+        JTextField name =  new JTextField(SingletonManagerAdmin.getInstance().getAdmin().getName(), 15);
         container.add(name, gbc);
 
         gbc.gridy++;
@@ -58,7 +59,7 @@ public class EditProfilePage extends JFrame {
         gbc.gridx++;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 10, 10);
-        JTextField telp =  new JTextField(SingletonManagerCustomer.getInstance().getCustomer().getPhoneNumber(), 15);
+        JTextField telp =  new JTextField(SingletonManagerAdmin.getInstance().getAdmin().getPhoneNumber(), 15);
         container.add(telp, gbc);
 
         gbc.gridy++;
@@ -70,22 +71,22 @@ public class EditProfilePage extends JFrame {
         gbc.gridx++;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 10, 10);
-        JTextField email =  new JTextField(SingletonManagerCustomer.getInstance().getCustomer().getEmail(), 15);
+        JTextField email =  new JTextField(SingletonManagerAdmin.getInstance().getAdmin().getEmail(), 15);
         container.add(email,gbc);
 
         this.add(container);
         this.setVisible(true);
 
         back.addActionListener(e ->{
-            new CustomerPage();
+            new AdminPage();
             this.dispose();
         });
 
         update.addActionListener(e -> {
-            if(!UpdateProfileCustomer.validatingInput(name.getText(), telp.getText(), email.getText())){
+            if(!UpdateProfileAdmin.validatingInput(name.getText(), telp.getText(), email.getText())){
                 JOptionPane.showMessageDialog(null, "Pastikan semua data terisi", "Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                if(!UpdateProfileCustomer.update(name.getText(), telp.getText(), email.getText())){
+                if(!UpdateProfileAdmin.update(name.getText(), telp.getText(), email.getText())){
                     JOptionPane.showMessageDialog(null, "Update tidak berhasil", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "Update berhasil");
