@@ -66,6 +66,8 @@ public class GoRidePage {
         frame.getContentPane().add(formPanel, BorderLayout.CENTER);
         frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+
+        
     }
 
     // public static void main(String[] args) {

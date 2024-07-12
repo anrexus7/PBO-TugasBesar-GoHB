@@ -1,9 +1,9 @@
 package controller;
 
-import model.Class.location.Location;
+import model.Class.location.Region;
 
 public class CalculateDistance {
-    public static double calculateDistance(Location initialLocation, Location finaLocation) {
+    public static double calculateDistance(Region initialLocation, Region finaLocation) {
         double initialRadiansLatitude = Math.toRadians(initialLocation.getLatitude());
         double finalRadiansLatitude = Math.toRadians(finaLocation.getLatitude());
         double deltaRadiansLatitude = Math.abs(finalRadiansLatitude - initialRadiansLatitude);
