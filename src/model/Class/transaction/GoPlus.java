@@ -7,14 +7,16 @@ public class GoPlus {
     private String paket;
     private Date validFrom, validTo;
     private double harga;
+    private double potongan;
     private boolean status;
 
-    public GoPlus(int subsID, String paket, Date validFrom, Date validTo, double harga, boolean status) {
+    public GoPlus(int subsID, String paket, Date validFrom, Date validTo, double harga,double potongan, boolean status) {
         this.subsID = subsID;
         this.paket = paket;
         this.validFrom = validFrom;
         this.validTo = validTo;
         this.harga = harga;
+        this.potongan = potongan;
         this.status = status;
     }
 
@@ -56,6 +58,14 @@ public class GoPlus {
 
     public void setHarga(double harga) {
         this.harga = harga;
+    }
+
+    public double getPotongan() {
+        return potongan;
+    }
+
+    public void setPotongan(double potongan) {
+        this.potongan = potongan;
     }
 
     public boolean isStatus() {

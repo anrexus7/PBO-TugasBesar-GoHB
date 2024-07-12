@@ -39,7 +39,7 @@ public class ManagingCustomer {
                     }
                     subs = new GoPlus(rs2.getInt("subs_id"),rs2.getString("subs_type"),
                             rs2.getDate("valid_from"), rs2.getDate("valid_to"),
-                            rs2.getDouble("price"),statusSubs);
+                            rs2.getDouble("price"),rs2.getDouble("discount"),statusSubs);
                 }
 
                 temp.setGojekPlus(subs);

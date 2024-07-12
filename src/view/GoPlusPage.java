@@ -45,19 +45,19 @@ public class GoPlusPage extends JFrame {
         container.add(comboBoxPlan, gbc);
 
         gbc.gridy++;
-        JLabel labelDiscGobike = new JLabel("goride up to 8.000 off");
+        JLabel labelDiscGobike = new JLabel("goride up to 20.000 off");
         container.add(labelDiscGobike, gbc);
 
         gbc.gridy++;
-        JLabel labelDiscGocar = new JLabel("gocar up to 8.000 off");
+        JLabel labelDiscGocar = new JLabel("gocar up to 20.000 off");
         container.add(labelDiscGocar, gbc);
 
         gbc.gridy++;
-        JLabel labelDiscGosend = new JLabel("gosend flat 3.000 off");
+        JLabel labelDiscGosend = new JLabel("gosend up to 20.000 off");
         container.add(labelDiscGosend, gbc);
 
         gbc.gridy++;
-        JLabel labelDiscGofood = new JLabel("gofood up to 12.000 off");
+        JLabel labelDiscGofood = new JLabel("gofood up to 20.000 off");
         container.add(labelDiscGofood, gbc);
 
         JPanel footer = new JPanel();
