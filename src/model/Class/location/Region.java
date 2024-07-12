@@ -15,6 +15,10 @@ public class Region {
         this.longitude = longitude;
     }
 
+    public Region() {
+        //TODO Auto-generated constructor stub
+    }
+
     public int getRegionID() {
         return regionID;
     }

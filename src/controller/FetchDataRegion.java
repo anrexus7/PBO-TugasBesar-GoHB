@@ -33,6 +33,31 @@ public class FetchDataRegion {
         return regions;
     }
 
+    public static Region getRegion(int regionID) {
+        Region region = new Region();
+
+        try {
+            conn.connect();
+            String query = "SELECT * FROM regions WHERE region_id = ?";
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                region.setRegionID(regionID);
+                region.setVillage(rs.getString("village"));
+                region.setDistrict(rs.getString("district"));
+                region.setLatitude(rs.getDouble("latitude"));
+                region.setLongitude(rs.getDouble("longitude"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+
+        return region;
+    }
+
     public static ArrayList<String> getVillages(){
         conn.connect();
         String query = "SELECT * FROM regions";
