@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.CalculateCost;
 import controller.CalculateDistance;
-import controller.CreateOrder;
+import controller.CustomerOrder;
 import controller.FetchDataRegion;
 import controller.ServiceAndPackage;
 import model.Class.location.Region;
@@ -106,7 +106,7 @@ public class GoSendPage {
                 float weight = Float.valueOf(weightTextField.getText());
                 double cost = CalculateCost.calculateGoSend(distance, fareKm, fare5Kg, weight);
 
-                boolean status = CreateOrder.createOrder(TypeOfService.GOCAR, VehicleType.CAR, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+                boolean status = CustomerOrder.createOrder(TypeOfService.GOCAR, VehicleType.CAR, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
 
                 if (status) {
                     JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");

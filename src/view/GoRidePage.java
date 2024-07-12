@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.CalculateCost;
 import controller.CalculateDistance;
-import controller.CreateOrder;
+import controller.CustomerOrder;
 import controller.FetchDataRegion;
 import model.Class.location.Region;
 import model.Enum.TypeOfService;
@@ -90,7 +90,7 @@ public class GoRidePage {
                 double fareKm = VehicleType.BIKE.getFareKm();
                 double cost = CalculateCost.calculateGoRide(distance, fareKm);
 
-                boolean status = CreateOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+                boolean status = CustomerOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
 
                 if (status) {
                     JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");

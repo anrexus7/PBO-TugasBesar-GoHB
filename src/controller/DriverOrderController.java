@@ -1,10 +1,10 @@
 package controller;
 
-import model.Class.SingletonManagers.SingletonManagerDriver;
-import model.Class.order.Order;
-
 import java.sql.SQLException;
 import java.util.List;
+
+import model.Class.SingletonManagers.SingletonManagerDriver;
+import model.Class.order.Order;
 
 public class DriverOrderController {
 

@@ -1,13 +1,23 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
+
 import controller.DriverOrderController;
 import model.Class.SingletonManagers.SingletonManagerDriver;
 import model.Class.order.Order;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.List;
 
 public class DriverOrderHistoryPage implements DriverOrderController.OrderView {
 

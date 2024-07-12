@@ -87,7 +87,7 @@ public class ReportPage {
         return button;
     }
 
-    public static void main(String[] args) {
-        new ReportPage();
-    }
+    // public static void main(String[] args) {
+    //     new ReportPage();
+    // }
 }
