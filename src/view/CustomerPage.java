@@ -9,12 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controller.ManageUserLog;
-import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.SingletonManagers.SingletonManagerCustomer;
-import model.Class.SingletonManagers.SingletonManagerDriver;
-import view.original.GoCarPage;
-import view.original.GoRidePage;
-import view.original.GoSendPage;
 
 public class CustomerPage {
 
