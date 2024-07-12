@@ -2,13 +2,18 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import controller.ManagingBalance;
 
 public class TopUpPage {
     public TopUpPage() {
@@ -44,9 +49,31 @@ public class TopUpPage {
         frame.getContentPane().add(formPanel, BorderLayout.CENTER);
         frame.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+
+        topUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Double amount = Double.valueOf(amounTextField.getText());
+                boolean status = ManagingBalance.TopUpBalance(amount);
+
+                if (status) {
+                    JOptionPane.showMessageDialog(frame, "TOPUP SUKSES!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "TOPUP GAGAL!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            new CustomerPage();
+        });
     }
 
-    public static void main(String[] args) {
-        new TopUpPage();
-    }
+    // public static void main(String[] args) {
+    //     new TopUpPage();
+    // }
 }

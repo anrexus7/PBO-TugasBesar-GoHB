@@ -8,7 +8,7 @@ import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.db.DatabaseHandler;
 
 public class ManagingBalance {
-    public boolean TopUpBalance(double amount) {
+    public static boolean TopUpBalance(double amount) {
         DatabaseHandler conn = new DatabaseHandler();
         conn.connect();
 
