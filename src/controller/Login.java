@@ -3,6 +3,7 @@ package controller;
 import model.Class.db.DatabaseHandler;
 import model.Class.transaction.GoPay;
 import model.Class.transaction.GoPlus;
+import model.Class.user.Admin;
 import model.Class.user.Customer;
 import model.Class.user.Driver;
 import model.Class.user.User;
@@ -89,8 +90,28 @@ public class Login {
         User user;
         if(dbData.getUserType().equals(UserType.CUSTOMER)){
 
+            String querySubs = "SELECT * FROM subscription WHERE user_id = '" + dbData.getUserID() + "'";
+            GoPlus subs = null;
+
+            try {
+                Statement subStatement = conn.con.createStatement();
+                ResultSet rs = subStatement.executeQuery(querySubs);
+                while (rs.next()) {
+                    boolean status;
+                    if(rs.getByte("status")==0){
+                        status = false;
+                    }else{
+                        status = true;
+                    }
+                    subs = new GoPlus(rs.getInt("subs_id"), rs.getString("subs_type"), rs.getDate("valid_from"), rs.getDate("valid_to")
+                            , rs.getDouble("price"), rs.getDouble("discount"), status);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             user = new Customer(dbData.getUserID(),dbData.getUsername(),dbData.getName(),dbData.getPassword(),
-                    dbData.getPhoneNumber(),dbData.getEmail(), dbData.isBlackList(),dbData.getUserType(), wallet);
+                    dbData.getPhoneNumber(),dbData.getEmail(), dbData.isBlackList(),dbData.getUserType(), wallet, subs);
 
         }else if(dbData.getUserType().equals(UserType.DRIVER)) {
             Vehicle vehicle = null;
@@ -108,6 +129,7 @@ public class Login {
                     rating = rs.getFloat("rating");
                     avail = DriverAvailability.valueOf(rs.getString("status"));
                 }
+
                 String driverVehicle = "SELECT * FROM vehicle WHERE driver_id = " + driverID ;
                 Statement driverStatement = conn.con.createStatement();
                 ResultSet rs2 = driverStatement.executeQuery(driverVehicle);
@@ -127,7 +149,21 @@ public class Login {
                     driverID, vehicle, avail, rating);
 
         }else{
-            user = new User();//untuk admin i guess ???
+            int adminId=0;
+            String getAdminID = "SELECT admin_id FROM admin WHERE user_id = " + dbData.getUserID();
+            try{
+                Statement driverIdStatement = conn.con.createStatement();
+                ResultSet rs = driverIdStatement.executeQuery(getAdminID);
+                while (rs.next()) {
+                    adminId = rs.getInt("admin_id");
+                }
+
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+
+            user = new Admin(dbData.getUserID(), dbData.getUsername(), dbData.getName(), dbData.getPassword(),
+                    dbData.getPhoneNumber(), dbData.getEmail(), dbData.isBlackList(), dbData.getUserType(), adminId);
         }
 
         return (user);

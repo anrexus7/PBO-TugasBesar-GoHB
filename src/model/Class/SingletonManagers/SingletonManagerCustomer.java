@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class SingletonManagerCustomer {
     private static SingletonManagerCustomer instance;
     private Customer user;
-    private ArrayList<Order> orders;
 
     SingletonManagerCustomer() {
     }
@@ -28,17 +27,12 @@ public class SingletonManagerCustomer {
         this.user = user;
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
+    public boolean isSubs(){
+        return (user.getGojekPlus() != null);
     }
 
     public void logout() {
         user = null;
-        orders = null;
         instance = null;
     }
 }

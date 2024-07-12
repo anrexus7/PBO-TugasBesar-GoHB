@@ -2,8 +2,10 @@ package view;
 
 import controller.Login;
 import controller.ValidatingUserType;
+import model.Class.SingletonManagers.SingletonManagerAdmin;
 import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.SingletonManagers.SingletonManagerDriver;
+import model.Class.user.Admin;
 import model.Class.user.Customer;
 import model.Class.user.Driver;
 import model.Class.user.User;
@@ -76,6 +78,7 @@ public class LoginPage {
                             }
                             break;
                         default:
+                            SingletonManagerAdmin.getInstance().setAdmin((Admin) user);
                             new AdminPage();
                             break;
                     }

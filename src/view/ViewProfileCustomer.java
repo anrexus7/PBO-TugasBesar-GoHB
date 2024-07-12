@@ -20,7 +20,6 @@ public class ViewProfileCustomer extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 0, 0, 0);// Top, left, bottom, right padding
 
-
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
@@ -70,8 +69,8 @@ public class ViewProfileCustomer extends JFrame {
 
         viewSubs.addActionListener(e ->{
             if(SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus() == null){
-                new GoPlusPage();
                 this.dispose();
+                new GoPlusPage();
             }else{
                 JOptionPane.showMessageDialog(this, "Anda sedang berlangannan paket : "+SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus().getPaket()+
                         " dan akan berakhir pada tanggal "+SingletonManagerCustomer.getInstance().getCustomer().getGojekPlus().getValidTo());
@@ -83,8 +82,13 @@ public class ViewProfileCustomer extends JFrame {
         });
 
         editProfile.addActionListener(e ->{
-            new EditProfilePage();
             this.dispose();
+            new EditProfilePage();
+        });
+
+        back.addActionListener(e ->{
+            this.dispose();
+            new CustomerPage();
         });
     }
 
