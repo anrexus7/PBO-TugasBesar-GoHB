@@ -81,12 +81,13 @@ public class GoRidePage {
                 String currLocAddress = currLocTextField.getText();
                 int currLocRegionID = currLocComboBox.getSelectedIndex() + 1;
                 Region currLocRegion = FetchDataRegion.getRegion(currLocRegionID);
+
                 String destinationAdress = destinationTextField.getText();
                 int destinationRegionID = destinationComboBox.getSelectedIndex() + 1;
                 Region destinationRegion = FetchDataRegion.getRegion(destinationRegionID);
 
-                double fareKm = VehicleType.BIKE.getFareKm();
                 double distance = CalculateDistance.calculateDistance(currLocRegion, destinationRegion);
+                double fareKm = VehicleType.BIKE.getFareKm();
                 double cost = CalculateCost.calculateGoRide(distance, fareKm);
 
                 boolean status = CreateOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
