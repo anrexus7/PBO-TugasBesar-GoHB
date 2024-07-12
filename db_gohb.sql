@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 12, 2024 at 02:09 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Jul 12, 2024 at 02:25 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,10 +74,10 @@ CREATE TABLE `orders` (
   `driver_id` int(10) UNSIGNED NOT NULL,
   `service_type` enum('GOBIKE','GOCAR','GOSEND','GOFOOD') NOT NULL,
   `vehicle_type` enum('CAR','BIKE') NOT NULL,
-  `region_id_current` int(11) NOT NULL,
-  `region_id_destination` int(11) NOT NULL,
-  `destination` varchar(255) NOT NULL,
   `current_location` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
+  `region_id_current` int(11) NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `region_id_destination` int(11) NOT NULL,
   `cost` double NOT NULL,
   `order_status` enum('PENDING','ASSIGNED','PICKING','DROPPING','COMPLETED') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
