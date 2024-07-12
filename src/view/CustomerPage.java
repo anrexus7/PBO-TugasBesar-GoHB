@@ -36,8 +36,10 @@ public class CustomerPage {
         frame.add(coinsLabel);
 
         JButton topUpButton = createButton("Top Up", FRAME_WIDTH - RIGHT_MARGIN - 100, 50, 100, 30);
-        topUpButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Top-up functionality is not implemented yet."));
-        frame.add(topUpButton);
+        topUpButton.addActionListener(e -> {
+            frame.dispose();
+            new TopUpPage();
+        });
 
         JButton gorideButton = createButton("Go Ride", LEFT_MARGIN, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gorideButton);
