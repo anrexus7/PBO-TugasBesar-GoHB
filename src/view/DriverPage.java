@@ -103,8 +103,8 @@ public class DriverPage {
         JButton logoutButton = createButton("Logout", LEFT_MARGIN, 300, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         logoutButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Logging out...");
-            SingletonManagerDriver.getInstance().logout();
             ManageUserLog.logUserActivity(SingletonManagerDriver.getInstance().getDriver().getUserID(), "LOGIN");
+            SingletonManagerDriver.getInstance().logout();
             new LoginPage();
             frame.dispose();
         });

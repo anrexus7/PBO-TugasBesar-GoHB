@@ -93,8 +93,8 @@ public class CustomerPage {
 
         JButton logoutButton = createButton("Logout", LEFT_MARGIN + 2 * FRAME_WIDTH / 3, 250, FRAME_WIDTH / 3 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         logoutButton.addActionListener(e -> {
-            SingletonManagerCustomer.getInstance().logout();
             ManageUserLog.logUserActivity(SingletonManagerCustomer.getInstance().getCustomer().getUserID(), "LOGOUT");
+            SingletonManagerCustomer.getInstance().logout();
             JOptionPane.showMessageDialog(null, "You have been logged out.");
             frame.dispose();
             new LoginPage();
