@@ -69,7 +69,7 @@ public class DriverOrderController {
     public void calculateDriverIncomes(int driverId) {
         try {
             double totalIncomes = DriverOrderService.calculateDriverIncomes(driverId);
-            view.displayIncomes("Total Incomes: $" + totalIncomes);
+            view.displayIncomes("Total Incomes: Rp " + totalIncomes);
         } catch (SQLException ex) {
             ex.printStackTrace();
             view.displayError("Error calculating incomes: " + ex.getMessage());

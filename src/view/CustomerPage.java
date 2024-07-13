@@ -29,7 +29,7 @@ public class CustomerPage {
         JLabel profileLabel = createLabel("Welcome, " + SingletonManagerCustomer.getInstance().getCustomer().getUsername(), LEFT_MARGIN, 10, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(profileLabel);
 
-        JLabel walletLabel = createLabel("Wallet Balance: $" + SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
+        JLabel walletLabel = createLabel("Wallet Balance: Rp " + SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo(), LEFT_MARGIN, 50, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
         frame.add(walletLabel);
 
         JLabel coinsLabel = createLabel("Coins : " + SingletonManagerCustomer.getInstance().getCustomer().getWallet().getCoins(), LEFT_MARGIN, 70, FRAME_WIDTH - LEFT_MARGIN - RIGHT_MARGIN - 100, 30);
