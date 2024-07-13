@@ -106,7 +106,7 @@ public class GoSendPage {
                 float weight = Float.valueOf(weightTextField.getText());
                 double cost = CalculateCost.calculateGoSend(distance, fareKm, fare5Kg, weight);
 
-                boolean status = CustomerOrder.createOrder(TypeOfService.GOCAR, VehicleType.CAR, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+                boolean status = CustomerOrder.createOrder(TypeOfService.GOSEND, VehicleType.CAR, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
 
                 if (status) {
                     JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");

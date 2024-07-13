@@ -104,8 +104,7 @@ public class GoFoodPage {
                             if (!e.getValueIsAdjusting()) {
                                 if (selectedRow != -1) {
                                     String foodItem = (String) table.getValueAt(selectedRow, 0);
-                                    boolean isSelected = (boolean) table.getValueAt(selectedRow, 2);
-                                    System.out.println(isSelected);
+                                    boolean isSelected = (boolean) table.getValueAt(selectedRow, 3);
                                     if (isSelected) {
                                         selectedFoods.add(foodItem);
                                     } else {

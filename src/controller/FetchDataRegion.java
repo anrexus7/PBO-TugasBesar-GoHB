@@ -38,7 +38,7 @@ public class FetchDataRegion {
 
         try {
             conn.connect();
-            String query = "SELECT * FROM regions WHERE region_id = ?";
+            String query = "SELECT * FROM regions WHERE region_id = "+regionID;
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
