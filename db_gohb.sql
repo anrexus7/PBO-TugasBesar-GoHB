@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 12, 2024 at 07:46 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Jul 13, 2024 at 05:02 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,7 +71,7 @@ INSERT INTO `drivers` (`driver_id`, `user_id`, `rating`, `status`) VALUES
 CREATE TABLE `orders` (
   `order_id` int(10) UNSIGNED NOT NULL,
   `customer_id` int(10) UNSIGNED NOT NULL,
-  `driver_id` int(10) UNSIGNED NOT NULL,
+  `driver_id` int(10) UNSIGNED DEFAULT NULL,
   `service_type` enum('GORIDE','GOCAR','GOSEND','GOFOOD') NOT NULL,
   `vehicle_type` enum('CAR','BIKE') NOT NULL,
   `current_location` varchar(255) CHARACTER SET utf32 COLLATE utf32_general_ci NOT NULL,
@@ -83,6 +83,14 @@ CREATE TABLE `orders` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `driver_id`, `service_type`, `vehicle_type`, `current_location`, `region_id_current`, `destination`, `region_id_destination`, `cost`, `order_status`, `created_at`, `updated_at`) VALUES
+(1, 3, NULL, 'GORIDE', 'BIKE', 'A', 1, 'B', 6, 3012.1734181261286, 'ASSIGNED', '2024-07-12 18:51:39', '2024-07-12 18:51:39'),
+(2, 3, NULL, 'GORIDE', 'BIKE', 'a', 1, 'B', 6, 3012.1734181261286, 'ASSIGNED', '2024-07-12 19:21:15', '2024-07-12 19:21:15');
 
 -- --------------------------------------------------------
 
@@ -120,7 +128,7 @@ CREATE TABLE `promos` (
   `admin_id` int(10) UNSIGNED DEFAULT NULL,
   `promo_code` varchar(255) NOT NULL,
   `discount` float NOT NULL,
-  `service_type` enum('GOBIKE','GOCAR','GOSEND','GOFOOD') DEFAULT NULL,
+  `service_type` enum('GORIDE','GOCAR','GOSEND','GOFOOD') DEFAULT NULL,
   `valid_from` date NOT NULL,
   `valid_to` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -132,7 +140,7 @@ CREATE TABLE `promos` (
 --
 
 INSERT INTO `promos` (`promo_id`, `admin_id`, `promo_code`, `discount`, `service_type`, `valid_from`, `valid_to`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'YESYESYES', 15000, 'GOBIKE', '2024-07-10', '2024-07-24', '2024-07-10 15:27:03', '2024-07-10 15:27:03');
+(1, 1, 'YESYESYES', 15000, 'GOFOOD', '2024-07-10', '2024-07-24', '2024-07-10 15:27:03', '2024-07-13 03:02:20');
 
 -- --------------------------------------------------------
 
@@ -440,6 +448,41 @@ CREATE TABLE `userlog` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `userlog`
+--
+
+INSERT INTO `userlog` (`log_id`, `user_id`, `activity_type`, `timestamp`) VALUES
+(1, 3, 'LOGIN', '2024-07-13 01:51:22'),
+(2, 3, 'LOGOUT', '2024-07-13 01:51:45'),
+(3, 4, 'LOGIN', '2024-07-13 01:51:52'),
+(4, 3, 'LOGIN', '2024-07-13 01:57:56'),
+(5, 3, 'LOGIN', '2024-07-13 01:59:40'),
+(6, 3, 'LOGOUT', '2024-07-13 02:00:23'),
+(7, 3, 'LOGIN', '2024-07-13 02:02:41'),
+(8, 3, 'LOGIN', '2024-07-13 02:08:55'),
+(9, 3, 'LOGIN', '2024-07-13 02:09:50'),
+(10, 3, 'LOGIN', '2024-07-13 02:10:57'),
+(11, 3, 'LOGIN', '2024-07-13 02:21:09'),
+(12, 3, 'LOGIN', '2024-07-13 02:22:07'),
+(13, 5, 'LOGIN', '2024-07-13 02:28:40'),
+(14, 5, 'LOGOUT', '2024-07-13 02:29:10'),
+(15, 3, 'LOGIN', '2024-07-13 02:29:18'),
+(16, 5, 'LOGIN', '2024-07-13 02:29:31'),
+(17, 5, 'LOGIN', '2024-07-13 02:30:58'),
+(18, 5, 'LOGIN', '2024-07-13 02:31:52'),
+(19, 5, 'LOGOUT', '2024-07-13 02:33:37'),
+(20, 4, 'LOGIN', '2024-07-13 02:33:45'),
+(21, 4, 'LOGOUT', '2024-07-13 02:33:53'),
+(22, 5, 'LOGIN', '2024-07-13 02:34:00'),
+(23, 5, 'LOGOUT', '2024-07-13 02:34:12'),
+(24, 4, 'LOGIN', '2024-07-13 02:34:18'),
+(25, 4, 'LOGOUT', '2024-07-13 02:34:30'),
+(26, 5, 'LOGIN', '2024-07-13 02:34:45'),
+(27, 5, 'LOGOUT', '2024-07-13 02:35:17'),
+(28, 5, 'LOGIN', '2024-07-13 02:35:52'),
+(29, 5, 'LOGIN', '2024-07-13 02:44:20');
+
 -- --------------------------------------------------------
 
 --
@@ -464,7 +507,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `email`, `phone_number`, `black_list`, `user_type`, `created_at`, `updated_at`) VALUES
-(3, 'john_doe', 'jhony does', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', 'john@example.com', '1234567890', 0, 'CUSTOMER', '2024-07-10 03:01:56', '2024-07-11 16:33:11'),
+(3, 'john_doe', 'jhony does', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', 'john@example.com', '1234567890', 0, 'CUSTOMER', '2024-07-10 03:01:56', '2024-07-13 02:44:39'),
 (4, 'asep123', 'tatang kasep', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'asep@gmail.com', '9876543201', 0, 'DRIVER', '2024-07-10 11:26:33', '2024-07-10 11:26:33'),
 (5, 'admin1', 'dimas', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'dimas@ithb.ac.id', '9078564321', 0, 'ADMIN', '2024-07-10 12:13:46', '2024-07-10 12:14:05'),
 (6, 'kasel123', 'michael', '5fc2a69c692964582a0f0bff4d5574a665666b1404254bb7a366a90c55330d87', 'chael@email.com', '9021784365', 0, 'CUSTOMER', '2024-07-10 12:55:15', '2024-07-11 16:30:45'),
@@ -511,7 +554,7 @@ CREATE TABLE `vehiclemaintenance` (
 --
 
 INSERT INTO `vehiclemaintenance` (`maintenance_id`, `vehicle_id`, `admin_id`, `schedule_date`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, '2024-07-26', 'SCHEDULED', '2024-07-11 18:23:38', '2024-07-11 18:23:38');
+(2, 1, 1, '2024-07-26', 'ONGOING', '2024-07-11 18:23:38', '2024-07-13 02:34:07');
 
 --
 -- Indexes for dumped tables
@@ -652,7 +695,7 @@ ALTER TABLE `drivers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -712,7 +755,7 @@ ALTER TABLE `userbalances`
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
