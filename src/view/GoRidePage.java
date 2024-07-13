@@ -91,7 +91,7 @@ public class GoRidePage {
                 double fareKm = VehicleType.BIKE.getFareKm();
                 double cost = CalculateCost.calculateGoRide(distance, fareKm);
 
-                if (SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo() < cost) {
+                if (SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo() >= cost) {
                     boolean status = CustomerOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
 
                     if (status) {
