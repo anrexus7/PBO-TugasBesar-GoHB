@@ -76,7 +76,7 @@ public class DriverOrderService {
         String query = "SELECT * FROM orders WHERE order_status = 'ASSIGNED' AND ";
 
         if (VehicleType.BIKE.equals(driverVehicleType)) {
-            query += "(service_type = 'GOBIKE' OR service_type = 'GOSEND' OR service_type = 'GOFOOD')";
+            query += "(service_type = 'GORIDE' OR service_type = 'GOSEND' OR service_type = 'GOFOOD')";
         } else if (VehicleType.CAR.equals(driverVehicleType)) {
             query += "service_type = 'GOCAR'";
         }
