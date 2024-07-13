@@ -40,6 +40,7 @@ public class CustomerPage {
             frame.dispose();
             new TopUpPage();
         });
+        frame.add(topUpButton);
 
         JButton gorideButton = createButton("Go Ride", LEFT_MARGIN, 110, FRAME_WIDTH / 2 - LEFT_MARGIN - RIGHT_MARGIN, 30);
         frame.add(gorideButton);
