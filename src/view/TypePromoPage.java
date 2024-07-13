@@ -11,7 +11,7 @@ public class TypePromoPage extends JFrame{
 
     private void viewTypePromo() {
         this.setTitle("Type of Service");
-        this.setSize(new Dimension(400, 150));
+        this.setSize(new Dimension(200, 180));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -27,6 +27,7 @@ public class TypePromoPage extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(10, 10, 10, 10);// Top, left, bottom, right padding
         container.add(back, gbc);
         back.addActionListener(e->{
             this.dispose();
