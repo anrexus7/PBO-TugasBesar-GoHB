@@ -19,6 +19,7 @@ import controller.CalculateCost;
 import controller.CalculateDistance;
 import controller.CustomerOrder;
 import controller.FetchDataRegion;
+import model.Class.SingletonManagers.SingletonManagerCustomer;
 import model.Class.location.Region;
 import model.Enum.TypeOfService;
 import model.Enum.VehicleType;
@@ -90,12 +91,18 @@ public class GoRidePage {
                 double fareKm = VehicleType.BIKE.getFareKm();
                 double cost = CalculateCost.calculateGoRide(distance, fareKm);
 
-                boolean status = CustomerOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
+                if (SingletonManagerCustomer.getInstance().getCustomer().getWallet().getSaldo() < cost) {
+                    boolean status = CustomerOrder.createOrder(TypeOfService.GORIDE, VehicleType.BIKE, currLocAddress, currLocRegionID, destinationAdress, destinationRegionID, cost);
 
-                if (status) {
-                    JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "ORDER GAGAL!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    if (status) {
+                        JOptionPane.showMessageDialog(frame, "ORDER SUKSES!");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "ORDER GAGAL!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "SALDO TIDAK CUKUP!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
                 frame.dispose();
