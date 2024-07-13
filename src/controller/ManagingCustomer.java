@@ -14,7 +14,7 @@ public class ManagingCustomer {
         ArrayList<Customer> customers = new ArrayList<>();
         DatabaseHandler conn = new DatabaseHandler();
         conn.connect();
-        String query = "SELECT * FROM users WHERE user_type = 'CUSTOMER' ";
+        String query = "SELECT * FROM users WHERE user_type = 'CUSTOMER' AND black_list = 0";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);

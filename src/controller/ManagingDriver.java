@@ -21,7 +21,7 @@ public class ManagingDriver {
     public static ArrayList<Driver> getData() {
         ArrayList<Driver> drivers = new ArrayList<>();
         conn.connect();
-        String query = "SELECT * FROM drivers JOIN users ON drivers.user_id = users.user_id WHERE user_type = 'DRIVER' ";
+        String query = "SELECT * FROM drivers JOIN users ON drivers.user_id = users.user_id WHERE user_type = 'DRIVER' AND black_list = 0";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);

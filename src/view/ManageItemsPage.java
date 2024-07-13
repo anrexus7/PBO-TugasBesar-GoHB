@@ -110,7 +110,7 @@ public class ManageItemsPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JButton add = new JButton("Add Resto");
+        JButton add = new JButton("Add Item");
         container.add(add, gbc);
 
         add.addActionListener(e ->{

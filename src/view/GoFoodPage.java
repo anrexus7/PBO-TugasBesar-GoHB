@@ -1,8 +1,12 @@
 package view;
 
-import controller.SearchFood;
+import controller.*;
+import model.Class.location.Region;
 import model.Class.restaurant.Item;
 import model.Class.user.Customer;
+import model.Enum.TipeBarang;
+import model.Enum.TypeOfService;
+import model.Enum.VehicleType;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,7 +20,7 @@ import java.util.List;
 public class GoFoodPage {
 
     private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 400;
+    private static final int FRAME_HEIGHT = 550;
     private static final int LEFT_MARGIN = 10;
     private static final int RIGHT_MARGIN = 20;
 
@@ -134,7 +138,22 @@ public class GoFoodPage {
         });
         frame.add(searchButton);
 
-        JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 270, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+        ArrayList<Region> regions = FetchDataRegion.getRegions();
+        String[] regionNames = new String[regions.size()];
+        for (int i = 0; i < regions.size(); i++) {
+            regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
+
+        }
+
+        JLabel currLocLabel = createLabel("Current Location:", LEFT_MARGIN, 270, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+        JTextField currLocTextField = createTextField(LEFT_MARGIN, 310, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+        JComboBox<String> currLocComboBox = createComboBox(LEFT_MARGIN, 350, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+
+        frame.add(currLocLabel);
+        frame.add(currLocTextField);
+        frame.add(currLocComboBox);
+
+        JButton orderButton = createButton("Make an Order", LEFT_MARGIN, 390, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,7 +164,7 @@ public class GoFoodPage {
                     }
                     JOptionPane.showMessageDialog(frame, message.toString());
 
-                    // ---- MASUK KE ORDER -----
+                    //konek db gon :v
 
                 } else {
                     JOptionPane.showMessageDialog(frame, "No food selected.");
@@ -154,7 +173,7 @@ public class GoFoodPage {
         });
         frame.add(orderButton);
 
-        JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 310, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
+        JButton backButton = createButton("Back to Main Menu", LEFT_MARGIN, 430, FRAME_WIDTH - 2 * LEFT_MARGIN - 10, 30);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,6 +218,19 @@ public class GoFoodPage {
         JButton button = new JButton(text);
         button.setBounds(x, y, width, height);
         return button;
+    }
+
+    private JComboBox<String> createComboBox(int x, int y, int width, int height){
+        ArrayList<Region> regions = FetchDataRegion.getRegions();
+        String[] regionNames = new String[regions.size()];
+        for (int i = 0; i < regions.size(); i++) {
+            regionNames[i] = regions.get(i).getVillage() + ", " + regions.get(i).getDistrict();
+        }
+        JComboBox<String> currLocComboBox = new JComboBox<>(regionNames);
+        currLocComboBox.setBounds(x, y, width, height);
+        currLocComboBox.setMaximumRowCount(10);
+
+        return currLocComboBox;
     }
 
 }
